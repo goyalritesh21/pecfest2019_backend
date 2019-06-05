@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import './loginRegisterStyle.css';
 export class Login extends Component {
     state = {
         username: '',
@@ -26,14 +27,14 @@ export class Login extends Component {
 
     };
 
-    onSubmit = (e) => {
+    onSubmit = e => {
         e.preventDefault();
         const { username, password } = this.state;
         this.props.login(username.toLowerCase(), password);
     };
 
 
-    render() {
+    render () {
         if (this.props.isAuthenticated  ) {
             if(!this.props.firstTimer) {
                 return <Redirect to="/"/>
@@ -44,15 +45,16 @@ export class Login extends Component {
         }
         const { username, password } = this.state;
         return (
-            <div className="col-md-6 m-auto">
-                <div className="card card-body mt-5">
+            <div className="col-md-6 m-auto upper-padding">
+                <div className="mt-5 main">
                     <h2 className="text-center">Login</h2>
+                    <br />
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Username</label>
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control input"
                                 name="username"
                                 onChange={this.onChange}
                                 value={username}
@@ -62,14 +64,14 @@ export class Login extends Component {
                             <label>Password</label>
                             <input
                                 type="password"
-                                className="form-control"
+                                className="form-control input"
                                 name="password"
                                 onChange={this.onChange}
                                 value={password}
                             />
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" className="btn btn-slide">
                                 Login
                             </button>
                         </div>
