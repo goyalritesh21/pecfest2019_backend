@@ -14,6 +14,9 @@ import Alerts from "../components/layout/Alerts";
 import {Provider as AlertProvider} from "react-alert";
 import IndividualEvent from "../components/events/IndividualEvent";
 import ExtraDetails from "../components/accounts/ExtraDetails";
+import connect from "react-redux/es/connect/connect";
+import PropTypes from "prop-types";
+import { Link, Redirect } from 'react-router-dom';
 
 const alertOptions = {
     timeout: 3000,
@@ -21,6 +24,7 @@ const alertOptions = {
 };
 
 class AppRouter extends Component {
+
     render() {
         return (
             <AlertProvider template={AlertTemplate} {...alertOptions}>

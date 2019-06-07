@@ -21,7 +21,6 @@ class RegisterAPI(generics.GenericAPIView):
         _, token = AuthToken.objects.create(user)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "firstTimer" : participant.firstTimer,
             "token": token
         })
 
@@ -38,7 +37,6 @@ class LoginAPI(generics.GenericAPIView):
         _, token = AuthToken.objects.create(user)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "firstTimer" : participant.firstTimer,
             "token": token
         })
 
@@ -68,15 +66,17 @@ class UserRegisterAPI(generics.GenericAPIView):
         user = User.objects.get(pk=data['id'])
         participant = Participant.objects.get(User=user)
         for key in data.keys():
-            if key != id:
-                participant.key = data[key]
-                print(key)
-        participant.save()
-        user.save()
+            if key != "id":
+                val = data[key]
+                print(val)
+                if key == "accommodation" or key == "firstTimer":
+                    val = False if data[key] == "false" else True
+                setattr(participant, str(key), val)
+                participant.save()
         user.first_name = data['firstName']
         user.last_name = data['lastName']
+        user.save()
         return Response({
             "user" : UserSerializer(user, context=self.get_serializer_context()).data,
-            "firstTimer" : participant.firstTimer,
         })
 

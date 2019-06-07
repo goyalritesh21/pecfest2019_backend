@@ -36,7 +36,7 @@ export class Login extends Component {
     render() {
         const {isAuthenticated, user} = this.props;
         if (isAuthenticated  ) {
-            if(!user.firstTimer) {
+            if(user!== null && !user.participant.firstTimer) {
 
                 return <Redirect to="/"/>
             }

@@ -35,7 +35,7 @@ class ParticipantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Participant
-        fields = ('contactNumber', 'accommodation', 'college', 'address', 'yearOfStudy', 'gender')
+        fields = ('contactNumber', 'accommodation', 'college', 'address', 'yearOfStudy', 'gender', 'firstTimer')
 
 
 #Login Serializer
