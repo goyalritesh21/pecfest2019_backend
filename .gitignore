@@ -1,4 +1,4 @@
-
+﻿
 # Created by https://www.gitignore.io/api/django,reactnative
 # Edit at https://www.gitignore.io/?templates=django,reactnative
 .idea/
@@ -397,3 +397,8 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/django,reactnative
+pip-selfcheck.json
+pyvenv.cfg
+Include/*
+Scripts/*
+Lib/*
