@@ -50,7 +50,6 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'knox.auth.TokenAuthentication',
-
     ),
 
     'DEFAULT_PERMISSION_CLASSES': (

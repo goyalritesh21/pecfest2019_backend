@@ -1,6 +1,8 @@
+from django.contrib.auth.models import User
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
+from accounts.models import Participant
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, ParticipantSerializer
 
 
@@ -12,9 +14,14 @@ class RegisterAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        participant = Participant.objects.create()
+        participant.User = user
+        participant.save()
+
         _, token = AuthToken.objects.create(user)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "firstTimer" : participant.firstTimer,
             "token": token
         })
 
@@ -27,9 +34,11 @@ class LoginAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
+        participant = Participant.objects.get(User=user)
         _, token = AuthToken.objects.create(user)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "firstTimer" : participant.firstTimer,
             "token": token
         })
 
@@ -48,21 +57,26 @@ class UserAPI(generics.RetrieveAPIView):
 #More User Info
 class UserRegisterAPI(generics.GenericAPIView):
 
-    # permission_classes = [
-    #     permissions.IsAuthenticated,
-    # ]
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
     serializer_class = ParticipantSerializer
 
     def post(self, request, *args, **kwargs):
 
         data = request.data
-        currentUser = request.user
-        data += {"User", currentUser}
-        serializer = self.get_serializer(data)
-        serializer.is_valid(raise_exception=True)
-        participant = serializer.save()
-
+        user = User.objects.get(pk=data['id'])
+        participant = Participant.objects.get(User=user)
+        for key in data.keys():
+            if key != id:
+                participant.key = data[key]
+                print(key)
+        participant.save()
+        user.save()
+        user.first_name = data['firstName']
+        user.last_name = data['lastName']
         return Response({
-            "user" : ParticipantSerializer(data=participant, context=self.get_serializer_context()).data,
+            "user" : UserSerializer(user, context=self.get_serializer_context()).data,
+            "firstTimer" : participant.firstTimer,
         })
 

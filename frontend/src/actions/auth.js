@@ -40,6 +40,7 @@ export const login = (username, password) => dispatch => {
 
   axios.post('/api/auth/login', body, config)
     .then(res => {
+        console.log(res.data);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
@@ -75,16 +76,11 @@ export const register = ({ username, email, password }) => dispatch => {
     })
 };
 
-export const update = ({ firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender }) => dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
+export const update = ({ firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender, id }) => (dispatch,getState) => {
 
-    const body = JSON.stringify({ firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender });
+    const body = JSON.stringify({ firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender, id });
 
-    axios.post('/api/auth/profile', body, config)
+    axios.post('/api/auth/profile', body, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: UPDATE_SUCCESS,

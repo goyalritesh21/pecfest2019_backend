@@ -18,8 +18,9 @@ class ExtraDetails extends Component {
     };
     static propTypes = {
         update: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool.isRequired,
-        createMessage: PropTypes.func.isRequired
+        isAuthenticated: PropTypes.bool,
+        createMessage: PropTypes.func.isRequired,
+        user: PropTypes.object
     };
 
     onChange = e => {
@@ -76,7 +77,9 @@ class ExtraDetails extends Component {
             this.props.createMessage({updateErrorMessage});
             return;
         }
-        const user = {firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender};
+        const id = this.props.user.id;
+        const user = {id, firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender, firstTimer: false};
+        console.log(user);
         this.props.update(user);
     };
 
@@ -204,6 +207,7 @@ class ExtraDetails extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
 });
 
 export default connect(mapStateToProps, {update, createMessage})(ExtraDetails);
