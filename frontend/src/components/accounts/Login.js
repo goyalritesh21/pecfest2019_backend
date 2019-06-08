@@ -50,34 +50,42 @@ export class Login extends Component {
                 <div className="mt-5 main">
                     <h2 className="text-center">Login</h2>
                     <br />
-                    <form onSubmit={this.onSubmit}>
+                    <form autocomplete="off" onSubmit={this.onSubmit}>
                         <div className="form-group">
-                            <label>Username</label>
-                            <input
-                                type="text"
-                                className="form-control input"
-                                name="username"
-                                onChange={this.onChange}
-                                value={username}
-                            />
+                            <label for="username">Username</label>
+                            <div className="input-outer">
+                                <input
+                                    type="text"
+                                    className="form-control input"
+                                    name="username"
+                                    onChange={this.onChange}
+                                    value={username}
+                                    tabindex="1"
+                                    id="username"
+                                />
+                            </div>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
-                            <input
-                                type="password"
-                                className="form-control input"
-                                name="password"
-                                onChange={this.onChange}
-                                value={password}
-                            />
+                            <div className="input-outer">
+                                <input
+                                    type="password"
+                                    className="form-control input"
+                                    name="password"
+                                    onChange={this.onChange}
+                                    value={password}
+                                    tabindex="2"
+                                />
+                            </div>
                         </div>
+                        <br />
                         <div className="form-group">
-                            <button type="submit" className="btn btn-slide">
+                            <button type="submit" className="btn btn-slide" tabindex="3">
                                 Login
                             </button>
                         </div>
                         <p>
-                            Don't have an account? <Link to="/register">Register</Link>
+                            Don't have an account? <Link tabindex="4" to="/register">Register</Link>
                         </p>
                     </form>
                 </div>

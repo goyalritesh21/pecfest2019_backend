@@ -23,7 +23,7 @@ export class Register extends Component {
     onChange = e => {
         const key = e.target.name;
         const val = e.target.value;
-        this.setState(() => ({ [key]: val }));
+        this.setState(() => ( [key]: val ));
         if(key === 'username')
         {
             this.setState(() => ({username: val.toUpperCase()}));
@@ -59,54 +59,66 @@ export class Register extends Component {
                 <div className="mt-5 main">
                     <h2 className="text-center">Register</h2>
                     <br />
-                    <form onSubmit={this.onSubmit}>
+                    <form autocomplete="off" onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Username</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="username"
-                                onChange={this.onChange}
-                                value={username}
-                            />
+                            <div className="input-outer">
+                                <input
+                                    type="text"
+                                    className="form-control input"
+                                    name="username"
+                                    onChange={this.onChange}
+                                    value={username}
+                                    tabindex="1"
+                                />
+                            </div>
                         </div>
                         <div className="form-group">
                             <label>Email</label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                name="email"
-                                onChange={this.onChange}
-                                value={email}
-                            />
+                            <div className="input-outer">
+                                <input
+                                    type="email"
+                                    className="form-control input"
+                                    name="email"
+                                    onChange={this.onChange}
+                                    value={email}
+                                    tabindex="2"
+                                />
+                            </div>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
-                            <input
-                                type="password"
-                                className="form-control input"
-                                name="password"
-                                onChange={this.onChange}
-                                value={password}
-                            />
+                            <div className="input-outer">
+                                <input
+                                    type="password"
+                                    className="form-control input"
+                                    name="password"
+                                    onChange={this.onChange}
+                                    value={password}
+                                    tabindex="3"
+                                />
+                            </div>
                         </div>
                         <div className="form-group">
                             <label>Confirm Password</label>
-                            <input
-                                type="password"
-                                className="form-control input"
-                                name="password2"
-                                onChange={this.onChange}
-                                value={password2}
-                            />
+                            <div className="input-outer">
+                                <input
+                                    type="password"
+                                    className="form-control input"
+                                    name="password2"
+                                    onChange={this.onChange}
+                                    value={password2}
+                                    tabindex="4"
+                                />
+                            </div>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-slide">
+                            <button type="submit" className="btn btn-slide" tabindex="5">
                                 Register
                             </button>
                         </div>
                         <p>
-                            Already have an account? <Link to="/login">Login</Link>
+                            Already have an account? <Link tabindex="5" to="/login">Login</Link>
                         </p>
                     </form>
                 </div>
