@@ -13,7 +13,7 @@ class ExtraDetails extends Component {
         accommodation: false,
         college: undefined,
         address: undefined,
-        yearOfStudy: undefined,
+        yearOfStudy: "1",
         gender: undefined
     };
     static propTypes = {
@@ -31,6 +31,15 @@ class ExtraDetails extends Component {
         }
         else {
             this.setState(() => ({[key]: val}));
+        }
+    };
+
+    onAccommodationChange = e => {
+        if(e.target.checked){
+            this.setState(() => ({accommodation: true}));
+        }
+        else{
+            this.setState(() => ({accommodation: false}));
         }
     };
 
@@ -188,7 +197,7 @@ class ExtraDetails extends Component {
                             <label className={"checkbox-inline"}><input
                                 type="checkbox"
                                 name="accommodation"
-                                onChange={this.onChange}
+                                onChange={this.onAccommodationChange}
                                 value={accommodation}
                             />  Accommodation Required</label>
 

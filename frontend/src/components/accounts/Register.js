@@ -23,7 +23,7 @@ export class Register extends Component {
     onChange = e => {
         const key = e.target.name;
         const val = e.target.value;
-        this.setState(() => ( [key]: val ));
+        this.setState(() => ({ [key]: val }));
         if(key === 'username')
         {
             this.setState(() => ({username: val.toUpperCase()}));
