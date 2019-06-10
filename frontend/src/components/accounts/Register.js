@@ -59,7 +59,7 @@ export class Register extends Component {
                 <div className="mt-5 main">
                     <h2 className="text-center">Register</h2>
                     <br />
-                    <form autocomplete="off" onSubmit={this.onSubmit}>
+                    <form autoComplete="off" onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Username</label>
                             <div className="input-outer">

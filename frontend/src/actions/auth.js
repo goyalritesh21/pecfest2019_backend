@@ -76,9 +76,9 @@ export const register = ({ username, email, password }) => dispatch => {
     })
 };
 
-export const update = ({ firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender, id }) => (dispatch,getState) => {
+export const update = ({ firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender, id, firstTimer }) => (dispatch,getState) => {
 
-    const body = JSON.stringify({ firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender, id });
+    const body = JSON.stringify({ firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender, id, firstTimer });
 
     axios.post('/api/auth/profile', body, tokenConfig(getState))
         .then(res => {

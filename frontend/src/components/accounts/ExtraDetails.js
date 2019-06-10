@@ -98,7 +98,7 @@ class ExtraDetails extends Component {
             <div className="col-md-6 m-auto">
                 <div className="card card-body mt-5">
                     <h2 className="text-center">Profile</h2>
-                    <form onSubmit={this.onSubmit}>
+                    <form autoComplete={"off"} onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>First Name</label>
                             <input

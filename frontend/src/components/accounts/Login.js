@@ -50,7 +50,7 @@ export class Login extends Component {
                 <div className="mt-5 main">
                     <h2 className="text-center">Login</h2>
                     <br />
-                    <form autocomplete="off" onSubmit={this.onSubmit}>
+                    <form autoComplete="off" onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label for="username">Username</label>
                             <div className="input-outer">
@@ -75,6 +75,7 @@ export class Login extends Component {
                                     onChange={this.onChange}
                                     value={password}
                                     tabindex="2"
+                                    autoComplete={"password"}
                                 />
                             </div>
                         </div>
