@@ -33,7 +33,6 @@ class LoginAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
-        participant = Participant.objects.get(User=user)
         _, token = AuthToken.objects.create(user)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
@@ -68,9 +67,13 @@ class UserRegisterAPI(generics.GenericAPIView):
         for key in data.keys():
             if key != "id":
                 val = data[key]
+                print(key)
                 print(val)
                 if key == "accommodation" or key == "firstTimer":
-                    val = False if data[key] == "false" else True
+                    if data[key] == "false":
+                        val = False
+                    elif data[key] == "true":
+                        val = True
                 setattr(participant, str(key), val)
                 participant.save()
         user.first_name = data['firstName']

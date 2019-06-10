@@ -18,7 +18,7 @@ class Participant(models.Model):
         MinValueValidator(limit_value=1, message="Year Not valid")
         ]
     )
-    firstTimer = models.BooleanField(default=True, null=True)
+    firstTimer = models.BooleanField(default=True)
     gender = models.IntegerField(null=True, default=0, validators=[
         MaxValueValidator(limit_value=2, message="Gender Not valid"),
         MinValueValidator(limit_value=0, message="Gender Not valid")
