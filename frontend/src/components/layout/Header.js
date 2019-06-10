@@ -50,9 +50,11 @@ class Header extends Component {
                                 ))
                             }
                             {
-                                isAuthenticated ? <li className={"slide-fade"}><NavLink exact={true} onClick={this.onLogout}
-                                                                                        to={"/login"}>Logout</NavLink></li> : <li className={"slide-fade"}><NavLink exact={true} onClick={this.toggleButton}
-                                                                                                    to={"/login"}>Login</NavLink></li>
+                                isAuthenticated ?
+                                    <li className={"slide-fade"}><NavLink exact={true} onClick={this.onLogout}
+                                                                          to={"/"}>Logout</NavLink></li> :
+                                    <li className={"slide-fade"}><NavLink exact={true} onClick={this.toggleButton}
+                                                                          to={"/login"}>Login</NavLink></li>
 
                             }
                         </ul>

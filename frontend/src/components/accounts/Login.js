@@ -52,7 +52,7 @@ export class Login extends Component {
                     <br />
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <div className="form-group">
-                            <label for="username">Username</label>
+                            <label htmlFor="username">Username</label>
                             <div className="input-outer">
                                 <input
                                     type="text"
@@ -60,7 +60,7 @@ export class Login extends Component {
                                     name="username"
                                     onChange={this.onChange}
                                     value={username}
-                                    tabindex="1"
+                                    tabIndex="1"
                                     id="username"
                                 />
                             </div>
@@ -74,19 +74,19 @@ export class Login extends Component {
                                     name="password"
                                     onChange={this.onChange}
                                     value={password}
-                                    tabindex="2"
+                                    tabIndex="2"
                                     autoComplete={"password"}
                                 />
                             </div>
                         </div>
                         <br />
                         <div className="form-group">
-                            <button type="submit" className="btn btn-slide" tabindex="3">
+                            <button type="submit" className="btn btn-slide" tabIndex="3">
                                 Login
                             </button>
                         </div>
                         <p>
-                            Don't have an account? <Link tabindex="4" to="/register">Register</Link>
+                            Don't have an account? <Link tabIndex="4" to="/register">Register</Link>
                         </p>
                     </form>
                 </div>

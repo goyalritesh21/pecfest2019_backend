@@ -69,7 +69,7 @@ export class Register extends Component {
                                     name="username"
                                     onChange={this.onChange}
                                     value={username}
-                                    tabindex="1"
+                                    tabIndex="1"
                                 />
                             </div>
                         </div>
@@ -82,7 +82,7 @@ export class Register extends Component {
                                     name="email"
                                     onChange={this.onChange}
                                     value={email}
-                                    tabindex="2"
+                                    tabIndex="2"
                                 />
                             </div>
                         </div>
@@ -95,7 +95,7 @@ export class Register extends Component {
                                     name="password"
                                     onChange={this.onChange}
                                     value={password}
-                                    tabindex="3"
+                                    tabIndex="3"
                                 />
                             </div>
                         </div>
@@ -108,17 +108,17 @@ export class Register extends Component {
                                     name="password2"
                                     onChange={this.onChange}
                                     value={password2}
-                                    tabindex="4"
+                                    tabIndex="4"
                                 />
                             </div>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-slide" tabindex="5">
+                            <button type="submit" className="btn btn-slide" tabIndex="5">
                                 Register
                             </button>
                         </div>
                         <p>
-                            Already have an account? <Link tabindex="5" to="/login">Login</Link>
+                            Already have an account? <Link tabIndex="5" to="/login">Login</Link>
                         </p>
                     </form>
                 </div>

@@ -108,6 +108,7 @@ class ExtraDetails extends Component {
                                 onChange={this.onChange}
                                 required
                                 value={firstName}
+                                tabIndex={"1"}
                             />
                         </div>
                         <div className="form-group">
@@ -119,6 +120,7 @@ class ExtraDetails extends Component {
                                 onChange={this.onChange}
                                 required
                                 value={lastName}
+                                tabIndex={"2"}
                             />
                         </div>
                         <div className="form-group">
@@ -130,6 +132,7 @@ class ExtraDetails extends Component {
                                 onChange={this.onChange}
                                 required
                                 value={contactNumber}
+                                tabIndex={"3"}
                             />
                         </div>
                         <div className="form-group">
@@ -141,6 +144,7 @@ class ExtraDetails extends Component {
                                 onChange={this.onChange}
                                 required
                                 value={college}
+                                tabIndex={"4"}
                             />
                         </div>
                         <div className="form-group">
@@ -149,7 +153,9 @@ class ExtraDetails extends Component {
                                     name="yearOfStudy"
                                     onChange={this.onChange}
                                     required
-                                    value={yearOfStudy}>
+                                    value={yearOfStudy}
+                                    tabIndex={"5"}
+                            >
                                 <option value={"1"}>1</option>
                                 <option value={"2"}>2</option>
                                 <option value={"3"}>3</option>
@@ -165,6 +171,7 @@ class ExtraDetails extends Component {
                                 value="0"
                                 checked={gender === "0"}
                                 onChange={this.onChange}
+                                tabIndex={"6"}
                             /> Male </label>
                                 <label className={"radio-inline"}><input
                                     type="radio"
@@ -191,6 +198,7 @@ class ExtraDetails extends Component {
                                 onChange={this.onChange}
                                 required
                                 value={address}
+                                tabIndex={"7"}
                             />
                         </div>
                         <div className="form-group">
@@ -199,11 +207,12 @@ class ExtraDetails extends Component {
                                 name="accommodation"
                                 onChange={this.onAccommodationChange}
                                 value={accommodation}
+                                tabIndex={"8"}
                             />  Accommodation Required</label>
 
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" className="btn btn-primary" tabIndex={"9"}>
                                 Update
                             </button>
                         </div>

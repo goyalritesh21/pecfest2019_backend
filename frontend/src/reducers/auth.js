@@ -47,14 +47,12 @@ export default (state = initialState, action) => {
         case REGISTER_FAIL:
             localStorage.removeItem("token");
             return {
-                ...state,
                 token: null,
                 user: null,
                 isAuthenticated: false,
                 isLoading: false
             };
         case UPDATE_FAIL:
-            return state;
         default:
             return state;
     }

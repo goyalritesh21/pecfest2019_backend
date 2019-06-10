@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { returnErrors } from './messages';
+import {returnErrors} from './messages';
 import {EVENTS_ERROR, EVENTS_LOADED, EVENTS_LOADING} from "./types";
 
 export const loadEvents = (categoryId) => (dispatch, getState) => {
