@@ -94,6 +94,10 @@ class ExtraDetails extends Component {
 
     render() {
         const {firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender} = this.state;
+        const {user} = this.props;
+        if(user !== null && !user.participant.firstTimer){
+            return <Redirect to="/"/>
+        }
         return (
             <div className="col-md-6 m-auto">
                 <div className="card card-body mt-5">
