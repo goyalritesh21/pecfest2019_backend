@@ -55,7 +55,7 @@
 	color: white;
 	/*font-weight: bold;*/
 	border-width: 0 0 1px 0;
-	border-color: var(--mainColor);
+	border-color: #0ff;
 	transition: border-color 0.5s;
 	/*caret-color: rgba(0,184,148,0.5);
 	color: rgba(0,184,148,0.5);*/
@@ -63,11 +63,11 @@
 }
 
 input:focus + label {
-	color: white;
+	color: blue;
 }
 
 .input::selection {
-	background: var(--mainColor);
+	background: #0ff;
 }
 
 .upper-padding {
@@ -76,4 +76,18 @@ input:focus + label {
 
 .upper-padding-register {
 	/*padding-top: 1em;*/
+}
+
+.row-break {
+	margin-left: 0;
+	padding-left: 0;
+	margin-right: 0;
+	padding-right: 0;
+	margin-bottom: 1em;
+}
+
+option {
+	background: black;/*linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));*/
+	text-align: center;
+	/*font-size: .7em;*/
 }

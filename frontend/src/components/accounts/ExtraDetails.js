@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {update} from '../../actions/auth';
 import {createMessage} from '../../actions/messages';
+import './loginRegisterStyle.css';
 
 class ExtraDetails extends Component {
     state = {
@@ -99,75 +100,107 @@ class ExtraDetails extends Component {
             return <Redirect to="/"/>
         }
         return (
-            <div className="col-md-6 m-auto">
-                <div className="card card-body mt-5">
+            <div className="col-md-8 m-auto">
+                <div className="mt-5 main">
                     <h2 className="text-center">Profile</h2>
+                    <br />
                     <form autoComplete={"off"} onSubmit={this.onSubmit}>
-                        <div className="form-group">
+                    <div className="row row-break">
+                        <div className="form-group col-md-6">
                             <label>First Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="firstName"
-                                onChange={this.onChange}
-                                required
-                                value={firstName}
-                                tabIndex={"1"}
-                            />
+                            <div className="input-outer">
+                                <input
+                                    type="text"
+                                    className="form-control input"
+                                    name="firstName"
+                                    onChange={this.onChange}
+                                    required
+                                    value={firstName}
+                                    tabIndex={"1"}
+                                />
+                            </div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group col-md-6">
                             <label>Last Name</label>
+                            <div className="input-outer">
+                                <input
+                                    type="text"
+                                    className="form-control input"
+                                    name="lastName"
+                                    onChange={this.onChange}
+                                    required
+                                    value={lastName}
+                                    tabIndex={"2"}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row row-break">
+                        <div className="form-group col-md-6">
+                            <label>College</label>
+                            <div className="input-outer">
+                                <input
+                                    type="text"
+                                    className="form-control input"
+                                    name="college"
+                                    onChange={this.onChange}
+                                    required
+                                    value={college}
+                                    tabIndex={"3"}
+                                />
+                            </div>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label>Year of Study</label>
+                            <div className="input-outer">
+                                <select className="form-control input"
+                                        name="yearOfStudy"
+                                        onChange={this.onChange}
+                                        required
+                                        value={yearOfStudy}
+                                        tabIndex={"4"}
+                                >
+                                    <option value={"1"}>1</option>
+                                    <option value={"2"}>2</option>
+                                    <option value={"3"}>3</option>
+                                    <option value={"4"}>4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row row-break">
+                        <div className="form-group col-md-6">
+                        <label>Address</label>
+                        <div className="input-outer">
                             <input
                                 type="text"
-                                className="form-control"
-                                name="lastName"
+                                className="form-control input"
+                                name="address"
                                 onChange={this.onChange}
                                 required
-                                value={lastName}
-                                tabIndex={"2"}
+                                value={address}
+                                tabIndex={"5"}
                             />
                         </div>
-                        <div className="form-group">
-                            <label>Contact Number</label>
+                        </div>
+                        <div className="form-group col-md-6">
+                        <label>Contact Number</label>
+                        <div className="input-outer">
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control input"
                                 name="contactNumber"
                                 onChange={this.onChange}
                                 required
                                 value={contactNumber}
-                                tabIndex={"3"}
+                                tabIndex={"6"}
                             />
                         </div>
-                        <div className="form-group">
-                            <label>College</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="college"
-                                onChange={this.onChange}
-                                required
-                                value={college}
-                                tabIndex={"4"}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Year of Study</label>
-                            <select className="form-control"
-                                    name="yearOfStudy"
-                                    onChange={this.onChange}
-                                    required
-                                    value={yearOfStudy}
-                                    tabIndex={"5"}
-                            >
-                                <option value={"1"}>1</option>
-                                <option value={"2"}>2</option>
-                                <option value={"3"}>3</option>
-                                <option value={"4"}>4</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label>Gender
+                    </div>
+                </div>
+
+                <div className="form-group">
+                            <label>Gender&nbsp; &nbsp; &nbsp;
                             <label className={"radio-inline"}><input
                                 type="radio"
                                 name="gender"
@@ -175,48 +208,36 @@ class ExtraDetails extends Component {
                                 value="0"
                                 checked={gender === "0"}
                                 onChange={this.onChange}
-                                tabIndex={"6"}
-                            /> Male </label>
+                                tabIndex={"7"}
+                            /> Male &nbsp; &nbsp; </label>
                                 <label className={"radio-inline"}><input
                                     type="radio"
                                     name="gender"
                                     value="1"
                                     checked={gender === "1"}
                                     onChange={this.onChange}
-                                /> Female </label>
+                                /> Female &nbsp; &nbsp; </label>
                                 <label className={"radio-inline"}><input
                                     type="radio"
                                     name="gender"
                                     value="2"
                                     checked={gender === "2"}
                                     onChange={this.onChange}
-                                /> Other </label>
+                                /> Other &nbsp; </label>
                             </label>
                         </div>
-                        <div className="form-group">
-                            <label>Address</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="address"
-                                onChange={this.onChange}
-                                required
-                                value={address}
-                                tabIndex={"7"}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label className={"checkbox-inline"}><input
-                                type="checkbox"
-                                name="accommodation"
-                                onChange={this.onAccommodationChange}
-                                value={accommodation}
-                                tabIndex={"8"}
-                            />  Accommodation Required</label>
+                    <div className="form-group">
+                        <label className={"checkbox-inline"}><input
+                            type="checkbox"
+                            name="accommodation"
+                            onChange={this.onAccommodationChange}
+                            value={accommodation}
+                            tabIndex={"8"}
+                        />  Accommodation Required</label>
 
-                        </div>
+                    </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary" tabIndex={"9"}>
+                            <button type="submit" className="btn btn-slide" tabIndex={"9"}>
                                 Update
                             </button>
                         </div>
