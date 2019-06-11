@@ -84,7 +84,7 @@ export default () => {
                         flatShading: THREE.FlatShading
                     });
 
-                for (let i = 0; i < 700; i++) {
+                for (let i = 0; i < 1200; i++) {
                     let mesh = new THREE.Mesh(geometryPR, materialPR);
                     mesh.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
                     mesh.position.multiplyScalar(90 + Math.random() * 700);
