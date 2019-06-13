@@ -9,12 +9,14 @@ class Events extends Component {
     render() {
         return (
             <div className={"row overlay-2"}>
-                {/*{*/}
-                {/*events.map((event, index) => (*/}
-                {/*<Category key={index} category={event} id={index}/>*/}
-                {/*))*/}
-                {/*}*/}
-                <EventInfo startDate={new Date(2019, 5, 11)} name="hello"/>
+                {
+                 events.map((event, index) => (
+                <Category key={index} category={event} id={index}/>
+                 ))
+                 }
+                
+    
+                {/* <EventInfo startDate={new Date(2019, 5, 11)} name="hello"/> */}
             </div>
         );
     }
