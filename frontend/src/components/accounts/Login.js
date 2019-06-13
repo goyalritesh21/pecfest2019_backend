@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import './loginRegisterStyle.css';
+import Loader from "../common/Loader";
 export class Login extends Component {
     state = {
         username: '',
@@ -13,7 +14,8 @@ export class Login extends Component {
     static propTypes = {
         login: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool,
-        user: PropTypes.object
+        user: PropTypes.object,
+        isLoading : PropTypes.bool.isRequired
     };
 
     onChange = e => {
@@ -34,7 +36,7 @@ export class Login extends Component {
     };
 
     render() {
-        const {isAuthenticated, user} = this.props;
+        const {isAuthenticated, user, isLoading} = this.props;
         if (isAuthenticated  ) {
             if(user!== null && !user.participant.firstTimer) {
 
@@ -43,6 +45,9 @@ export class Login extends Component {
             else {
                 return <Redirect to="/update"/>
             }
+        }
+        if(isLoading){
+            return (<Loader/>)
         }
         const { username, password } = this.state;
         return (
@@ -97,7 +102,8 @@ export class Login extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    user: state.auth.user,
+    isLoading: state.auth.isLoading
 });
 
 export default connect(mapStateToProps, { login })(Login);

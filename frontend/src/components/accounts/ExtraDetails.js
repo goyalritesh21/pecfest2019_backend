@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {update} from '../../actions/auth';
 import {createMessage} from '../../actions/messages';
 import './loginRegisterStyle.css';
-
+import Loader from '../common/Loader';
 class ExtraDetails extends Component {
     state = {
         firstName: undefined,
@@ -21,7 +21,8 @@ class ExtraDetails extends Component {
         update: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool,
         createMessage: PropTypes.func.isRequired,
-        user: PropTypes.object
+        user: PropTypes.object,
+        isLoading : PropTypes.bool.isRequired
     };
 
     onChange = e => {
@@ -95,9 +96,12 @@ class ExtraDetails extends Component {
 
     render() {
         const {firstName, lastName, contactNumber, accommodation, college, address, yearOfStudy, gender} = this.state;
-        const {user} = this.props;
+        const {user, isLoading} = this.props;
         if(user !== null && !user.participant.firstTimer){
             return <Redirect to="/"/>
+        }
+        if(isLoading){
+            return (<Loader/>)
         }
         return (
             <div className="col-md-8 m-auto">
@@ -250,7 +254,8 @@ class ExtraDetails extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    user: state.auth.user,
+    isLoading: state.auth.isLoading
 });
 
 export default connect(mapStateToProps, {update, createMessage})(ExtraDetails);

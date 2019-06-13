@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { register } from '../../actions/auth';
 import { createMessage } from '../../actions/messages';
 import './loginRegisterStyle.css';
+import Loader from "../common/Loader";
 export class Register extends Component {
     state = {
         username: '',
@@ -17,7 +18,8 @@ export class Register extends Component {
         register: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool,
         createMessage: PropTypes.func.isRequired,
-        user: PropTypes.object
+        user: PropTypes.object,
+        isLoading : PropTypes.bool.isRequired
     };
 
     onChange = e => {
@@ -44,7 +46,7 @@ export class Register extends Component {
     };
 
     render() {
-        const {isAuthenticated, user} = this.props;
+        const {isAuthenticated, user, isLoading} = this.props;
         if (isAuthenticated  ) {
             if(user!== null && !user.participant.firstTimer) {
                 return <Redirect to="/"/>
@@ -52,6 +54,9 @@ export class Register extends Component {
             else {
                 return <Redirect to="/update"/>
             }
+        }
+        if(isLoading){
+            return (<Loader/>)
         }
         const { username, email, password, password2 } = this.state;
         return (
@@ -129,7 +134,8 @@ export class Register extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    user: state.auth.user,
+    isLoading: state.auth.isLoading
 });
 
 export default connect(mapStateToProps, { register, createMessage })(Register);
