@@ -8,6 +8,7 @@ import LoginPage from '../components/Pages/LoginPage';
 import RegisterPage from '../components/Pages/RegisterPage';
 import Megashows from '../components/Pages/Megashows';
 import IndividualEvent from "../components/events/IndividualEvent";
+import Types from "../components/events/Typesevent";
 import ExtraDetails from "../components/accounts/ExtraDetails";
 import NotFound from '../components/common/NotFound';
 import PrivateRoute from "../components/common/PrivateRoute";
@@ -30,6 +31,7 @@ class AppRouter extends Component {
                             <Route exact path={"/events"} component={Events}/>
                             <Route exact path={"/login"} component={LoginPage}/>
                             <Route exact path={"/register"} component={RegisterPage}/>
+                            <Route exact path={"/events/types"} component={Types}/>
                             <Route exact path={"/event/:id"} component={IndividualEvent}/>
                             <PrivateRoute exact path={"/update"} component={ExtraDetails}/>
                             <Route component={NotFound}/>
