@@ -4,6 +4,11 @@ import Tech from '../../../public/images/tech.jpg';
 import { MDBCol, MDBCard, MDBCardImage,
     MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from "mdbreact";
 import IndividualEvent from './IndividualEvent';
+import { NavLink } from 'react-router-dom'
+
+
+
+
 // import EventInfo from './EventInfo';
 class Category extends Component {
     constructor(props){
@@ -11,7 +16,7 @@ class Category extends Component {
         this.state = {
             id : this.props.id,
             img: null,
-            showComponent: false
+            showComponent: ''
         }
         this._onButtonClick = this._onButtonClick.bind(this);
     }
@@ -19,10 +24,12 @@ class Category extends Component {
     componentDidMount(){
         this.getImage();
     }
-    _onButtonClick() {
+    _onButtonClick(e) {
+        // e.preventDefault();
         this.setState({
-          showComponent: true,
+          showComponent: this.props.category,
         });
+        
         console.log("clicked",this.props.category);
     }
 
@@ -49,10 +56,12 @@ class Category extends Component {
                       make up the bulk of the card's content.
                     </MDBCardText>
                     <MDBBtn color="primary" onClick={this._onButtonClick}>View Events</MDBBtn>
-                            {/* {this.state.showComponent ?
-                                // <EventInfo startDate={new Date(2019, 5, 11)} name="hello"/> :
-                                null
-                            } */}
+                            {this.state.showComponent == 'Technical' && <NavLink to={{pathname:'/events/types',aboutprops:{name: 'Technical'}}} >Details</NavLink>}
+                            {/* {this.state.showComponent == 'Technical' && <Technicalevents />} */}
+                            {this.state.showComponent == 'Lectures' && <NavLink to={{pathname:'/events/types',aboutprops:{name: 'Lecture'}}} >Details</NavLink>}
+                            {this.state.showComponent == 'Workshops' && <NavLink to={{pathname:'/events/types',aboutprops:{name: 'Workshop'}}} >Details</NavLink>}
+                            
+                            {this.state.showComponent == 'Cultural' && <NavLink to={{pathname:'/events/types',aboutprops:{name: 'Cultural'}}} >Details</NavLink>}
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
