@@ -121,6 +121,7 @@ class ExtraDetails extends Component {
                                     required
                                     value={firstName}
                                     tabIndex={"1"}
+                                    spellcheck="false"
                                 />
                             </div>
                         </div>
@@ -135,6 +136,7 @@ class ExtraDetails extends Component {
                                     required
                                     value={lastName}
                                     tabIndex={"2"}
+                                    spellcheck="false"
                                 />
                             </div>
                         </div>
@@ -151,6 +153,7 @@ class ExtraDetails extends Component {
                                     required
                                     value={college}
                                     tabIndex={"3"}
+                                    spellcheck="false"
                                 />
                             </div>
                         </div>
@@ -184,6 +187,7 @@ class ExtraDetails extends Component {
                                 required
                                 value={address}
                                 tabIndex={"5"}
+                                spellcheck="false"
                             />
                         </div>
                         </div>
@@ -198,6 +202,7 @@ class ExtraDetails extends Component {
                                 required
                                 value={contactNumber}
                                 tabIndex={"6"}
+                                spellcheck="false"
                             />
                         </div>
                     </div>
