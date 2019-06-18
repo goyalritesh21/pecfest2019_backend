@@ -38,7 +38,7 @@ export default () => {
                 });
                 renderer.setSize(windowWidth, windowHeight);
                 scene = new THREE.Scene();
-                camera = new THREE.PerspectiveCamera(50, windowWidth / windowHeight, 0.1, 10000);
+                camera = new THREE.PerspectiveCamera(60, windowWidth / windowHeight, 1, 10000);
                 camera.position.set(0, 0, 600);
                 camera.lookAt(centerVector);
                 scene.add(camera);
@@ -80,7 +80,7 @@ export default () => {
                 scene.add(particleRotation);
                 let geometryPR = new THREE.TetrahedronGeometry(1, 0),
                     materialPR = new THREE.MeshPhongMaterial({
-                        color: 0x81ecec,
+                        color: "#81ecec",
                         flatShading: THREE.FlatShading
                     });
 
@@ -91,14 +91,14 @@ export default () => {
                     mesh.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
                     particleRotation.add(mesh);
                 }
-                let ambientLight = new THREE.AmbientLight(0x999999);
+                let ambientLight = new THREE.AmbientLight('#999999');
                 scene.add(ambientLight);
                 let lights = [];
-                lights[0] = new THREE.DirectionalLight(0xffffff, 1);
+                lights[0] = new THREE.DirectionalLight('#ffffff', 1);
                 lights[0].position.set(1, 0, 0);
-                lights[1] = new THREE.DirectionalLight(0x11e8bb, 1);
+                lights[1] = new THREE.DirectionalLight('#11e8bb', 1);
                 lights[1].position.set(0.75, 1, 0.5);
-                lights[2] = new THREE.DirectionalLight(0x8200c9, 1);
+                lights[2] = new THREE.DirectionalLight('#12efff', 1);
                 lights[2].position.set(-0.75, -1, 0.5);
                 scene.add(lights[0]);
                 scene.add(lights[1]);

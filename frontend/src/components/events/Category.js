@@ -42,25 +42,26 @@ class Category extends Component {
 
     render() {
         return (
-            <div className={"col-md-3"}>
+            <div className={"col-md-3"} style={{cursor: 'pointer'}}>
                 {/* This div is for {this.props.category} Category. */}
-                <MDBCol md="4">
-                    <MDBCard className="mb-2">
-                        <MDBCardImage className="img-fluid" src={this.state.img}/>
-                        <MDBCardBody>
-                            <MDBCardTitle>{this.props.category}</MDBCardTitle>
-                            <MDBCardText>
-                                Some quick example text to build on the card title and
-                                make up the bulk of the card's content.
-                            </MDBCardText>
-                            <Link to={{
-                                pathname: `/events/types/${this.state.category}`,
-                                aboutprops: {name: this.state.category}
-                            }}><MDBBtn color="primary" onClick={this._onButtonClick}>View Events</MDBBtn>
-                            </Link>
-                        </MDBCardBody>
-                    </MDBCard>
-                </MDBCol>
+                <Link to={{
+                    pathname: `/events/types/${this.state.category}`,
+                    aboutprops: {name: this.state.category}
+                }}>
+                    <MDBCol md="4">
+                        <MDBCard className="mb-2">
+                            <MDBCardImage className="img-fluid" src={this.state.img}/>
+                            <MDBCardBody>
+                                <MDBCardTitle>{this.props.category}</MDBCardTitle>
+                                <MDBCardText>
+                                    Some quick example text to build on the card title and
+                                    make up the bulk of the card's content.
+                                </MDBCardText>
+                                <MDBBtn color="primary" onClick={this._onButtonClick}>View Events</MDBBtn>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                </Link>
             </div>
         )
             ;
