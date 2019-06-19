@@ -8,11 +8,14 @@ class club(models.Model):
     clubID = models.IntegerField(primary_key=True, unique=True,   null=False)
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class event(models.Model):
 
     #Primary Info
-    eventID = models.IntegerField(unique=True, null=False, primary_key=True)
+    eventID = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=100)
     coordinators = models.ManyToManyField(to=User)
 
@@ -29,9 +32,10 @@ class event(models.Model):
 
 
     #Detailed Info
-    eventType = models.CharField(max_length=30)
-    category = models.CharField(max_length=50)
-    association = models.ForeignKey(to=club, verbose_name="Name of the club/society associated with this event", on_delete=models.CASCADE)
+    eventType = models.CharField(max_length=30, null=True, blank=True)
+    category = models.CharField(max_length=50, null=True,blank=True)
+    association = models.ForeignKey(to=club, verbose_name="Name of the club/society associated with this event",
+                                    on_delete=models.SET_NULL, null=True, blank=True)
     details = models.TextField(blank=True)
     shortDescription = models.TextField(blank=True, verbose_name="Short Description about event")
     ruleList = models.TextField(blank=True, verbose_name="list of the Rules")
@@ -40,4 +44,6 @@ class event(models.Model):
     poster = models.ImageField(upload_to='Images/events/', null=True)
     rulesPDF = models.FileField(upload_to='PDF/events/', null=True)
 
+    def __str__(self):
+        return self.name
 
