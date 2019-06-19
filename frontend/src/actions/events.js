@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {returnErrors} from './messages';
-import {EVENTS_ERROR, EVENTS_LOADED, EVENTS_LOADING} from "./types";
+import {EVENTS_ERROR, EVENTS_LOADED, EVENTS_LOADING, SET_CATEGORY} from "./types";
 
 export const loadEvents = (categoryId) => (dispatch, getState) => {
     dispatch({type: EVENTS_LOADING});
@@ -17,4 +17,13 @@ export const loadEvents = (categoryId) => (dispatch, getState) => {
                 type: EVENTS_ERROR
             });
         })
+};
+
+export const setCategory = (category) => (dispatch) => {
+    dispatch({
+        type: SET_CATEGORY,
+        payload: {
+            category: category
+        }
+    });
 };

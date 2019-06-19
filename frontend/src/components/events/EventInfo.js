@@ -1,61 +1,59 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-
-import eventBackgroundImg from "../../../public/images/event_background.jpg";
-import "./eventInfo.css";
-import EventShow from "./EventShow";
+import "./EventInfo.css";
+import CountDownTimer from "./CountDownTimer";
 import Description from "./Description";
+import Footer from "./Footer";
 
 class EventInfo extends Component {
-    state = {};
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: undefined,
+            eventId: undefined,
+            startDate: undefined
+        };
+    }
 
-    static propTypes = {
-        startDate: PropTypes.instanceOf(Date)
-    };
+    componentDidMount() {
+        this.setState(() => ({
+            name: this.props.location.state.name,
+            eventId: this.props.match.params.id,
+            startDate: this.props.location.state.startDate
+        }))
+    }
 
     render() {
-        const {startDate, name} = this.props;
+        const {startDate, name} = this.state;
 
         return (
-            <div
-                id="carouselExampleControls"
-                className="carousel slide"
-                data-ride="carousel"
-                style={{height: "400px", padding: "0px"}}
-            >
-                <div className="carousel-inner">
-                    <div className="carousel-item active">
-                        <EventShow
-                            startDate={startDate}
-                            eventBackgroundImg={eventBackgroundImg}
-                            name={name}
-                        />
-                    </div>
-                    <div className="carousel-item">
+            <div className="card text-center">
+                <div
+                    className="card-header"
+                    style={{padding: "0px", background: "transparent", margin: "0px"}}
+                >
+                    <h3
+                        className="card-title display1"
+                        style={{
+                            fontFamily: "ZCOOL KuaiLe",
+                            textShadow: "4px 4px 4px #aaa",
+                            fontSize: 70,
+                            color: "#ff0066"
+                        }}
+                    >
+                        {name}
+                    </h3>
+                </div>
+                <div className="card-body">
+                    <div className="form">
+                        <CountDownTimer startDate={startDate}/>
+
                         <Description/>
                     </div>
-                    <div className="carousel-item">
-                        <img className="d-block w-100" src="..." alt="Third slide"/>
-                    </div>
                 </div>
-                <a
-                    className="carousel-control-prev"
-                    href="#carouselExampleControls"
-                    role="button"
-                    data-slide="prev"
-                >
-                    <span className="carousel-control-prev-icon" aria-hidden="true"/>
-                    <span className="sr-only">Previous</span>
-                </a>
-                <a
-                    className="carousel-control-next"
-                    href="#carouselExampleControls"
-                    role="button"
-                    data-slide="next"
-                >
-                    <span className="carousel-control-next-icon" aria-hidden="true"/>
-                    <span className="sr-only">Next</span>
-                </a>
+                <div className="card-footer" style={{background: "white"}}>
+                    <Footer/>
+                </div>
             </div>
         );
     }

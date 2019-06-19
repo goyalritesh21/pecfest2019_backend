@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import Cult from '../../../public/images/cult.jpg';
 import Tech from '../../../public/images/tech.jpg';
 import {
     MDBCol, MDBCard, MDBCardImage,
     MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn
 } from "mdbreact";
-import {Redirect, Link} from 'react-router-dom';
+import {setCategory} from '../../actions/events';
+import {Link} from 'react-router-dom';
 
 class Category extends Component {
     constructor(props) {
@@ -14,22 +17,17 @@ class Category extends Component {
             id: this.props.id,
             category: this.props.category,
             img: null,
-            showComponent: ''
         };
     }
+
+
+    static propTypes = {
+        setCategory: PropTypes.func.isRequired,
+    };
 
     componentDidMount() {
         this.getImage();
     }
-
-    _onButtonClick = (e) => {
-        // e.preventDefault();
-        this.setState(() => ({
-            showComponent: this.props.category,
-        }));
-
-        console.log("clicked", this.props.category);
-    };
 
     getImage = () => {
         if (this.state.id === 0 || this.state.id === 2) {
@@ -40,24 +38,25 @@ class Category extends Component {
         }
     };
 
+    _onClick = () => {
+        this.props.setCategory(this.state.category);
+    };
     render() {
+        let {category, img} = this.state;
         return (
-            <div className={"col-md-3"} style={{cursor: 'pointer'}}>
+            <div className={"col-md-3"} style={{cursor: 'pointer'}} >
                 {/* This div is for {this.props.category} Category. */}
-                <Link to={{
-                    pathname: `/events/types/${this.state.category}`,
-                    aboutprops: {name: this.state.category}
-                }}>
+                <Link to={`/events/${category}`} onClick={this._onClick}>
                     <MDBCol md="4">
                         <MDBCard className="mb-2">
-                            <MDBCardImage className="img-fluid" src={this.state.img}/>
+                            <MDBCardImage className="img-fluid" src={img}/>
                             <MDBCardBody>
                                 <MDBCardTitle>{this.props.category}</MDBCardTitle>
                                 <MDBCardText>
                                     Some quick example text to build on the card title and
                                     make up the bulk of the card's content.
                                 </MDBCardText>
-                                <MDBBtn color="primary" onClick={this._onButtonClick}>View Events</MDBBtn>
+                                <MDBBtn color="primary">View Events</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
@@ -68,7 +67,7 @@ class Category extends Component {
     }
 }
 
-export default Category;
+export default connect(null, { setCategory })(Category);
 
 
 

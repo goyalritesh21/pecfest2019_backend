@@ -10,8 +10,8 @@ class Events extends Component {
         return (
             <div className={"row overlay-2"}>
                 {
-                 events.map((event, index) => (
-                <Category key={index} category={event} id={index}/>
+                 events.map((category, index) => (
+                <Category key={index} category={category} id={index}/>
                  ))
                  }
                 
