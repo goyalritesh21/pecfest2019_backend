@@ -1,30 +1,33 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import "./EventInfo.css";
+import {setEvent, loadEvent} from "../../actions/individualEvent";
+import {connect} from 'react-redux';
 import CountDownTimer from "./CountDownTimer";
 import Description from "./Description";
 import Footer from "./Footer";
 
 class EventInfo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: undefined,
-            eventId: undefined,
-            startDate: undefined
-        };
-    }
+    state = {
+        event: null
+    };
+
+    static propTypes = {
+        setEvent: PropTypes.func.isRequired,
+        loadEvent: PropTypes.func.isRequired,
+        event: PropTypes.object
+    };
 
     componentDidMount() {
+        this.props.loadEvent(this.props.match.params.eventId);
+        const { event } = this.props;
         this.setState(() => ({
-            name: this.props.location.state.name,
-            eventId: this.props.match.params.id,
-            startDate: this.props.location.state.startDate
-        }))
+            event
+        }));
     }
 
     render() {
-        const {startDate, name} = this.state;
+        const { event } = this.state;
 
         return (
             <div className="card text-center">
@@ -41,13 +44,12 @@ class EventInfo extends Component {
                             color: "#ff0066"
                         }}
                     >
-                        {name}
+                        {event.name}
                     </h3>
                 </div>
                 <div className="card-body">
                     <div className="form">
-                        <CountDownTimer startDate={startDate}/>
-
+                        <CountDownTimer startDate={Date()}/>
                         <Description/>
                     </div>
                 </div>
@@ -59,4 +61,8 @@ class EventInfo extends Component {
     }
 }
 
-export default EventInfo;
+const mapStateToProps = (state) => ({
+    event: state.individualEvent.event
+});
+
+export default connect(mapStateToProps, {setEvent, loadEvent})(EventInfo);

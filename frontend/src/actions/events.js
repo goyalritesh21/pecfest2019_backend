@@ -1,13 +1,36 @@
 import axios from 'axios';
 import {returnErrors} from './messages';
-import {EVENTS_ERROR, EVENTS_LOADED, EVENTS_LOADING, SET_CATEGORY} from "./types";
+import {
+    CATEGORIES_LOADED,
+    EVENTS_ERROR,
+    EVENTS_LOADED,
+    EVENTS_LOADING,
+    SET_CATEGORY
+} from "./types";
 
-export const loadEvents = (categoryId) => (dispatch, getState) => {
+export const loadEvents = (categoryId) => (dispatch) => {
     dispatch({type: EVENTS_LOADING});
-    axios.get(`api/events/category/${categoryId}`)
+    axios.get(`api/events/categoryEvents/${categoryId}`)
         .then(res => {
             dispatch({
                 type: EVENTS_LOADED,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch({
+                type: EVENTS_ERROR
+            });
+        })
+};
+
+export const loadCategories = (categoryId) => (dispatch) => {
+    dispatch({type: EVENTS_LOADING});
+    axios.get(`api/events/categories/${categoryId}`)
+        .then(res => {
+            dispatch({
+                type: CATEGORIES_LOADED,
                 payload: res.data
             })
         })

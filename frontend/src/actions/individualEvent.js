@@ -6,11 +6,11 @@ import {
     EVENTS_LOADING,
     EVENT_ERROR,
     EVENT_REGISTER_SUCCESS,
-    EVENT_REGISTER_FAIL
+    EVENT_REGISTER_FAIL, SET_EVENT
 } from "./types";
 import {tokenConfig} from "./auth";
 
-export const loadEvent = (eventId) => (dispatch, getState) => {
+export const loadEvent = (eventId) => (dispatch) => {
     dispatch({type: EVENTS_LOADING});
     axios.get(`api/events/${eventId}`)
         .then(res => {
@@ -43,4 +43,13 @@ export const registerEvent = (eventId) => (dispatch, getState) => {
                 type: EVENT_REGISTER_FAIL
             });
         });
+};
+
+export const setEvent = (eventId) => (dispatch) => {
+    dispatch({
+        type: SET_EVENT,
+        payload: {
+            eventId: eventId
+        }
+    });
 };

@@ -32,7 +32,7 @@ class AppRouter extends Component {
                             <Route exact path={"/login"} component={LoginPage}/>
                             <Route exact path={"/register"} component={RegisterPage}/>
                             <Route exact path={"/events/:category"} component={Types} />
-                            <Route exact path={"/event/:id"} component={IndividualEvent}/>
+                            <Route exact path={"/event/:eventId"} component={IndividualEvent}/>
                             <PrivateRoute exact path={"/update"} component={ExtraDetails}/>
                             <Route component={NotFound}/>
                         </Switch>

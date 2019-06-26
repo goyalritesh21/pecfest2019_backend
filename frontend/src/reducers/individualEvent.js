@@ -1,4 +1,11 @@
-import {EVENT_ERROR, EVENT_LOADED, EVENT_LOADING, EVENT_REGISTER_SUCCESS, EVENT_REGISTER_FAIL} from "../actions/types";
+import {
+    EVENT_ERROR,
+    EVENT_LOADED,
+    EVENT_LOADING,
+    EVENT_REGISTER_SUCCESS,
+    EVENT_REGISTER_FAIL,
+    SET_EVENT
+} from "../actions/types";
 
 const initialState = {
     eventLoading : false,
@@ -8,6 +15,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SET_EVENT:
+            return {
+                ...state,
+                event: {
+                    eventId: action.payload.eventId
+                }
+            };
         case EVENT_LOADING:
             return {
                 ...state,

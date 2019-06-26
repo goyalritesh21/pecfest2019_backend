@@ -1,7 +1,14 @@
-import {EVENTS_LOADING, EVENTS_LOADED, EVENTS_ERROR, SET_CATEGORY} from "../actions/types";
+import {
+    EVENTS_LOADING,
+    EVENTS_LOADED,
+    EVENTS_ERROR,
+    SET_CATEGORY,
+    CATEGORIES_LOADED
+} from "../actions/types";
 
 const initialState = {
     category: null,
+    categories: [],
     events: [],
     isLoadingEvents: false,
 };
@@ -29,6 +36,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 category: action.payload.category
+            };
+        case CATEGORIES_LOADED:
+            return {
+                ...state,
+                isLoadingEvents: false,
+                categories: action.payload
             };
         default:
             return state;
