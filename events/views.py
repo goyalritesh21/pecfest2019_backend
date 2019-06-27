@@ -3,13 +3,14 @@ from rest_framework import status, permissions
 from rest_framework.views import APIView
 from events.models import event
 from events.serializers import EventSerializer
+import json
 
 ListOfTechnicalCategories = {
     "1" : "Aerospace",
     "2" : "Astronomy",
 }
 
-ListOfCulturalCategories  = {
+ListOfCulturalCategories = {
     "1" : "Dance",
     "2" : "Drama",
 }
@@ -39,13 +40,13 @@ class MainCatSpecific(APIView):
             # Tech Events handler
             if categoryID == "technical":
                 return Response({
-                    "subcategories": ListOfTechnicalCategories,
+                    "subcategories": list(ListOfTechnicalCategories.items()),
                 })
 
             # Cultural Events handler
             elif categoryID == "cultural":
                 return Response({
-                    "events": ListOfCulturalCategories,
+                    "subcategories": list(ListOfCulturalCategories.items()),
                 })
 
             elif categoryID == "workshop":
