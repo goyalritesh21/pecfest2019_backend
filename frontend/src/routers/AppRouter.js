@@ -8,7 +8,7 @@ import LoginPage from '../components/Pages/LoginPage';
 import RegisterPage from '../components/Pages/RegisterPage';
 import Megashows from '../components/Pages/Megashows';
 import IndividualEvent from "../components/events/EventInfo";
-import Types from "../components/events/TypesEvent";
+import Types from "../components/events/TypesCategories";
 import ExtraDetails from "../components/accounts/ExtraDetails";
 import NotFound from '../components/common/NotFound';
 import PrivateRoute from "../components/common/PrivateRoute";

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { setCategory } from "../../actions/events";
+import {setCategory, loadCategories} from "../../actions/events";
 import Profile from '../../../public/images/profile.jpg';
 import Profile1 from '../../../public/images/profile1.jpg';
 import Techback from '../../../public/images/techback.jpg';
@@ -17,28 +17,32 @@ class Types extends Component {
     state = {
         name: this.props.category,
         img: null,
-        imgback: null
+        imgback: null,
+        categories: []
     };
 
     static propTypes = {
-        category: PropTypes.string,
-        setCategory: PropTypes.func.isRequired
+        category: PropTypes.string.isRequired,
+        setCategory: PropTypes.func.isRequired,
+        categories: PropTypes.array.isRequired,
+        loadCategories: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-        const { category } = this.props.match.params;
-        if(category){
+        const {category} = this.props.match.params;
+        if (category) {
             this.setState(() => ({
                 name: category
             }));
         }
-        this.props.setCategory(this.props.match.params.category);
+        this.props.setCategory(category);
+        // this.props.loadCategories(category);
         this.getImage();
     }
 
     getImage = () => {
         let {category} = this.state;
-        if(!category){
+        if (!category) {
             category = this.props.match.params.category
         }
         if (category === 'Technical') {
@@ -47,17 +51,18 @@ class Types extends Component {
         else if (category === 'Cultural') {
             this.setState(() => ({img: Profile1, imgback: Cultback}));
         }
-        else if (category === 'Lecture') {
+        else if (category === 'Lectures') {
             this.setState(() => ({img: Profile2, imgback: Lectback}));
         }
-        else if (category === 'Workshop') {
+        else if (category === 'Workshops') {
             this.setState(() => ({img: Profile3, imgback: Workback}));
         }
 
     };
 
     render() {
-        const { name, img, imgback } = this.state;
+        const {name, img, imgback} = this.state;
+        const {categories} = this.props;
         return (
             <div>
                 <div className="sidebar-menu hidden-xs hidden-sm">
@@ -70,36 +75,16 @@ class Types extends Component {
                     </div>
                     <div className="main-navigation">
                         <ul className="navigation">
-
-                            <li><Link to={{
-                                pathname: "/event/tech_01",
-                                state: {
-                                    startDate: new Date(),
-                                    name: "tech_01"
-                                }
-                            }}><i className="fa fa-paperclip"/>Category1</Link></li>
-                            <li><Link to={{
-                                pathname: "/event/tech_02",
-                                state: {
-                                    startDate: new Date(),
-                                    name: "tech_02"
-                                }
-                            }}><i className="fa fa-paperclip"/>Category2</Link></li>
-                            <li><Link to={{
-                                pathname: "/event/tech_03",
-                                state: {
-                                    startDate: new Date(),
-                                    name: "tech_03"
-                                }
-                            }}><i className="fa fa-paperclip"/>Category3</Link></li>
-                            <li><Link to={{
-                                pathname: "/event/tech_04",
-                                state: {
-                                    startDate: new Date(),
-                                    name: "tech_04"
-                                }
-                            }}><i className="fa fa-paperclip"/>Category4</Link></li>
-
+                            {categories.length > 0 && categories.map((category, index) => (
+                                <li key={index}><Link to={{
+                                    pathname: `/event/${category}`,
+                                    state: {
+                                        startDate: new Date(),
+                                        name: category
+                                    }
+                                }}><i className="fa fa-paperclip"/>Category1</Link></li>
+                            ))
+                            }
                         </ul>
                     </div>
 
@@ -121,7 +106,8 @@ class Types extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    category: state.events.category
+    category: state.events.category,
+    categories: state.events.categories
 });
 
-export default connect(mapStateToProps, { setCategory })(Types);
+export default connect(mapStateToProps, {setCategory, loadCategories})(Types);
