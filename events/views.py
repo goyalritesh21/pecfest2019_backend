@@ -6,13 +6,13 @@ from events.serializers import EventSerializer
 import json
 
 ListOfTechnicalCategories = {
-    "1" : "Aerospace",
-    "2" : "Astronomy",
+    "1" : "aerospace",
+    "2" : "astronomy",
 }
 
 ListOfCulturalCategories = {
-    "1" : "Dance",
-    "2" : "Drama",
+    "1" : "dance",
+    "2" : "drama",
 }
 
 
@@ -62,12 +62,12 @@ class CategoryEvents(APIView):
         # categoryID = self.kwargs['categoryID']
         if categoryID:
             category = categoryID[:4]
-            #print(category)
+            print(category)
             # Tech Events handler
             if category == "tech":
                 key = categoryID[4:]
                 if key in ListOfTechnicalCategories.keys():
-                    events = event.objects.filter(category__icontains=key)
+                    events = event.objects.filter(eventType__contains=ListOfTechnicalCategories[key])
                     serializer = EventSerializer(events, many=True)
                     return Response({
                         "events": serializer.data,
@@ -75,10 +75,9 @@ class CategoryEvents(APIView):
 
             # Cultural Events handler
             elif category == "cult":
-                key = category[4:]
-
+                key = categoryID[4:]
                 if key in ListOfCulturalCategories.keys():
-                    events = event.objects.filter(category__icontains=key)
+                    events = event.objects.filter(eventType__contains=ListOfCulturalCategories[key])
                     serializer = EventSerializer(events, many=True)
                     return Response({
                         "events": serializer.data,
