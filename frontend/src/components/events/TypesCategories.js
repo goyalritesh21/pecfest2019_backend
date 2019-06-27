@@ -36,7 +36,7 @@ class Types extends Component {
             }));
         }
         this.props.setCategory(category);
-        // this.props.loadCategories(category);
+        this.props.loadCategories(category.toLowerCase());
         this.getImage();
     }
 
@@ -63,6 +63,7 @@ class Types extends Component {
     render() {
         const {name, img, imgback} = this.state;
         const {categories} = this.props;
+        console.log(categories);
         return (
             <div>
                 <div className="sidebar-menu hidden-xs hidden-sm">
@@ -75,14 +76,14 @@ class Types extends Component {
                     </div>
                     <div className="main-navigation">
                         <ul className="navigation">
-                            {categories.length > 0 && categories.map((category, index) => (
-                                <li key={index}><Link to={{
-                                    pathname: `/event/${category}`,
+                            {categories.length > 0 && categories.map(([id, name]) => (
+                                <li key={id}><Link to={{
+                                    pathname: `/event/${name}`,
                                     state: {
                                         startDate: new Date(),
-                                        name: category
+                                        name: name
                                     }
-                                }}><i className="fa fa-paperclip"/>Category1</Link></li>
+                                }}><i className="fa fa-paperclip"/>{name}</Link></li>
                             ))
                             }
                         </ul>

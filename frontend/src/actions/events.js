@@ -31,7 +31,7 @@ export const loadCategories = (categoryId) => (dispatch) => {
         .then(res => {
             dispatch({
                 type: CATEGORIES_LOADED,
-                payload: res.data
+                payload: res.data.subcategories
             })
         })
         .catch(err => {
