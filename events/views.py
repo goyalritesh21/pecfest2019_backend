@@ -15,6 +15,45 @@ ListOfCulturalCategories  = {
 }
 
 
+class EventDetails(APIView):
+
+    def get(self, request, eventID):
+
+        if eventID:
+            Event = event.objects.filter(eventID__contains=eventID)
+            if Event:
+                serializer = EventSerializer(Event)
+                return Response({
+                    "data": serializer.data,
+                })
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class MainCatSpecific(APIView):
+
+    def get(self, request, categoryID):
+
+        if categoryID:
+
+            # Tech Events handler
+            if categoryID == "technical":
+                return Response({
+                    "subcategories": ListOfTechnicalCategories,
+                })
+
+            # Cultural Events handler
+            elif categoryID == "cultural":
+                return Response({
+                    "events": ListOfCulturalCategories,
+                })
+
+            elif categoryID == "workshop":
+                pass
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 class CategoryEvents(APIView):
 
     def get(self, request, categoryID):

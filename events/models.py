@@ -41,8 +41,8 @@ class event(models.Model):
     ruleList = models.TextField(blank=True, verbose_name="list of the Rules")
 
     #Files attached
-    poster = models.ImageField(upload_to='Images/events/', null=True)
-    rulesPDF = models.FileField(upload_to='PDF/events/', null=True)
+    poster = models.ImageField(upload_to='Images/events/', null=True, blank=True)
+    rulesPDF = models.FileField(upload_to='PDF/events/', null=True, blank=True)
 
     def __str__(self):
         return self.name
