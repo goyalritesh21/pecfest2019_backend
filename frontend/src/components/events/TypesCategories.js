@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {setCategory, loadCategories} from "../../actions/events";
+import {setCategory, loadCategories, loadEvents} from "../../actions/events";
 import Profile from '../../../public/images/profile.jpg';
 import Profile1 from '../../../public/images/profile1.jpg';
 import Techback from '../../../public/images/techback.jpg';
@@ -10,7 +10,7 @@ import Profile2 from '../../../public/images/profile2.jpg';
 import Lectback from '../../../public/images/lectback.jpg';
 import Profile3 from '../../../public/images/profile3.jpg';
 import Workback from '../../../public/images/workback.jpg';
-import {Link} from 'react-router-dom';
+import { categoryDict } from "../../data/events";
 import "./typesevent.scss";
 
 class Types extends Component {
@@ -25,7 +25,9 @@ class Types extends Component {
         category: PropTypes.string.isRequired,
         setCategory: PropTypes.func.isRequired,
         categories: PropTypes.array.isRequired,
-        loadCategories: PropTypes.func.isRequired
+        loadCategories: PropTypes.func.isRequired,
+        loadEvents: PropTypes.func.isRequired,
+        events: PropTypes.array.isRequired
     };
 
     componentDidMount() {
@@ -36,25 +38,30 @@ class Types extends Component {
             }));
         }
         this.props.setCategory(category);
-        this.props.loadCategories(category.toLowerCase());
+        this.props.loadCategories(categoryDict[category].toLowerCase());
         this.getImage();
     }
+
+    loadCategoryEvents = (id) => {
+        const subCategory = this.state.name + id;
+        this.props.loadEvents(subCategory);
+    };
 
     getImage = () => {
         let {category} = this.state;
         if (!category) {
             category = this.props.match.params.category
         }
-        if (category === 'Technical') {
+        if (category === 'tech') {
             this.setState(() => ({img: Profile, imgback: Techback}));
         }
-        else if (category === 'Cultural') {
+        else if (category === 'cult') {
             this.setState(() => ({img: Profile1, imgback: Cultback}));
         }
-        else if (category === 'Lectures') {
+        else if (category === 'lect') {
             this.setState(() => ({img: Profile2, imgback: Lectback}));
         }
-        else if (category === 'Workshops') {
+        else if (category === 'work') {
             this.setState(() => ({img: Profile3, imgback: Workback}));
         }
 
@@ -62,8 +69,7 @@ class Types extends Component {
 
     render() {
         const {name, img, imgback} = this.state;
-        const {categories} = this.props;
-        console.log(categories);
+        const {categories, events} = this.props;
         return (
             <div>
                 <div className="sidebar-menu hidden-xs hidden-sm">
@@ -77,13 +83,11 @@ class Types extends Component {
                     <div className="main-navigation">
                         <ul className="navigation">
                             {categories.length > 0 && categories.map(([id, name]) => (
-                                <li key={id}><Link to={{
-                                    pathname: `/event/${name}`,
-                                    state: {
-                                        startDate: new Date(),
-                                        name: name
-                                    }
-                                }}><i className="fa fa-paperclip"/>{name}</Link></li>
+                                <li key={id}>
+                                    <a onClick={() => this.loadCategoryEvents(id)}>
+                                        <i className="fa fa-paperclip"/>{name}
+                                    </a>
+                                </li>
                             ))
                             }
                         </ul>
@@ -108,7 +112,8 @@ class Types extends Component {
 
 const mapStateToProps = (state) => ({
     category: state.events.category,
-    categories: state.events.categories
+    categories: state.events.categories,
+    events: state.events.events
 });
 
-export default connect(mapStateToProps, {setCategory, loadCategories})(Types);
+export default connect(mapStateToProps, {setCategory, loadCategories, loadEvents})(Types);

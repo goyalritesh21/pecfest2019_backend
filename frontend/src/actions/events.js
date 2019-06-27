@@ -14,7 +14,7 @@ export const loadEvents = (categoryId) => (dispatch) => {
         .then(res => {
             dispatch({
                 type: EVENTS_LOADED,
-                payload: res.data
+                payload: res.data.events
             })
         })
         .catch(err => {

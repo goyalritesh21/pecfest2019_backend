@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Category from '../events/Category';
 import EventInfo from '../events/EventInfo';
+import { categories } from '../../data/events';
 
-const events = ['Technical', 'Cultural', 'Lectures', 'Workshops'];
 
 class Events extends Component {
 
@@ -10,8 +10,8 @@ class Events extends Component {
         return (
             <div className={"row overlay-2"}>
                 {
-                 events.map((category, index) => (
-                <Category key={index} category={category} id={index}/>
+                 categories.map(({id, name}, index) => (
+                <Category key={index} category={name} id={id}/>
                  ))
                  }
                 
