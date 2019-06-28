@@ -1,16 +1,19 @@
-from django.conf.urls import url, include, path
+from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth import views
-from django.views.generic import TemplateView
-from views import home
+from django.urls import path
+
+# Routers provide an easy way of automatically determining the URL conf.
+from rest_framework import routers
+
+router = routers.DefaultRouter()
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^login/$', TemplateView.as_view(template_name='login.html'), name='login'),
-    # url(r'^logout/$', views.logout, name='logout'),
-    url(r'^auth/', include('social_django.urls', namespace='social')),
-    url(r'^$', home, name='home'),
+
+    path('admin/', admin.site.urls),
+    url(r'^route/', include('rest_framework.urls')),
     path('', include('frontend.urls')),
-    path('', include('backend.urls'))
+    path('', include('accounts.urls')),
+    path('', include('events.urls')),
+
 ]
 

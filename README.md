@@ -1,2 +1,2 @@
 # pecfest2019_backend
-This is official repository for backend of PECFEST 2019
+This is official repository for backend and frontend of PECFEST 2019

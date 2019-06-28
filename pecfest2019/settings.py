@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from decouple import config
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -37,15 +39,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
-    'backend',
     'rest_framework',
     'frontend',
-    'knox'
+    'knox',
+    'accounts',
+    'events'
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'knox.auth.TokenAuthentication',
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+    )
 }
 
 MIDDLEWARE = [
@@ -111,11 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-    'social_core.backends.google.GoogleOpenId',  # for Google authentication
-    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
-    'social_core.backends.github.GithubOAuth2',  # for Github authentication
-    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
 
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -138,8 +141,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/static")
+]
+
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '349631602231-guvt7kuvr4npvjebt4mr3oma0r0l4nq9.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'qFbxJjqSRRX-LXPdPxIxB2Gp'
