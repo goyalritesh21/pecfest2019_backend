@@ -77,7 +77,7 @@ class Types extends Component {
                 <div className="sidebar-menu hidden-xs hidden-sm">
                     <div className="top-section">
                         <div className="profile-image">
-                            <img src={img} alt="Technical"/>
+                            <img src={img} alt={categoryDict[name]}/>
                         </div>
                         <h3 className="profile-title">Categories</h3>
                         {/* <p className="profile-description">Pecfest</p> */}
@@ -87,7 +87,7 @@ class Types extends Component {
                             {categories.length > 0 && categories.map(([id, name]) => (
                                 <li key={id}>
                                     <a onClick={() => this.loadCategoryEvents(id)}>
-                                        <i className="fa fa-paperclip"/>{name}
+                                        <i className="fa fa-paperclip"/> { name.charAt(0).toUpperCase()+ name.slice(1)}
                                     </a>
                                 </li>
                             ))
@@ -102,16 +102,11 @@ class Types extends Component {
                         <div className="banner-overlay"/>
                         <div className="logo">
 
-                            <h1>{name} Events | Pecfest</h1>
+                            <h1>{categoryDict[name]} Events | Pecfest</h1>
                             <h3>2K19</h3>
-                            {/* {events.length > 0 && events.map(({id, name}) => (
-                    <li key={id}>
-                        <p>{name}</p>
-                    </li>
-                ))} */}
                         </div>
-                        <div className="darkness"></div>
-                        <i className="fa fa-chevron-down fa-3x go-down" aria-hidden="true"></i>
+                        <div className="darkness"/>
+                        {events.length > 0 && (<div><i className="fa fa-chevron-down fa-3x go-down" aria-hidden="true"/></div>)}
                     </div>
                 </section>
 
