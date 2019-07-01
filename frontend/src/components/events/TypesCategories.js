@@ -99,7 +99,7 @@ class Types extends Component {
                 <div className="banner-bg" id="top" style={{backgroundImage: `url(${imgback})`}}>
                     <div className="banner-overlay"/>
                     <div className="welcome-text">
-                        <h2>{name} Events | Pecfest</h2>
+                        <h2>{categoryDict[name]} Events | Pecfest</h2>
                         <h5>The list of Events being held</h5>
                     </div>
                 </div>
