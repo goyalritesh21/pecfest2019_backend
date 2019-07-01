@@ -12,7 +12,7 @@ import Profile3 from '../../../public/images/profile3.jpg';
 import Workback from '../../../public/images/workback.jpg';
 import { categoryDict } from "../../data/events";
 import "./typesevent.scss";
-
+import {Link} from 'react-router-dom';
 class Types extends Component {
     state = {
         name: this.props.category,
@@ -70,6 +70,7 @@ class Types extends Component {
     render() {
         const {name, img, imgback} = this.state;
         const {categories, events} = this.props;
+        console.log(events);
         return (
             <div>
                 <div className="sidebar-menu hidden-xs hidden-sm">
@@ -95,16 +96,67 @@ class Types extends Component {
 
                 </div>
 
+                <section id="landing-section">
+        <div className="landing banner-bg" id="top" style={{backgroundImage: `url(${imgback})`}}>
+        <div className="banner-overlay"/>
+            <div className="logo">
+                
+                <h1>{name} Events | Pecfest</h1>
+                <h3>2K19</h3>
+                {/* {events.length > 0 && events.map(({id, name}) => (
+                    <li key={id}>
+                        <p>{name}</p>
+                    </li>
+                ))} */}
+            </div>
+            <div className="darkness"></div>
+            <i className="fa fa-chevron-down fa-3x go-down" aria-hidden="true"></i>
+        </div>
+    </section>
 
-                <div className="banner-bg" id="top" style={{backgroundImage: `url(${imgback})`}}>
-                    <div className="banner-overlay"/>
-                    <div className="welcome-text">
-                        <h2>{name} Events | Pecfest</h2>
-                        <h5>The list of Events being held</h5>
+    {events.length > 0  ? ( 
+    <section id="events-section">
+    
+        <div className="container">
+            <div>
+                <h2 className="headline-section wow jackInTheBox">EVENTS</h2>
+                
+                <div className="events">
+                {events.map(({id, name}) => (
+                    
+                    <div key={id} data-wow-duration="1s" className="event" >
+                        <Link to={`/event/${id}`}>
+                        <div className="card">
+                            <div className="card-item card-front">
+                                <img src="./img/events/techno_buzz_comp.jpg" alt={name} />
+                                <div className="headText">
+                                    <p>{name}</p>
+                                </div>
+                            </div>
+                            <div className="card-item card-back">
+                                <img src="./img/events/techno_buzz_comp.jpg" alt={name} />
+                                <div className="eventName">
+                                    <p>{name}</p>
+                                </div>
+                                <div className="headText">
+                                    <p>Know More</p>
+                                </div>
+                            </div>
+                        </div>
+                        </Link>
                     </div>
+                    
+                ))
+                }
+                   
+                    
+                    
                 </div>
-
-
+            </div>
+        </div>
+    </section>) : (
+        null
+    )}
             </div>
         );
     }
