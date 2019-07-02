@@ -15,7 +15,7 @@ class club(models.Model):
 class event(models.Model):
 
     #Primary Info
-    eventID = models.IntegerField(null=True, blank=True)
+    eventID = models.CharField(max_length=10, null=True, blank=True)
     name = models.CharField(max_length=100)
     coordinators = models.ManyToManyField(to=User)
 
