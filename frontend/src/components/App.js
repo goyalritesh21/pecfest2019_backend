@@ -30,7 +30,6 @@ class App extends Component {
                         <Background/>
                         <div className={"overlay-2"}>
                             <Header/>
-                            <Footer/>
                             <Alerts/>
                             <AppRouter/>
 
