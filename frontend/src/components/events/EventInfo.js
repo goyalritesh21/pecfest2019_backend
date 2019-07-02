@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import "./EventInfo.css";
+import "./eventInfo.scss";
 import {setEvent, loadEvent, clearEvent} from "../../actions/individualEvent";
 import {connect} from 'react-redux';
 import CountDownTimer from "./CountDownTimer";

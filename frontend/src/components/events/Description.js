@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import notes from "../../../public/images/notes.jpg";
-import "./Description.css";
+import "./description.scss";
 import DescriptionModal from "./DescriptionModal";
 
 class Description extends Component {
