@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {setCategory, loadCategories, loadEvents} from "../../actions/events";
+import {setCategory, loadCategories, loadEvents, clearEvents} from "../../actions/events";
 import Profile from '../../../public/images/profile.jpg';
 import Profile1 from '../../../public/images/profile1.jpg';
 import Techback from '../../../public/images/techback.jpg';
@@ -28,7 +28,8 @@ class Types extends Component {
         categories: PropTypes.array.isRequired,
         loadCategories: PropTypes.func.isRequired,
         loadEvents: PropTypes.func.isRequired,
-        events: PropTypes.array.isRequired
+        events: PropTypes.array.isRequired,
+        clearEvents: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -41,6 +42,10 @@ class Types extends Component {
         this.props.setCategory(category);
         this.props.loadCategories(categoryDict[category].toLowerCase());
         this.getImage();
+    }
+
+    componentWillUnmount() {
+        this.props.clearEvents();
     }
 
     loadCategoryEvents = (id) => {
@@ -163,4 +168,4 @@ const mapStateToProps = (state) => ({
     events: state.events.events
 });
 
-export default connect(mapStateToProps, {setCategory, loadCategories, loadEvents})(Types);
+export default connect(mapStateToProps, {setCategory, loadCategories, loadEvents, clearEvents})(Types);

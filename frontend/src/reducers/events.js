@@ -3,7 +3,7 @@ import {
     EVENTS_LOADED,
     EVENTS_ERROR,
     SET_CATEGORY,
-    CATEGORIES_LOADED
+    CATEGORIES_LOADED, CLEAR_EVENTS
 } from "../actions/types";
 
 const initialState = {
@@ -26,6 +26,7 @@ export default (state = initialState, action) => {
                 isLoadingEvents: false,
                 events: action.payload
             };
+        case CLEAR_EVENTS:
         case EVENTS_ERROR:
             return {
                 ...state,
