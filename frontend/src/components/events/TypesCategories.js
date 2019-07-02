@@ -123,7 +123,7 @@ class Types extends Component {
                                 <h2 className="headline-section wow jackInTheBox">EVENTS</h2>
 
                                 <div className="events">
-                                    {events.map(({id, name}) => (
+                                    {events.map(({eventID, name}) => (
 
                                         <div key={id} data-wow-duration="1s" className="event">
                                             <Link to={`/event/${id}`}>
