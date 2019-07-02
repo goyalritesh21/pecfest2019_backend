@@ -21,9 +21,10 @@ class EventDetails(APIView):
     def get(self, request, eventID):
 
         if eventID:
-            Event = event.objects.filter(eventID__contains=eventID)
+            Event = event.objects.get(eventID__contains=eventID)
             if Event:
                 serializer = EventSerializer(Event)
+                print(serializer)
                 return Response({
                     "data": serializer.data,
                 })
