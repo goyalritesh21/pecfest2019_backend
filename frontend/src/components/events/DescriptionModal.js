@@ -4,7 +4,6 @@ class DescriptionModal extends Component {
   render() {
     const { contentId } = this.props;
     const dataTarget = "#" + contentId;
-    console.log(contentId);
     return (
       <React.Fragment>
         <p>

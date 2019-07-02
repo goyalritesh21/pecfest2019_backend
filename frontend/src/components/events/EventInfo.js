@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import "./EventInfo.css";
-import {setEvent, loadEvent} from "../../actions/individualEvent";
+import {setEvent, loadEvent, clearEvent} from "../../actions/individualEvent";
 import {connect} from 'react-redux';
 import CountDownTimer from "./CountDownTimer";
 import Description from "./Description";
@@ -15,20 +15,21 @@ class EventInfo extends Component {
     static propTypes = {
         setEvent: PropTypes.func.isRequired,
         loadEvent: PropTypes.func.isRequired,
-        event: PropTypes.object
+        event: PropTypes.object,
+        clearEvent: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-        this.props.loadEvent(this.props.match.params.eventId);
-        const { event } = this.props;
-        this.setState(() => ({
-            event
-        }));
+        const {eventId} = this.props.match.params;
+        this.props.loadEvent(eventId);
+    }
+
+    componentWillUnmount() {
+        this.props.clearEvent();
     }
 
     render() {
-        const { event } = this.state;
-
+        const { event } = this.props;
         return (
             <div className="card text-center">
                 <div
@@ -44,12 +45,12 @@ class EventInfo extends Component {
                             color: "#ff0066"
                         }}
                     >
-                        {event.name}
+                        {event && event.name}
                     </h3>
                 </div>
                 <div className="card-body">
                     <div className="form">
-                        <CountDownTimer startDate={Date()}/>
+                        <CountDownTimer startDate={new Date('November 1, 2019')}/>
                         <Description/>
                     </div>
                 </div>
@@ -65,4 +66,4 @@ const mapStateToProps = (state) => ({
     event: state.individualEvent.event
 });
 
-export default connect(mapStateToProps, {setEvent, loadEvent})(EventInfo);
+export default connect(mapStateToProps, {setEvent, loadEvent, clearEvent})(EventInfo);

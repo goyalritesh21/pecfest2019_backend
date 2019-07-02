@@ -6,9 +6,13 @@ import {
     EVENTS_LOADING,
     EVENT_ERROR,
     EVENT_REGISTER_SUCCESS,
-    EVENT_REGISTER_FAIL, SET_EVENT
+    EVENT_REGISTER_FAIL, SET_EVENT, CLEAR_EVENT
 } from "./types";
 import {tokenConfig} from "./auth";
+
+export const clearEvent = () => (dispatch) => {
+    dispatch({type: CLEAR_EVENT});
+};
 
 export const loadEvent = (eventId) => (dispatch) => {
     dispatch({type: EVENTS_LOADING});
@@ -16,8 +20,8 @@ export const loadEvent = (eventId) => (dispatch) => {
         .then(res => {
             dispatch({
                 type: EVENT_LOADED,
-                payload: res.data
-            })
+                payload: res.data.data
+            });
         })
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status));

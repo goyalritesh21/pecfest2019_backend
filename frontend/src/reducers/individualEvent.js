@@ -4,7 +4,7 @@ import {
     EVENT_LOADING,
     EVENT_REGISTER_SUCCESS,
     EVENT_REGISTER_FAIL,
-    SET_EVENT
+    SET_EVENT, CLEAR_EVENT
 } from "../actions/types";
 
 const initialState = {
@@ -34,6 +34,7 @@ export default (state = initialState, action) => {
                 event: action.payload
             };
         case EVENT_ERROR:
+        case CLEAR_EVENT:
             return {
                 ...state,
                 eventLoading: false,

@@ -23,7 +23,7 @@ class Types extends Component {
     };
 
     static propTypes = {
-        category: PropTypes.string.isRequired,
+        category: PropTypes.string,
         setCategory: PropTypes.func.isRequired,
         categories: PropTypes.array.isRequired,
         loadCategories: PropTypes.func.isRequired,
@@ -76,7 +76,6 @@ class Types extends Component {
     render() {
         const {name, img, imgback} = this.state;
         const {categories, events} = this.props;
-        console.log(events);
         return (
             <div>
                 <div className="sidebar-menu hidden-xs hidden-sm">
@@ -123,10 +122,10 @@ class Types extends Component {
                                 <h2 className="headline-section wow jackInTheBox">EVENTS</h2>
 
                                 <div className="events">
-                                    {events.map(({eventID, name}) => (
+                                    {events.map(({id, eventID, name}) => (
 
                                         <div key={id} data-wow-duration="1s" className="event">
-                                            <Link to={`/event/${id}`}>
+                                            <Link to={`/event/${eventID}`}>
                                                 <div className="card">
                                                     <div className="card-item card-front">
                                                         <img src="./img/events/techno_buzz_comp.jpg" alt={name}/>

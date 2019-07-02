@@ -22,7 +22,7 @@ export const loadEvents = (categoryId) => (dispatch) => {
             })
         })
         .catch(err => {
-            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch(returnErrors("Events cannot be loaded", err.response.status));
             dispatch({
                 type: EVENTS_ERROR
             });
