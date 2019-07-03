@@ -17,7 +17,6 @@
   align-items: center;
 }
 
-
 .social-networks {
   margin: 0 0 50px;
   padding: 0;
@@ -34,6 +33,7 @@
 
 .social-networks a:hover, .social-networks a:focus {
   text-decoration: none;
+  outline: none;
 }
 
 .social-networks.bounce a:hover, .social-networks.bounce a:focus {
