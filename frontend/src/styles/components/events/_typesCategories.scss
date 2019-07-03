@@ -4,6 +4,12 @@
   width: 20%;
 }
 
+.category-link a{
+  outline: none;
+  border: 0;
+  text-decoration: none;
+}
+
 @media screen and (max-width: 992px) {
   .responsive-header .main-navigation {
     margin-top: 10px;

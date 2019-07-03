@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import "./eventInfo.scss";
 import {setEvent, loadEvent, clearEvent} from "../../actions/individualEvent";
 import {connect} from 'react-redux';
 import CountDownTimer from "./CountDownTimer";
 import Description from "./Description";
 import Footer from "./Footer";
+import Loader from "../common/Loader";
 
 class EventInfo extends Component {
     state = {
@@ -29,33 +29,33 @@ class EventInfo extends Component {
     }
 
     render() {
-        const { event } = this.props;
+        const {event} = this.props;
+        if(!event){
+            return (<Loader/>);
+        }
         return (
-            <div className="card text-center">
-                <div
-                    className="card-header"
-                    style={{padding: "0px", background: "transparent", margin: "0px"}}
-                >
+            <div className="card text-center item">
+                <div className="card-header"
+                     style={{padding: "0px", background: "transparent", marginTop: "5px"}}>
                     <h3
                         className="card-title display1"
                         style={{
                             fontFamily: "ZCOOL KuaiLe",
                             textShadow: "4px 4px 4px #aaa",
-                            fontSize: 70,
+                            fontSize: 60,
                             color: "#ff0066"
-                        }}
-                    >
+                        }}>
                         {event && event.name}
                     </h3>
                 </div>
                 <div className="card-body">
                     <div className="form">
                         <CountDownTimer startDate={new Date('November 1, 2019')}/>
-                        <Description/>
+                        <Description {...event}/>
                     </div>
                 </div>
-                <div className="card-footer" style={{background: "white"}}>
-                    <Footer/>
+                <div className="card-footer">
+                    <Footer name={event.name} coordinators={event.coordinators}/>
                 </div>
             </div>
         );

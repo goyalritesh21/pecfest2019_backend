@@ -63,7 +63,7 @@ export default () => {
                                         y: -y + imagedata.height / 2,
                                         z: 0
                                     };
-                                    vertex.speed = Math.random() / 200 + 0.015;
+                                    vertex.speed = Math.random() / 200 + 0.02;
                                     geometry.vertices.push(vertex);
                                 }
                             }
@@ -126,7 +126,7 @@ export default () => {
                         let index = Math.floor(Math.random() * particles.geometry.vertices.length);
                         let particle1 = particles.geometry.vertices[index];
                         let particle2 = particles.geometry.vertices[particles.geometry.vertices.length - index];
-                        TweenMax.to(particle, Math.random() * 2 + 1, {
+                        TweenMax.to(particle1, Math.random() * 2 + 1, {
                             x: particle2.x,
                             y: particle2.y,
                             ease: Power2.easeInOut

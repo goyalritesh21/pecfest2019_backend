@@ -3,7 +3,7 @@ import {returnErrors} from "./messages";
 
 import {
     EVENT_LOADED,
-    EVENTS_LOADING,
+    EVENT_LOADING,
     EVENT_ERROR,
     EVENT_REGISTER_SUCCESS,
     EVENT_REGISTER_FAIL, SET_EVENT, CLEAR_EVENT
@@ -15,7 +15,7 @@ export const clearEvent = () => (dispatch) => {
 };
 
 export const loadEvent = (eventId) => (dispatch) => {
-    dispatch({type: EVENTS_LOADING});
+    dispatch({type: EVENT_LOADING});
     axios.get(`api/events/${eventId}`)
         .then(res => {
             dispatch({
@@ -32,7 +32,7 @@ export const loadEvent = (eventId) => (dispatch) => {
 };
 
 export const registerEvent = (eventId) => (dispatch, getState) => {
-    dispatch({type: EVENTS_LOADING});
+    dispatch({type: EVENT_LOADING});
     const body = JSON.stringify({eventId});
     axios.post(`api/events/register/${eventId}`, body, tokenConfig(getState))
         .then(res => {

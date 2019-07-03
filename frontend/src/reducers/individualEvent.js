@@ -43,12 +43,14 @@ export default (state = initialState, action) => {
         case EVENT_REGISTER_SUCCESS:
             return {
                 ...state,
-                registered: true
+                registered: true,
+                eventLoading: false
             };
         case EVENT_REGISTER_FAIL:
             return {
                 ...state,
-                registered: false
+                registered: false,
+                eventLoading: false
             };
         default:
             return state;

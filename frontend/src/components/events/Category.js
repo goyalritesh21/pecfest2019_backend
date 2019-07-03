@@ -41,7 +41,7 @@ class Category extends Component {
         const {img} = this.state;
         const {category, id} = this.props;
         return (
-            <div className={"col-md-3"} style={{cursor: 'pointer'}} >
+            <div className={"col-md-3 category-link"} style={{cursor: 'pointer'}} >
                 {/* This div is for {this.props.category} Category. */}
                 <Link to={`/events/${id}`}>
                     <MDBCol md="4">

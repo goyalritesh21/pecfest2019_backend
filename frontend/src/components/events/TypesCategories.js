@@ -11,8 +11,8 @@ import Lectback from '../../../public/images/lectback.jpg';
 import Profile3 from '../../../public/images/profile3.jpg';
 import Workback from '../../../public/images/workback.jpg';
 import {categoryDict} from "../../data/events";
-import "./typesevent.scss";
 import {Link} from 'react-router-dom';
+import Loader from "../common/Loader";
 
 class Types extends Component {
     state = {
@@ -76,6 +76,9 @@ class Types extends Component {
     render() {
         const {name, img, imgback} = this.state;
         const {categories, events} = this.props;
+        if(!categories){
+            return (<Loader/>);
+        }
         return (
             <div>
                 <div className="sidebar-menu hidden-xs hidden-sm">

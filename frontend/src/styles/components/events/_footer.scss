@@ -4,14 +4,20 @@
   -o-transform: scale(1.1);
 }
 .social {
+  color: #eee;
+  margin: 5px;
   -webkit-transform: scale(0.8);
-  /* Browser Variations: */
-
   -moz-transform: scale(0.8);
   -o-transform: scale(0.8);
   -webkit-transition-duration: 0.5s;
   -moz-transition-duration: 0.5s;
   -o-transition-duration: 0.5s;
+}
+
+#footer a{
+  outline: none;
+  border: 0;
+  text-decoration: none;
 }
 
 /*
@@ -21,12 +27,9 @@
 #social-fb:hover {
   color: #3b5998;
 }
-#social-tw:hover {
-  color: #4099ff;
+#social-in:hover {
+  color: #C13584;
 }
-#social-gp:hover {
-  color: #d34836;
-}
-#social-em:hover {
-  color: #f39c12;
+#social-ma:hover {
+  color: #B23121;
 }
