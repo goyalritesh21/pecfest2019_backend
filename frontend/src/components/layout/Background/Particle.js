@@ -8,7 +8,7 @@ export default () => {
             const Window = window,
                 windowWidth = Window.innerWidth,
                 windowHeight = Window.innerHeight,
-                rendererCanvasID = "3D-particle-effect-canvas";
+                rendererCanvasID = "particle-effect-canvas";
 
             let renderer,
                 texture,

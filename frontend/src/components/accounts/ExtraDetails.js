@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {update} from '../../actions/auth';
 import {createMessage} from '../../actions/messages';
-import './loginRegisterStyle.css';
 import Loader from '../common/Loader';
 class ExtraDetails extends Component {
     state = {

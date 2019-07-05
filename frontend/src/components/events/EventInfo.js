@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {setEvent, loadEvent, clearEvent} from "../../actions/individualEvent";
+import {loadEvent, clearEvent} from "../../actions/individualEvent";
 import {connect} from 'react-redux';
 import CountDownTimer from "./CountDownTimer";
 import Description from "./Description";
@@ -13,7 +13,6 @@ class EventInfo extends Component {
     };
 
     static propTypes = {
-        setEvent: PropTypes.func.isRequired,
         loadEvent: PropTypes.func.isRequired,
         event: PropTypes.object,
         clearEvent: PropTypes.func.isRequired
@@ -35,16 +34,9 @@ class EventInfo extends Component {
         }
         return (
             <div className="card text-center item">
-                <div className="card-header"
-                     style={{padding: "0px", background: "transparent", marginTop: "5px"}}>
+                <div className="card-header">
                     <h3
-                        className="card-title display1"
-                        style={{
-                            fontFamily: "ZCOOL KuaiLe",
-                            textShadow: "4px 4px 4px #aaa",
-                            fontSize: 60,
-                            color: "#ff0066"
-                        }}>
+                        className="card-title display1">
                         {event && event.name}
                     </h3>
                 </div>
@@ -66,4 +58,4 @@ const mapStateToProps = (state) => ({
     event: state.individualEvent.event
 });
 
-export default connect(mapStateToProps, {setEvent, loadEvent, clearEvent})(EventInfo);
+export default connect(mapStateToProps, {loadEvent, clearEvent})(EventInfo);

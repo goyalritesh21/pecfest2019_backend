@@ -7,7 +7,7 @@ class ThreeScene extends Component {
     render() {
         return (
             <div>
-                <canvas id={"3D-particle-effect-canvas"}></canvas>
+                <canvas id={"particle-effect-canvas"}></canvas>
             </div>
         );
     }

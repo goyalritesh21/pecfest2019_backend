@@ -1,7 +1,6 @@
 html,
 body {
 
-  //background-color: black;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -11,6 +10,7 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
 html .slides,
 body .slides,
 html > .dg,
@@ -33,5 +33,12 @@ body > .dg {
   }
   body > .dg {
     display: block;
+  }
+}
+
+@media (max-width: 400px) {
+  .particle-effect-canvas {
+    width: 50%;
+    height: auto;
   }
 }
