@@ -24,7 +24,7 @@ class EventDetails(APIView):
             Event = event.objects.get(eventID__contains=eventID)
             if Event:
                 serializer = EventSerializer(Event)
-                print(serializer)
+                # print(serializer)
                 return Response({
                     "data": serializer.data,
                 })
@@ -63,7 +63,7 @@ class CategoryEvents(APIView):
         # categoryID = self.kwargs['categoryID']
         if categoryID:
             category = categoryID[:4]
-            print(category)
+            # print(category)
             # Tech Events handler
             if category == "tech":
                 key = categoryID[4:]
