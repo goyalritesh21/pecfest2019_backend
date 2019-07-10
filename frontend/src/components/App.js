@@ -7,7 +7,6 @@ import AlertTemplate from "react-alert-template-basic";
 import {HashRouter as Router} from "react-router-dom";
 import Background from "./layout/Background/Background";
 import Header from "./layout/Header";
-import Footer from "./layout/Footer";
 import Alerts from "./layout/Alerts";
 import {Provider as AlertProvider} from "react-alert";
 

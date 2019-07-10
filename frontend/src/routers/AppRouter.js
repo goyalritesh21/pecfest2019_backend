@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import Home from '../components/Pages/Home';
+// import AsyncComponent from '../components/common/AsyncComponent'
+// const Home = () => import('../components/Pages/Home');
 import Sponsors from '../components/Pages/Sponsors';
 import About from '../components/Pages/About';
 import Events from '../components/Pages/Events';
