@@ -66,7 +66,7 @@ export class Login extends Component {
                                     value={username}
                                     tabIndex="1"
                                     id="username"
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>
@@ -81,7 +81,7 @@ export class Login extends Component {
                                     value={password}
                                     tabIndex="2"
                                     autoComplete={"password"}
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>

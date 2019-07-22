@@ -74,7 +74,7 @@ export class Register extends Component {
                                     onChange={this.onChange}
                                     value={username}
                                     tabIndex="1"
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>
@@ -88,7 +88,7 @@ export class Register extends Component {
                                     onChange={this.onChange}
                                     value={email}
                                     tabIndex="2"
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>
@@ -102,7 +102,7 @@ export class Register extends Component {
                                     onChange={this.onChange}
                                     value={password}
                                     tabIndex="3"
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>
@@ -116,7 +116,7 @@ export class Register extends Component {
                                     onChange={this.onChange}
                                     value={password2}
                                     tabIndex="4"
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>

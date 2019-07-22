@@ -63,7 +63,7 @@ export default () => {
                                         y: -y + imagedata.height / 2,
                                         z: 0
                                     };
-                                    vertex.speed = Math.random() / 200 + 0.02;
+                                    vertex.speed = Math.random() / 200 + 0.03;
                                     geometry.vertices.push(vertex);
                                 }
                             }
