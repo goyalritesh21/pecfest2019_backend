@@ -11,6 +11,7 @@ class CountDownTimer extends Component {
     this.state = { days: 0, hours: 0, minutes: 0, seconds: 0 };
     this.startTimer = this.startTimer.bind(this);
   }
+  
 
   startTimer(milliSeconds) {
     var leftTime = milliSeconds - new Date().getTime();

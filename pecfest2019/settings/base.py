@@ -15,16 +15,16 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from decouple import config
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-# Quick-start development settings - unsuitable for production
+# Quick-start development settings - unsuitable for production.py
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keep the secret key used in production.py secret!
 SECRET_KEY = 'fktv0iw%mpfe$@i$nb@ln14wxiekx^=q0msiy6mztj@vr6vr98'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production.py!
 DEBUG = True
 
 ALLOWED_HOSTS = []

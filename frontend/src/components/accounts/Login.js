@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
-import './loginRegisterStyle.css';
 import Loader from "../common/Loader";
 export class Login extends Component {
     state = {
@@ -67,7 +66,7 @@ export class Login extends Component {
                                     value={username}
                                     tabIndex="1"
                                     id="username"
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>
@@ -82,7 +81,7 @@ export class Login extends Component {
                                     value={password}
                                     tabIndex="2"
                                     autoComplete={"password"}
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>

@@ -3,6 +3,7 @@
     "plugins": [
         "transform-flow-strip-types",
         "transform-class-properties",
-        ["transform-object-rest-spread", { "useBuiltIns": true }]
+        //["transform-object-rest-spread", { "useBuiltIns": true }]
+        "@babel/plugin-proposal-object-rest-spread"
     ]
 }

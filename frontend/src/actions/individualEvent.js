@@ -3,21 +3,25 @@ import {returnErrors} from "./messages";
 
 import {
     EVENT_LOADED,
-    EVENTS_LOADING,
+    EVENT_LOADING,
     EVENT_ERROR,
     EVENT_REGISTER_SUCCESS,
-    EVENT_REGISTER_FAIL, SET_EVENT
+    EVENT_REGISTER_FAIL, SET_EVENT, CLEAR_EVENT
 } from "./types";
 import {tokenConfig} from "./auth";
 
+export const clearEvent = () => (dispatch) => {
+    dispatch({type: CLEAR_EVENT});
+};
+
 export const loadEvent = (eventId) => (dispatch) => {
-    dispatch({type: EVENTS_LOADING});
+    dispatch({type: EVENT_LOADING});
     axios.get(`api/events/${eventId}`)
         .then(res => {
             dispatch({
                 type: EVENT_LOADED,
-                payload: res.data
-            })
+                payload: res.data.data
+            });
         })
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status));
@@ -28,7 +32,7 @@ export const loadEvent = (eventId) => (dispatch) => {
 };
 
 export const registerEvent = (eventId) => (dispatch, getState) => {
-    dispatch({type: EVENTS_LOADING});
+    dispatch({type: EVENT_LOADING});
     const body = JSON.stringify({eventId});
     axios.post(`api/events/register/${eventId}`, body, tokenConfig(getState))
         .then(res => {

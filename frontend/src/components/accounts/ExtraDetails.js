@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {update} from '../../actions/auth';
 import {createMessage} from '../../actions/messages';
-import './loginRegisterStyle.css';
 import Loader from '../common/Loader';
 class ExtraDetails extends Component {
     state = {
@@ -57,7 +56,7 @@ class ExtraDetails extends Component {
     };
 
     isValidNumber = (number) => {
-        return number.match(/[0-9]{10}/);
+        return number.match(/^(0)?([5-9][0-9]{9})$/);
     };
 
     onSubmit = (e) => {
@@ -121,7 +120,7 @@ class ExtraDetails extends Component {
                                     required
                                     value={firstName}
                                     tabIndex={"1"}
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>
@@ -136,7 +135,7 @@ class ExtraDetails extends Component {
                                     required
                                     value={lastName}
                                     tabIndex={"2"}
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>
@@ -153,7 +152,7 @@ class ExtraDetails extends Component {
                                     required
                                     value={college}
                                     tabIndex={"3"}
-                                    spellcheck="false"
+                                    spellCheck="false"
                                 />
                             </div>
                         </div>
@@ -187,7 +186,7 @@ class ExtraDetails extends Component {
                                 required
                                 value={address}
                                 tabIndex={"5"}
-                                spellcheck="false"
+                                spellCheck="false"
                             />
                         </div>
                         </div>
@@ -202,7 +201,7 @@ class ExtraDetails extends Component {
                                 required
                                 value={contactNumber}
                                 tabIndex={"6"}
-                                spellcheck="false"
+                                spellCheck="false"
                             />
                         </div>
                     </div>

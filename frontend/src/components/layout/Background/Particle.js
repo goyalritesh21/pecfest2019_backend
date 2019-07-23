@@ -8,7 +8,7 @@ export default () => {
             const Window = window,
                 windowWidth = Window.innerWidth,
                 windowHeight = Window.innerHeight,
-                rendererCanvasID = "3D-particle-effect-canvas";
+                rendererCanvasID = "particle-effect-canvas";
 
             let renderer,
                 texture,
@@ -63,7 +63,7 @@ export default () => {
                                         y: -y + imagedata.height / 2,
                                         z: 0
                                     };
-                                    vertex.speed = Math.random() / 200 + 0.015;
+                                    vertex.speed = Math.random() / 200 + 0.03;
                                     geometry.vertices.push(vertex);
                                 }
                             }
@@ -84,7 +84,7 @@ export default () => {
                         flatShading: THREE.FlatShading
                     });
 
-                for (let i = 0; i < 1200; i++) {
+                for (let i = 0; i < 900; i++) {
                     let mesh = new THREE.Mesh(geometryPR, materialPR);
                     mesh.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
                     mesh.position.multiplyScalar(90 + Math.random() * 700);
@@ -103,12 +103,12 @@ export default () => {
                 scene.add(lights[0]);
                 scene.add(lights[1]);
                 scene.add(lights[2]);
-                document.addEventListener("mousemove", onDocumentMouseMove, false);
-                document.addEventListener("touchstart", onDocumentTouchStart, false);
-                document.addEventListener("touchmove", onDocumentTouchMove, false);
-                document.addEventListener("mousedown", onDocumentMouseDown, false);
-                document.addEventListener("mouseup", onDocumentMouseUp, false);
-                Window.addEventListener("resize", onWindowResize, false);
+                document.addEventListener("mousemove", onDocumentMouseMove,   false );
+                document.addEventListener("touchstart", onDocumentTouchStart, {passive:false}  );
+                document.addEventListener("touchmove", onDocumentTouchMove,   {passive:false} );
+                document.addEventListener("mousedown", onDocumentMouseDown,   false );
+                document.addEventListener("mouseup", onDocumentMouseUp,  false );
+                Window.addEventListener("resize", onWindowResize,  false );
             };
 
             const render = () => {
@@ -126,7 +126,7 @@ export default () => {
                         let index = Math.floor(Math.random() * particles.geometry.vertices.length);
                         let particle1 = particles.geometry.vertices[index];
                         let particle2 = particles.geometry.vertices[particles.geometry.vertices.length - index];
-                        TweenMax.to(particle, Math.random() * 2 + 1, {
+                        TweenMax.to(particle1, Math.random() * 2 + 1, {
                             x: particle2.x,
                             y: particle2.y,
                             ease: Power2.easeInOut

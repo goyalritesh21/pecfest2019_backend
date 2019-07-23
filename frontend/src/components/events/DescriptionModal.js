@@ -1,53 +1,71 @@
-import React, { Component } from "react";
+import React, {Component, Fragment} from "react";
+import {Modal, Button} from 'react-bootstrap';
+
+const MyModal = (props) => (
+    <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        scrollable={true}
+        centered>
+        <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+                {props.heading}
+            </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            {/*<h4>Centered Modal</h4>*/}
+            <p>
+                {props.content}
+            </p>
+        </Modal.Body>
+        <Modal.Footer>
+            <Button onClick={props.onHide}>Close</Button>
+        </Modal.Footer>
+    </Modal>
+
+);
+
 class DescriptionModal extends Component {
-  state = {};
-  render() {
-    const { contentId } = this.props;
-    const dataTarget = "#" + contentId;
-    console.log(contentId);
-    return (
-      <React.Fragment>
-        <p>
-          Center the modal vertically and horizontally within the page, with the
-          .modal-dialog-centered className.
-          <a
-            href="ab"
-            className="btn-sm btn-tertiary"
-            data-toggle="modal"
-            data-target={dataTarget}
-            style={{ margin: "0px 2px" }}
-          >
-            Know More..
-          </a>
-        </p>
+    state = {
+        modalShow: false
+    };
 
-        <div className="modal fade" id={contentId}>
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title">Modal Heading</h4>
-                <button type="button" className="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
+    modalClose = () => {
+        this.setState((prevState) => ({modalShow: !prevState.modalShow}))
+    };
 
-              <div className="modal-body">Modal body..</div>
+    render() {
+        const {content, modalHeading, modalContent, modalRequired, contentId} = this.props;
+        console.log(content);
+        return (
+            <Fragment>
+                    {(contentId === "rules" || contentId==="venue") ? (<ul>
+                        {
+                            content.map(([name, value], index)=>(
+                                <li key={index}><label>{name}:</label> {value}</li>
+                            ))
+                        }
+                    </ul>) : (<p>{content}</p>)
+                    }
+                { modalRequired && <label
+                        className={"modal-link"}
+                        onClick={() => {
+                            this.setState(() => ({modalShow: true}))
+                        }}>
+                        Know More...
+                    </label>}
 
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </React.Fragment>
-    );
-  }
+                {modalRequired && <MyModal
+                    show={this.state.modalShow}
+                    onHide={this.modalClose}
+                    heading={modalHeading}
+                    content={modalContent}
+                />}
+
+            </Fragment>
+        );
+    }
 }
 
 export default DescriptionModal;

@@ -5,8 +5,12 @@ import {
     EVENTS_ERROR,
     EVENTS_LOADED,
     EVENTS_LOADING,
-    SET_CATEGORY
+    SET_CATEGORY, CLEAR_EVENTS
 } from "./types";
+
+export const clearEvents = () => (dispatch) => {
+    dispatch({type: CLEAR_EVENTS});
+};
 
 export const loadEvents = (categoryId) => (dispatch) => {
     dispatch({type: EVENTS_LOADING});
@@ -18,7 +22,7 @@ export const loadEvents = (categoryId) => (dispatch) => {
             })
         })
         .catch(err => {
-            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch(returnErrors("Events cannot be loaded", err.response.status));
             dispatch({
                 type: EVENTS_ERROR
             });

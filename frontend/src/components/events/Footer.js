@@ -1,27 +1,20 @@
-import React, { Component } from "react";
-import "./Footer.css";
-class Footer extends Component {
-  state = {};
-  render() {
+import React from "react";
+
+export default (props) => {
     return (
-      <div class="container">
-        <p class="txt-railway">- Event Coordinators -</p>
-        <br />
-        <a href="https://www.facebook.com/bootsnipp">
-          <i id="social-fb" class="fa fa-facebook-square fa-3x social" />
-        </a>
-        <a href="https://twitter.com/bootsnipp">
-          <i id="social-tw" class="fa fa-twitter-square fa-3x social" />
-        </a>
-        <a href="https://plus.google.com/+Bootsnipp-page">
-          <i id="social-gp" class="fa fa-google-plus-square fa-3x social" />
-        </a>
-        <a href="mailto:bootsnipp@gmail.com">
-          <i id="social-em" class="fa fa-envelope-square fa-3x social" />
-        </a>
-      </div>
+        <div className="container" id={"footer"}>
+            <p className="txt-railway">- Event Coordinators -</p>
+            <br/>
+            <a href={"https://www.facebook.com/pecfestofficial/"} target={"_blank"}>
+                <i id="social-fb" className="fab fa-facebook-f fa-3x social"/>
+            </a>
+            <a href={"https://www.instagram.com/pec.pecfest/"} target={"_blank"}>
+                <i id="social-in" className="fab fa-instagram fa-3x social"/>
+            </a>
+            <a href={`mailto:goyalritesh21@gmail.com?Subject=Query%20regarding%20${props.name}`} target={"_top"}>
+                <i id="social-ma" className="fas fa-envelope fa-3x social"/>
+            </a>
+        </div>
     );
-  }
 }
 
-export default Footer;
