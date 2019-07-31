@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'frontend',
     'knox',
     'accounts',
-    'events'
+    'events',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -57,6 +58,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -65,6 +67,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'http://localhost:8800'
+)
 
 ROOT_URLCONF = 'pecfest2019.urls'
 
@@ -138,6 +147,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+CSRF_COOKIE_NAME = "csrftoken"
 
 STATIC_URL = '/static/'
 
