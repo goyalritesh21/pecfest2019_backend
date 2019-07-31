@@ -46,7 +46,7 @@ class Category extends Component {
                 <Link to={`/events/${id}`}>
                     <MDBCol md="4">
                         <MDBCard className="mb-2">
-                            <MDBCardImage className="img-fluid" src={img}/>
+                            <MDBCardImage className="img-category" src={img}/>
                             <MDBCardBody>
                                 <MDBCardTitle>{category}</MDBCardTitle>
                                 <MDBCardText>

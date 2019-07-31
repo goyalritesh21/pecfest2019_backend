@@ -66,7 +66,19 @@
   width: 100%;
   height: 100%;
 }
+// @media screen and (min-width:1152px){
+//   .main_div {
+//       justify-content: space-between;
+//   }
 
+//   .sidebar-menu {
+//       order:2;
+//   }
+
+//   .landing-section {
+//       order:1;
+//   }
+// }
 @media screen and (max-width: 992px) {
   .responsive-header .profile-image {
     float: left;
@@ -142,23 +154,28 @@ h3.profile-title {
     background: #5f6d7e !important;
   }
 }
+.main_div {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: center;
+}
 
 .sidebar-menu {
-  float: left;
+  // float: left;
   width: 23%;
-  height: 100%;
-  position: fixed;
+  height: 100vh;
+  // position: fixed;
   background-color: #5f6d7e;
   color: white;
   overflow-y: hidden;
 }
 
-@media screen and (max-width: 1290px) {
-  .sidebar-menu {
-    overflow-y: scroll;
-    width: 30%;
-  }
-}
+// @media screen and (max-width: 1290px) {
+//   .sidebar-menu {
+//     overflow-y: scroll;
+//     width: 30%;
+//   }
+// }
 
 .navigation {
   padding-left: 0;
@@ -181,6 +198,35 @@ h3.profile-title {
   .banner-bg {
     width: 100%;
   }
+}
+@media screen and (max-width:992px){
+  .main_div {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+
+  }
+  .sidebar-menu {
+          width: 100%;
+      }
+    
+      #landing-section {
+          width: 100% !important;
+          // overflow: hidden !important;
+          scrollbar-width: none !important; /* Firefox */
+        -ms-overflow-style: none !important;  /* IE 10+ */
+      }
+      ::-webkit-scrollbar {
+        width: 0em;
+        height: 0em;
+    }
+     
+      .event {
+        height: 20vw !important;
+      }
+      .card .card-front .headText p {
+          font-size: 9px !important;
+      }
 }
 
 .banner-bg {
@@ -241,8 +287,9 @@ ul {
   height: 100vh;
   // width: 100vw;
   display: block;
-  float: right;
+  // float: right;
   width: 77%;
+  overflow: auto;
 }
 
 .landing {
@@ -287,8 +334,8 @@ ul {
   height: 100vh;
   // width: 100vw;
   display: block;
-  float: right;
-  width: 77%;
+  // float: right;
+  // width: 77%;
   padding: 75px 0;
   background-color: rgba(240, 240, 240, 0.5);
 }

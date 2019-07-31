@@ -10,12 +10,13 @@ body {
 }
 
 .overlay-2 {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   position: fixed;
   z-index: 50;
   top: 0;
   left: 0;
+  // overflow: auto;
 }
 
 #App {

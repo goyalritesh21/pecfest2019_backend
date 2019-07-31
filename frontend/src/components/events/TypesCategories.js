@@ -96,7 +96,7 @@ class Types extends Component {
       return <Loader />;
     }
     return (
-      <div>
+      <div className="main_div">
         <div className="sidebar-menu hidden-xs hidden-sm">
           <div className="top-section">
             <div className="profile-image">
@@ -141,7 +141,7 @@ class Types extends Component {
               </div>
             )}
           </div>
-        </section>
+        
 
         {events.length > 0 ? (
           <section id="events-section" ref={this.main}>
@@ -184,6 +184,7 @@ class Types extends Component {
             </div>
           </section>
         ) : null}
+        </section>
       </div>
     );
   }
