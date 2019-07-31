@@ -56,7 +56,7 @@ class ExtraDetails extends Component {
     };
 
     isValidNumber = (number) => {
-        return number.match(/[0-9]{10, 10}/);
+        return number.match(/^(0)?([5-9][0-9]{9})$/);
     };
 
     onSubmit = (e) => {

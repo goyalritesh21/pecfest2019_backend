@@ -103,12 +103,12 @@ export default () => {
                 scene.add(lights[0]);
                 scene.add(lights[1]);
                 scene.add(lights[2]);
-                document.addEventListener("mousemove", onDocumentMouseMove, false);
-                document.addEventListener("touchstart", onDocumentTouchStart, false);
-                document.addEventListener("touchmove", onDocumentTouchMove, false);
-                document.addEventListener("mousedown", onDocumentMouseDown, false);
-                document.addEventListener("mouseup", onDocumentMouseUp, false);
-                Window.addEventListener("resize", onWindowResize, false);
+                document.addEventListener("mousemove", onDocumentMouseMove,   false );
+                document.addEventListener("touchstart", onDocumentTouchStart, {passive:false}  );
+                document.addEventListener("touchmove", onDocumentTouchMove,   {passive:false} );
+                document.addEventListener("mousedown", onDocumentMouseDown,   false );
+                document.addEventListener("mouseup", onDocumentMouseUp,  false );
+                Window.addEventListener("resize", onWindowResize,  false );
             };
 
             const render = () => {
