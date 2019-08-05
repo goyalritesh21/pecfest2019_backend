@@ -67,8 +67,6 @@ class UserRegisterAPI(generics.GenericAPIView):
         for key in data.keys():
             if key != "id":
                 val = data[key]
-                print(key)
-                print(val)
                 if key == "accommodation" or key == "firstTimer":
                     if data[key] == "false":
                         val = False

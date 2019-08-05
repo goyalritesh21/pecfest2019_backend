@@ -1,7 +1,10 @@
+from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.views import APIView
-from events.models import event
+
+from accounts.serializers import UserSerializer
+from events.models import event, registration
 from events.serializers import EventSerializer
 import json
 
@@ -110,3 +113,38 @@ class EventList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RegisterAPI(APIView):
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+    def get(self, request):
+
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+    def post(self, request):
+        data = request.data
+
+        if 'EventID' in data.keys() and 'username' in data.keys():
+
+            user = User.objects.get(username__exact=data['username'])
+            Event = event.objects.get(eventID__exact=data['EventID'])
+            if user and Event and not registration.objects.filter(RegEvent=data['EventID'], user=User).exists():
+
+                reg = registration.objects.create()
+                reg.RegEvent = Event
+                reg.Participant = user
+                reg.save()
+
+                context = {
+                    "response": True,
+                }
+                return Response(context, status= status.HTTP_201_CREATED)
+
+        context = {
+            "response": False,
+        }
+        return Response(context, status=status.HTTP_400_BAD_REQUEST)

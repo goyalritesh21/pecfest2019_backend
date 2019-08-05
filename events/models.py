@@ -1,6 +1,9 @@
+import datetime
+
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
+from accounts.models import Participant
 
 
 class club(models.Model):
@@ -21,7 +24,7 @@ class event(models.Model):
 
     #Venue and Date
     locations = models.CharField(max_length=100)
-    dateTime = models.DateTimeField(verbose_name="Date and Time of Event", auto_now=True)
+    dateTime = models.DateTimeField(verbose_name="Date and Time of Event", default=datetime.datetime.now())
 
     #Prize Details
     prize = models.TextField(blank=True)
@@ -46,4 +49,11 @@ class event(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class registration(models.Model):
+
+    RegEvent = models.ForeignKey(event, on_delete=models.CASCADE)
+    Participant = models.ForeignKey(User, on_delete=models.CASCADE)
+    DateTime = models.DateTimeField(auto_now=True)
 
