@@ -133,15 +133,23 @@ class RegisterAPI(APIView):
             user = User.objects.get(username__exact=data['username'])
             Event = event.objects.get(eventID__exact=data['eventID'])
 
-            if user and Event :
+            if user and Event:
 
-                reg = registration.objects.create(RegEvent = Event,Participant = user)
-                reg.save()
+                if not registration.objects.filter(RegEvent=Event).filter(Participant=user).exists():
+                    reg = registration.objects.create(RegEvent = Event,Participant = user)
+                    reg.save()
 
-                context = {
-                    "response": True,
-                }
-                return Response(context, status= status.HTTP_201_CREATED)
+                    context = {
+                        "response": True,
+                    }
+                    return Response(context, status= status.HTTP_201_CREATED)
+
+                else:
+
+                    context = {
+                        "response": False,
+                    }
+                    return Response(context, status=status.HTTP_302_FOUND)
 
         context = {
             "response": False,

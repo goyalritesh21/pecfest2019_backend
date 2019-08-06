@@ -56,3 +56,6 @@ class registration(models.Model):
     Participant = models.OneToOneField(User, on_delete=models.CASCADE, related_name='Participant')
     DateTime = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.RegEvent.name + " " + self.Participant.username
+
