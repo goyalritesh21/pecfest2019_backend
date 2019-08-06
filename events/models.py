@@ -3,7 +3,6 @@ import datetime
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
-from accounts.models import Participant
 
 
 class club(models.Model):
@@ -53,7 +52,7 @@ class event(models.Model):
 
 class registration(models.Model):
 
-    RegEvent = models.ForeignKey(event, on_delete=models.CASCADE)
-    Participant = models.ForeignKey(User, on_delete=models.CASCADE)
+    RegEvent = models.OneToOneField(event, on_delete=models.CASCADE, related_name='RegEvent')
+    Participant = models.OneToOneField(User, on_delete=models.CASCADE, related_name='Participant')
     DateTime = models.DateTimeField(auto_now=True)
 

@@ -128,15 +128,14 @@ class RegisterAPI(APIView):
     def post(self, request):
         data = request.data
 
-        if 'EventID' in data.keys() and 'username' in data.keys():
+        if 'eventID' in data.keys() and 'username' in data.keys():
 
             user = User.objects.get(username__exact=data['username'])
-            Event = event.objects.get(eventID__exact=data['EventID'])
-            if user and Event and not registration.objects.filter(RegEvent=data['EventID'], user=User).exists():
+            Event = event.objects.get(eventID__exact=data['eventID'])
 
-                reg = registration.objects.create()
-                reg.RegEvent = Event
-                reg.Participant = user
+            if user and Event :
+
+                reg = registration.objects.create(RegEvent = Event,Participant = user)
                 reg.save()
 
                 context = {
@@ -147,4 +146,4 @@ class RegisterAPI(APIView):
         context = {
             "response": False,
         }
-        return Response(context, status=status.HTTP_400_BAD_REQUEST)
+        return Response(context, status=status.HTTP_404_NOT_FOUND)
