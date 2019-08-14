@@ -52,8 +52,8 @@ class event(models.Model):
 
 class registration(models.Model):
 
-    RegEvent = models.OneToOneField(event, on_delete=models.CASCADE, related_name='RegEvent')
-    Participant = models.OneToOneField(User, on_delete=models.CASCADE, related_name='Participant')
+    RegEvent = models.ForeignKey(event, on_delete=models.CASCADE, related_name='RegEvent')
+    Participant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Participant')
     DateTime = models.DateTimeField(auto_now=True)
 
     def __str__(self):

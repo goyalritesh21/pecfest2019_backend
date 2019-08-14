@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'frontend',
     'knox',
     'accounts',
-    'events'
+    'events',
+    'background_task',
 ]
 
 REST_FRAMEWORK = {

@@ -3,10 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.views import APIView
 
-from accounts.serializers import UserSerializer
 from events.models import event, registration
 from events.serializers import EventSerializer
-import json
+from .tasks import notify_user
+
 
 ListOfTechnicalCategories = {
     "1" : "aerospace",
@@ -136,12 +136,14 @@ class RegisterAPI(APIView):
             if user and Event:
 
                 if not registration.objects.filter(RegEvent=Event).filter(Participant=user).exists():
-                    reg = registration.objects.create(RegEvent = Event,Participant = user)
-                    reg.save()
+                    #reg = registration.objects.create(RegEvent = Event,Participant = user)
+                    #reg.save()
 
                     context = {
                         "response": True,
                     }
+                    event_data = EventSerializer(Event)
+                    notify_user(event_data.data, data['username'])
                     return Response(context, status= status.HTTP_201_CREATED)
 
                 else:
