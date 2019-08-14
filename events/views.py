@@ -136,8 +136,8 @@ class RegisterAPI(APIView):
             if user and Event:
 
                 if not registration.objects.filter(RegEvent=Event).filter(Participant=user).exists():
-                    #reg = registration.objects.create(RegEvent = Event,Participant = user)
-                    #reg.save()
+                    reg = registration.objects.create(RegEvent = Event,Participant = user)
+                    reg.save()
 
                     context = {
                         "response": True,

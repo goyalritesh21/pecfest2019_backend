@@ -1,7 +1,6 @@
 from background_task import background
 from django.contrib.auth.models import User
-from django.core import serializers
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail
 
 
 @background(schedule=2)
