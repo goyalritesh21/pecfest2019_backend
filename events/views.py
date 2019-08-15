@@ -157,3 +157,39 @@ class RegisterAPI(APIView):
             "response": False,
         }
         return Response(context, status=status.HTTP_404_NOT_FOUND)
+
+
+class CheckRegistrationAPI(APIView):
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+    def post(self, request):
+        data = request.data
+
+        if 'eventID' in data.keys() and 'username' in data.keys():
+
+            user = User.objects.get(username__exact=data['username'])
+            Event = event.objects.get(eventID__exact=data['eventID'])
+
+            if user and Event:
+
+                if registration.objects.filter(RegEvent=Event).filter(Participant=user).exists():
+
+                    context = {
+                        "response" : True,
+                    }
+                    return Response(context, status=status.HTTP_200_OK)
+
+                else:
+
+                    context = {
+                        "response": False,
+                    }
+                    return Response(context, status=status.HTTP_200_OK)
+
+        context = {
+            "response": False,
+        }
+        return Response(context, status=status.HTTP_404_NOT_FOUND)
