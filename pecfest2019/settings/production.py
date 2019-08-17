@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fktv0iw%mpfe$@i$nb@ln14wxiekx^=q0msiy
 # SECURITY WARNING: don't run with debug turned on in production.py!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1:8000"]
 
 
 # Application definition
@@ -95,8 +95,8 @@ WSGI_APPLICATION = 'pecfest2019.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'read_default_file': '/etc/mysql/my.cnf',
     }
 }
 
