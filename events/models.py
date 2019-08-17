@@ -23,7 +23,7 @@ class event(models.Model):
 
     #Venue and Date
     locations = models.CharField(max_length=100)
-    dateTime = models.DateTimeField(verbose_name="Date and Time of Event", default=datetime.datetime.now())
+    dateTime = models.DateTimeField(verbose_name="Date and Time of Event", default=datetime.datetime.now)
 
     #Prize Details
     prize = models.TextField(blank=True)
