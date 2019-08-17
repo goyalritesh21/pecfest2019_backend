@@ -96,11 +96,7 @@ WSGI_APPLICATION = 'pecfest2019.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'PECFEST',
-        'USER': 'root',
-        'PASSWORD': 'Madhav1377',
-        'HOST': 'localhost',
-        'PORT': '',
+        'read_default_file': '/etc/mysql/my.cnf',
     }
 }
 
