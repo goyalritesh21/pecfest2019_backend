@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'knox',
     'accounts',
     'events',
+    'corsheaders',
     'background_task',
 ]
 
@@ -58,6 +59,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,6 +68,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'http://localhost:8800'
+)
 
 ROOT_URLCONF = 'pecfest2019.urls'
 
@@ -131,7 +140,7 @@ AUTHENTICATION_BACKENDS = (
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -151,3 +160,11 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'webmasterpecfest19@gmail.com'
+EMAIL_HOST_PASSWORD = 'kvkxgajmkrlpihtq'
+
