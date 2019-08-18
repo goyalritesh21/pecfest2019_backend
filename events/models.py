@@ -65,6 +65,7 @@ class sponsor(models.Model):
     Name = models.CharField(max_length=100, null=False)
     Tagline = models.CharField(max_length=500, blank=True, null=True)
     partnership = models.CharField(max_length=100, blank=True, null=True)
+    Logo = models.ImageField(upload_to='Images/sponsors/', null=True, blank=True)
 
     def __str__(self):
         return self.Name
