@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fktv0iw%mpfe$@i$nb@ln14wxiekx^=q0msiy6mztj@vr6vr98')
 
 # SECURITY WARNING: don't run with debug turned on in production.py!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1:8000"]
+ALLOWED_HOSTS = ["127.0.0.1", "13.233.139.139"]
 
 
 # Application definition
@@ -157,6 +157,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "frontend/static")
 ]
+
+STATIC_ROOT = 'static'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
