@@ -59,3 +59,13 @@ class registration(models.Model):
     def __str__(self):
         return self.RegEvent.name + " " + self.Participant.username
 
+
+class sponsor(models.Model):
+
+    Name = models.CharField(max_length=100, null=False)
+    Tagline = models.CharField(max_length=500, blank=True, null=True)
+    partnership = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.Name
+
