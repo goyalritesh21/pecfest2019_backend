@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User
+from knox.models import AuthToken
 from rest_framework import generics, permissions
 from rest_framework.response import Response
-from knox.models import AuthToken
+
 from accounts.models import Participant
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, ParticipantSerializer
 
 
-#Register API
+# Register API
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
@@ -25,7 +26,7 @@ class RegisterAPI(generics.GenericAPIView):
         })
 
 
-#Login API
+# Login API
 class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
@@ -40,7 +41,7 @@ class LoginAPI(generics.GenericAPIView):
         })
 
 
-#Get User API
+# Get User API
 class UserAPI(generics.RetrieveAPIView):
     permission_classes = [
         permissions.IsAuthenticated,
@@ -51,9 +52,8 @@ class UserAPI(generics.RetrieveAPIView):
         return self.request.user
 
 
-#More User Info
+# More User Info
 class UserRegisterAPI(generics.GenericAPIView):
-
     permission_classes = [
         permissions.IsAuthenticated,
     ]
@@ -78,6 +78,5 @@ class UserRegisterAPI(generics.GenericAPIView):
         user.last_name = data['lastName']
         user.save()
         return Response({
-            "user" : UserSerializer(user, context=self.get_serializer_context()).data,
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
         })
-
