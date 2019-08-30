@@ -1,9 +1,8 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions
 
 from events.models import Event, Registration, Club, Sponsor
-from events.serializers import get_dynamic_serializer, EventSerializer, UserSerializer
+from events.serializers import get_dynamic_serializer, UserSerializer
 
 ListOfTechnicalCategories = {
     "1": "aerospace",
@@ -26,7 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
-    serializer_class = EventSerializer
+    serializer_class = get_dynamic_serializer(Event)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 

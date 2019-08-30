@@ -24,7 +24,7 @@ class Club(BaseModel):
     name = models.CharField(max_length=64)
 
     def __str__(self):
-        return str([self.name])
+        return self.name
 
 
 class Event(BaseModel):
