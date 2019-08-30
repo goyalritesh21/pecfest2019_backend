@@ -17,7 +17,6 @@ from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-
 # Quick-start development settings - unsuitable for production.py
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fktv0iw%mpfe$@i$nb@ln14wxiekx^=q0msiy
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "13.233.139.139"]
-
 
 # Application definition
 
@@ -48,13 +46,12 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
-    ),
-
-    'DEFAULT_PERMISSION_CLASSES': (
-    )
+    ],
 }
 
 MIDDLEWARE = [
@@ -97,7 +94,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pecfest2019.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -105,12 +101,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-           'read_default_file': '/etc/mysql/my.cnf',
-         }
+            'read_default_file': '/etc/mysql/my.cnf',
+        }
 
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -147,7 +142,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
@@ -167,6 +161,3 @@ EMAIL_HOST_PASSWORD = 'kvkxgajmkrlpihtq'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-
-

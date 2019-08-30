@@ -5,23 +5,37 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils import timezone
 
-from events.enums import Category, EventType
-
 
 class BaseModel(models.Model):
-    created = models.DateTimeField(editable=False)
-    modified = models.DateTimeField()
+    record_created = models.DateTimeField(editable=False, auto_now_add=True)
+    record_modified = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """
         if not self.id:
-            self.created = timezone.now()
-        self.modified = timezone.now()
+            self.record_created = timezone.now()
+        self.record_modified = timezone.now()
         return super(BaseModel, self).save(*args, **kwargs)
 
 
 class Club(BaseModel):
     name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
+
+
+class EventCategory(BaseModel):
+    name = models.CharField(max_length=256, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
+class EventType(BaseModel):
+    name = models.CharField(max_length=256, null=False, blank=False)
+    category = models.ForeignKey(EventCategory, on_delete=models.CASCADE, null=True, blank=True,
+                                 related_name='event_types')
 
     def __str__(self):
         return self.name
@@ -44,10 +58,11 @@ class Event(BaseModel):
     maxTeam = models.IntegerField(verbose_name="Maximum Size of the Team", validators=[MinValueValidator(0)], default=0)
 
     # Detailed Info
-    eventType = models.CharField(max_length=256, choices=EventType.choices(), null=True, blank=True)
-    category = models.CharField(max_length=256, choices=Category.choices(), null=True, blank=True)
+    eventType = models.ForeignKey(EventType, verbose_name="Type of the event",
+                                  on_delete=models.SET_NULL, null=True, related_name='events')
+
     association = models.ForeignKey(Club, verbose_name="Name of the club/society associated with this event",
-                                    on_delete=models.SET_NULL, null=True, blank=True)
+                                    on_delete=models.SET_NULL, null=True, blank=True, related_name='events')
     details = models.TextField(blank=True)
     shortDescription = models.TextField(blank=True, verbose_name="Short Description about event")
     ruleList = models.TextField(blank=True, verbose_name="List of the rules")

@@ -4,6 +4,8 @@ from rest_framework import serializers
 
 def get_dynamic_serializer(cls):
     class CustomSerializer(serializers.HyperlinkedModelSerializer):
+        id = serializers.IntegerField(read_only=True)
+
         class Meta:
             model = cls
             fields = '__all__'

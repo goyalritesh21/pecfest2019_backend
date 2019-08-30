@@ -46,13 +46,12 @@ task_ = [
 INSTALLED_APPS = task_
 
 REST_FRAMEWORK = {
-
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
-    ),
-
-    'DEFAULT_PERMISSION_CLASSES': (
-    )
+    ],
 }
 
 MIDDLEWARE = [
