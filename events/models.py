@@ -34,8 +34,8 @@ class EventCategory(BaseModel):
 
 class EventType(BaseModel):
     name = models.CharField(max_length=256, null=False, blank=False)
-    category = models.ForeignKey(EventCategory, on_delete=models.CASCADE, null=True, blank=True,
-                                 related_name='event_types')
+    eventCategory = models.ForeignKey(EventCategory, on_delete=models.CASCADE, null=True, blank=True,
+                                      related_name='event_types')
 
     def __str__(self):
         return self.name

@@ -7,7 +7,8 @@ from rest_framework.views import APIView
 
 from events.filters import EventFilter
 from events.models import Event, Registration, Club, Sponsor, EventCategory, EventType
-from events.serializers import get_dynamic_serializer, UserSerializer
+from events.serializers import get_dynamic_serializer, UserSerializer, EventSerializer, EventTypeSerializer, \
+    EventCategorySerializer
 from events.tasks import notify_user
 
 AUTH_USER_MODEL = get_user_model()
@@ -21,19 +22,19 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class EventCategoryViewSet(viewsets.ModelViewSet):
     queryset = EventCategory.objects.all()
-    serializer_class = get_dynamic_serializer(EventCategory)
+    serializer_class = EventCategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class EventTypeViewSet(viewsets.ModelViewSet):
     queryset = EventType.objects.all()
-    serializer_class = get_dynamic_serializer(EventType)
+    serializer_class = EventTypeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
-    serializer_class = get_dynamic_serializer(Event)
+    serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filterset_class = EventFilter
 
