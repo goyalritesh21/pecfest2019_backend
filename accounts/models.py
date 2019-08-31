@@ -15,14 +15,12 @@ class Participant(models.Model):
     yearOfStudy = models.IntegerField(null=True, default=1, verbose_name="Year of Study", validators=[
         MaxValueValidator(limit_value=5, message="Year Not valid"),
         MinValueValidator(limit_value=1, message="Year Not valid")
-    ]
-                                      )
+    ])
     firstTimer = models.BooleanField(default=True)
     gender = models.IntegerField(null=True, default=0, validators=[
         MaxValueValidator(limit_value=2, message="Gender Not valid"),
         MinValueValidator(limit_value=0, message="Gender Not valid")
-    ]
-                                 )
+    ])
 
     def __str__(self):
         return str(self.pk)

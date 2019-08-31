@@ -36,6 +36,7 @@ task_ = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework',
     'knox',
     'accounts',
@@ -46,9 +47,7 @@ task_ = [
 INSTALLED_APPS = task_
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ],
+    'DEFAULT_PERMISSION_CLASSES': [],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
     ],

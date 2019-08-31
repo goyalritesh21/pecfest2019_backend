@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+from knox.auth import TokenAuthentication
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from events.filters import EventFilter
 from events.models import Event, Registration, Club, Sponsor, EventCategory, EventType
 from events.serializers import get_dynamic_serializer, UserSerializer
 from events.tasks import notify_user
@@ -33,6 +35,18 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = get_dynamic_serializer(Event)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filterset_class = EventFilter
+
+    def get_event_category(self):
+        try:
+            return Event.objects.get(pk=self.kwargs['id']).eventType.category
+        except Event.DoesNotExist:
+            return None
+
+    def get_filterset_kwargs(self):
+        return {
+            'eventCategory': self.get_event_category(),
+        }
 
 
 class ClubViewSet(viewsets.ModelViewSet):
@@ -53,58 +67,9 @@ class SponsorViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class EventByCategory(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    def get(self, request, category_id):
-        if not EventCategory.objects.filter(id=category_id).exists():
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        category = EventCategory.objects.get(id=category_id)
-        events = {
-            category.name: {
-
-            }
-        }
-
-        for event_type in category.event_types.all():
-            if event_type.name not in events[category.name]:
-                events[category.name][event_type.name] = []
-
-            for event in event_type.events.all():
-                events[category.name][event_type.name].append({
-                    "id": event.id,
-                    "name": event.name,
-                })
-
-        return Response(events)
-
-
-class EventByType(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    def get(self, request, type_id):
-        if not EventType.objects.filter(id=type_id).exists():
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        event_type = EventType.objects.get(id=type_id)
-        events = {
-            event_type.category.name: {
-                event_type.name: []
-            }
-        }
-
-        for event in event_type.events.all():
-            events[event_type.category.name][event_type.name].append({
-                "id": event.id,
-                "name": event.name,
-            })
-
-        return Response(events)
-
-
 class RegisterEvent(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, event_id):
         if 'username' not in request.data.keys():
