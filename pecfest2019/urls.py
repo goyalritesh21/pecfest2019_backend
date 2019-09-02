@@ -21,8 +21,8 @@ router.register(r'sponsor', SponsorViewSet, basename='sponsor')
 router.register(r'participant', ParticipantViewSet, basename='participant')
 
 urlpatterns = [
-                  url(r'api/auth', include('knox.urls')),
                   path('admin/', admin.site.urls),
+                  path('', include('accounts.urls')),
                   url(r'^api/', include(router.urls)),
                   url(r'^events/', include('events.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

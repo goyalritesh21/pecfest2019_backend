@@ -16,7 +16,7 @@ class RegisterAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         participant = Participant.objects.create()
-        participant.User = user
+        participant.user = user
         participant.save()
 
         _, token = AuthToken.objects.create(user)
