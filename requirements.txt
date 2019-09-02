@@ -11,6 +11,8 @@ Django==2.2.2
 django-background-tasks==1.2.0
 django-compat==1.0.15
 django-cors-headers==3.0.2
+django-filter==2.2.0
+django-filters==0.2.1
 django-oauth-toolkit==1.2.0
 django-rest-framework==0.1.0
 django-rest-knox==4.0.1
@@ -40,4 +42,3 @@ urllib3==1.24.3
 win-inet-pton==1.1.0
 wincertstore==0.2
 wrapt==1.11.1
-django-cors-headers==3.0.2

@@ -402,3 +402,4 @@ pyvenv.cfg
 Include/*
 Scripts/*
 Lib/*
+/events/

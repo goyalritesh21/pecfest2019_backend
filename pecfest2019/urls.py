@@ -21,7 +21,7 @@ router.register(r'sponsor', SponsorViewSet, basename='sponsor')
 router.register(r'participant', ParticipantViewSet, basename='participant')
 
 urlpatterns = [
-                  url(r'api/auth/', include('knox.urls')),
+                  url(r'api/auth', include('knox.urls')),
                   path('admin/', admin.site.urls),
                   url(r'^api/', include(router.urls)),
                   url(r'^events/', include('events.urls')),
