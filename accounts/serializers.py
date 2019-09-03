@@ -22,15 +22,9 @@ def get_all_model_serializers():
 
 # user serializer
 class UserSerializer(serializers.ModelSerializer):
-    participant = serializers.SerializerMethodField()
-
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'participant')
-
-    def get_participant(self, obj):
-        data = ParticipantSerializer(obj.user).data
-        return data
 
 
 # Register serializer
