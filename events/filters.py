@@ -2,13 +2,16 @@ import django_filters
 
 from events.models import Event, EventCategory
 
-EVENT_CATEGORY_CHOICES = [(ec.id, ec.name) for ec in EventCategory.objects.all()]
+
+def get_choices():
+    EVENT_CATEGORY_CHOICES = [(ec.id, ec.name) for ec in EventCategory.objects.all()]
+    return EVENT_CATEGORY_CHOICES
 
 
 class EventFilter(django_filters.FilterSet):
     eventCategory = django_filters.ChoiceFilter(label='Event Category',
                                                 method='filter_event_category',
-                                                choices=EVENT_CATEGORY_CHOICES)
+                                                choices=get_choices)
 
     class Meta:
         model = Event
