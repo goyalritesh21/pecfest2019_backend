@@ -1,4 +1,3 @@
-from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
@@ -22,7 +21,7 @@ router.register(r'participant', ParticipantViewSet, basename='participant')
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('api/auth/', include('accounts.urls')),
-                  url(r'^api/', include(router.urls)),
-                  url(r'^events/', include('events.urls')),
+                  # path('api/auth/', include('accounts.urls')),
+                  # url(r'^api/', include(router.urls)),
+                  # url(r'^events/', include('events.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
