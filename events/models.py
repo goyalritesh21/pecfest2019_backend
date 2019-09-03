@@ -91,3 +91,11 @@ class Sponsor(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class Brochure(BaseModel):
+    name = models.CharField(max_length=256, null=False, blank=False)
+    brochurePDF = models.FileField(upload_to='pdf/brochure/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name

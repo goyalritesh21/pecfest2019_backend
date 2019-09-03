@@ -1,5 +1,6 @@
-from django.urls import path, include
+from django.urls import path
 from knox import views as knox_views
+
 from .api import RegisterAPI, LoginAPI, UserAPI, UserRegisterAPI
 
 urlpatterns = [

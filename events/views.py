@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from events.filters import EventFilter
-from events.models import Event, Registration, Club, Sponsor, EventCategory, EventType
+from events.models import Event, Registration, Club, Sponsor, EventCategory, EventType, Brochure
 from events.serializers import get_dynamic_serializer, UserSerializer, EventSerializer, EventTypeSerializer, \
     EventCategorySerializer
 from events.tasks import notify_user
@@ -65,6 +65,12 @@ class RegistrationViewSet(viewsets.ModelViewSet):
 class SponsorViewSet(viewsets.ModelViewSet):
     queryset = Sponsor.objects.all()
     serializer_class = get_dynamic_serializer(Sponsor)
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class BrochureViewSet(viewsets.ModelViewSet):
+    queryset = Brochure.objects.all()
+    serializer_class = get_dynamic_serializer(Brochure)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
