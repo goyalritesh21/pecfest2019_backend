@@ -46,12 +46,17 @@ INSTALLED_APPS = [
     'background_task',
 ]
 
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
     ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
 }
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

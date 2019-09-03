@@ -22,7 +22,7 @@ router.register(r'participant', ParticipantViewSet, basename='participant')
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('', include('accounts.urls')),
+                  path('api/auth/', include('accounts.urls')),
                   url(r'^api/', include(router.urls)),
                   url(r'^events/', include('events.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
