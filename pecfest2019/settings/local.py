@@ -43,7 +43,12 @@ INSTALLED_APPS = [
     'events',
     'corsheaders',
     'background_task',
+    'dbbackup',
+    'storages',
 ]
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': 'backups'}
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [],
