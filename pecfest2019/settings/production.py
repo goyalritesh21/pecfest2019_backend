@@ -25,7 +25,7 @@ SECRET_KEY = 'fktv0iw%mpfe$@i$nb@ln14wxiekx^=q0msiy6mztj@vr6vr98'
 # SECURITY WARNING: don't run with debug turned on in production.py!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pecfest.in', 'pecfest']
 
 # Application definition
 
