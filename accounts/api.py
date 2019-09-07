@@ -63,7 +63,7 @@ class UserRegisterAPI(generics.GenericAPIView):
 
         data = request.data
         user = User.objects.get(pk=data['id'])
-        participant = Participant.objects.get(User=user)
+        participant = Participant.objects.get(user=user)
         for key in data.keys():
             if key != "id":
                 val = data[key]
