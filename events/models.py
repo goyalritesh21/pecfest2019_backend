@@ -76,8 +76,8 @@ class Event(BaseModel):
 
 
 class Registration(BaseModel):
-    registered_event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='registered_event')
-    participant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='participant')
+    registered_event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='registrations')
+    participant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='registrations')
 
     def __str__(self):
         return self.registered_event.name, self.participant.username

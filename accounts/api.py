@@ -4,7 +4,8 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 
 from accounts.models import Participant
-from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, ParticipantSerializer
+from events.serializers import UserSerializer
+from .serializers import RegisterSerializer, LoginSerializer, ParticipantSerializer
 
 
 # Register API
