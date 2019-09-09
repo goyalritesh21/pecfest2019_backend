@@ -9,7 +9,6 @@
 *.pyc
 Images/
 __pycache__/
-media
 static/*
 frontend/static/frontend/*
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
