@@ -79,10 +79,8 @@ class RegisterEvent(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, event_id):
-        if 'username' not in request.data.keys():
-            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        user = User.objects.get(username=request.data['username'])
+        user = request.user
         event = Event.objects.get(id=event_id)
 
         if not user or not event:
