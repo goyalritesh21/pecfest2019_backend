@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 
 @background(schedule=2)
 def notify_user(event, username):
-
     user = User.objects.get(username__exact=username)
     email = user.email
 

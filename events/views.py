@@ -99,14 +99,14 @@ class RegisterEvent(APIView):
 
         return Response(context, status=status.HTTP_200_OK)
 
-    def post(self, request):
+    def post(self, request, event_id):
         data = request.data
 
         if 'username' not in request.data.keys():
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         user = User.objects.get(username=request.data['username'])
-        event = Event.objects.get(id=data['event_id'])
+        event = Event.objects.get(id=event_id)
 
         if not user or not event:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -122,8 +122,7 @@ class RegisterEvent(APIView):
                 "response": True,
             }
 
-            event_data = get_dynamic_serializer(Event)(Event)
-            notify_user(event_data.data, data['username'])
+            notify_user(event, data['username'])
             return Response(context, status=status.HTTP_201_CREATED)
         else:
             return Response(context, status=status.HTTP_302_FOUND)
