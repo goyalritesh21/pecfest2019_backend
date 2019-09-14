@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils import timezone
+from simple_history.models import HistoricalRecords
 
 
 class BaseModel(models.Model):
@@ -70,6 +71,8 @@ class Event(BaseModel):
     # Files attached
     poster = models.ImageField(upload_to='images/events/', null=True, blank=True)
     rulesPDF = models.FileField(upload_to='pdf/events/', null=True, blank=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
