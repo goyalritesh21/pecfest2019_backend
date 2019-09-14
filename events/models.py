@@ -83,7 +83,7 @@ class Registration(BaseModel):
     participant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='registrations')
 
     def __str__(self):
-        return self.registered_event.name, self.participant.username
+        return self.registered_event.name + " - "  + self.participant.username
 
 
 class Sponsor(BaseModel):
