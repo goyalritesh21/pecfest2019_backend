@@ -122,7 +122,7 @@ class RegisterEvent(APIView):
                 "response": True,
             }
 
-            notify_user(event, data['username'])
+            notify_user(event_id, data['username'])
             return Response(context, status=status.HTTP_201_CREATED)
         else:
             return Response(context, status=status.HTTP_302_FOUND)
