@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'background_task',
     'dbbackup',
     'simple_history',
+    'import_export',
 ]
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
@@ -169,3 +170,6 @@ EMAIL_HOST_PASSWORD = 'kvkxgajmkrlpihtq'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_IMPORT_PERMISSION_CODE = "allowed_import"

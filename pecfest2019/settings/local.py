@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'dbbackup',
     'storages',
     'simple_history',
+    'import_export',
 ]
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
@@ -161,3 +162,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'webmasterpecfest19@gmail.com'
 EMAIL_HOST_PASSWORD = 'kvkxgajmkrlpihtq'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_IMPORT_PERMISSION_CODE = "allowed_import"
