@@ -28,6 +28,7 @@ class Club(BaseModel):
 
 class EventCategory(BaseModel):
     name = models.CharField(max_length=256, null=False, blank=False)
+    coverImage = models.ImageField(upload_to='images/eventCategory/', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -37,6 +38,7 @@ class EventType(BaseModel):
     name = models.CharField(max_length=256, null=False, blank=False)
     eventCategory = models.ForeignKey(EventCategory, on_delete=models.CASCADE, null=True, blank=True,
                                       related_name='event_types')
+    coverImage = models.ImageField(upload_to='images/eventType/', null=True, blank=True)
 
     def __str__(self):
         return self.name
