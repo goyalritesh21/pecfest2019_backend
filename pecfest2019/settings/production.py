@@ -76,7 +76,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = (
-    'http://13.232.240.212:8000',
+    'http://13.232.240.212',
     'http://localhost:8800'
 )
 
