@@ -77,7 +77,9 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = (
     'http://13.232.240.212',
-    'http://localhost:8800'
+    'http://localhost:8800',
+    'https://pecfest.in',
+    'http://pecfest.in',
 )
 
 ROOT_URLCONF = 'pecfest2019.urls'
