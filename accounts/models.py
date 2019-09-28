@@ -5,7 +5,7 @@ from django.db import models
 
 class Participant(models.Model):
     user = models.OneToOneField(to=User, related_name="participant", on_delete=models.CASCADE, null=True)
-    contactNumber = models.IntegerField(null=True, verbose_name="Contact Number", validators=[
+    contactNumber = models.BigIntegerField(null=True, verbose_name="Contact Number", validators=[
         MaxValueValidator(limit_value=9999999999, message="Phone number Not valid"),
         MinValueValidator(limit_value=1000000000, message="Phone number Not valid")
     ])
