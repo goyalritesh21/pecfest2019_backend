@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from knox.models import AuthToken
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
 from accounts.models import Participant
@@ -36,7 +36,7 @@ class LoginAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
         if not Participant.objects.filter(user=user).exists():
-            raise Exception
+            return Response(status=status.HTTP_404_NOT_FOUND)
         _, token = AuthToken.objects.create(user)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
