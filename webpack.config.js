@@ -1,4 +1,10 @@
 module.exports = {
+    entry: "./frontend/src/index.js",
+    output: {
+        path: __dirname+"/frontend/static/frontend",
+        filename: "main.js",
+        chunkFilename: "[name].main.js"
+    },
     module: {
         rules: [
             {

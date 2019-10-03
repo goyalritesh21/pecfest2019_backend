@@ -1,111 +1,126 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from knox.auth import TokenAuthentication
+from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
-from rest_framework import status, permissions
 from rest_framework.views import APIView
-from events.models import event
-from events.serializers import EventSerializer
-import json
 
-ListOfTechnicalCategories = {
-    "1" : "aerospace",
-    "2" : "astronomy",
-}
+from events.filters import EventFilter
+from events.models import Event, Registration, Club, Sponsor, EventCategory, EventType, Brochure
+from events.serializers import get_dynamic_serializer, UserSerializer, EventSerializer, EventTypeSerializer, \
+    EventCategorySerializer
+from events.tasks import notify_user
 
-ListOfCulturalCategories = {
-    "1" : "dance",
-    "2" : "drama",
-}
+AUTH_USER_MODEL = get_user_model()
 
 
-class EventDetails(APIView):
-
-    def get(self, request, eventID):
-
-        if eventID:
-            Event = event.objects.filter(eventID__contains=eventID)
-            if Event:
-                serializer = EventSerializer(Event)
-                return Response({
-                    "data": serializer.data,
-                })
-
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = AUTH_USER_MODEL.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class MainCatSpecific(APIView):
-
-    def get(self, request, categoryID):
-
-        if categoryID:
-
-            # Tech Events handler
-            if categoryID == "technical":
-                return Response({
-                    "subcategories": list(ListOfTechnicalCategories.items()),
-                })
-
-            # Cultural Events handler
-            elif categoryID == "cultural":
-                return Response({
-                    "subcategories": list(ListOfCulturalCategories.items()),
-                })
-
-            elif categoryID == "workshop":
-                pass
-
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+class EventCategoryViewSet(viewsets.ModelViewSet):
+    queryset = EventCategory.objects.all()
+    serializer_class = EventCategorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class CategoryEvents(APIView):
-
-    def get(self, request, categoryID):
-
-        # categoryID = self.kwargs['categoryID']
-        if categoryID:
-            category = categoryID[:4]
-            print(category)
-            # Tech Events handler
-            if category == "tech":
-                key = categoryID[4:]
-                if key in ListOfTechnicalCategories.keys():
-                    events = event.objects.filter(eventType__contains=ListOfTechnicalCategories[key])
-                    serializer = EventSerializer(events, many=True)
-                    return Response({
-                        "events": serializer.data,
-                    })
-
-            # Cultural Events handler
-            elif category == "cult":
-                key = categoryID[4:]
-                if key in ListOfCulturalCategories.keys():
-                    events = event.objects.filter(eventType__contains=ListOfCulturalCategories[key])
-                    serializer = EventSerializer(events, many=True)
-                    return Response({
-                        "events": serializer.data,
-                    })
-
-            elif category == "work":
-                pass
-
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+class EventTypeViewSet(viewsets.ModelViewSet):
+    queryset = EventType.objects.all()
+    serializer_class = EventTypeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class EventList(APIView):
-    """
-    List all events, or create a new event.
-    """
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filterset_class = EventFilter
 
-    def get(self, request, format=None):
+    def get_event_category(self):
+        try:
+            return Event.objects.get(pk=self.kwargs['id']).eventType.category
+        except Event.DoesNotExist:
+            return None
 
-        events = event.objects.all()
-        serializer = EventSerializer(events, many=True)
-        return Response({
-            "data" : serializer.data,
-        })
+    def get_filterset_kwargs(self):
+        return {
+            'eventCategory': self.get_event_category(),
+        }
 
-    def post(self, request, format=None):
 
-        serializer = EventSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class ClubViewSet(viewsets.ModelViewSet):
+    queryset = Club.objects.all()
+    serializer_class = get_dynamic_serializer(Club)
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class RegistrationViewSet(viewsets.ModelViewSet):
+    queryset = Registration.objects.all()
+    serializer_class = get_dynamic_serializer(Registration)
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class SponsorViewSet(viewsets.ModelViewSet):
+    queryset = Sponsor.objects.all()
+    serializer_class = get_dynamic_serializer(Sponsor)
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class BrochureViewSet(viewsets.ModelViewSet):
+    queryset = Brochure.objects.all()
+    serializer_class = get_dynamic_serializer(Brochure)
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class RegisterEvent(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, event_id):
+
+        user = request.user
+        event = Event.objects.get(id=event_id)
+
+        if not user or not event:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        context = {
+            "response": False,
+        }
+
+        if not Registration.objects.filter(registered_event=event, participant=user).exists():
+            context = {
+                "response": True,
+            }
+
+        return Response(context, status=status.HTTP_200_OK)
+
+    def post(self, request, event_id):
+        data = request.data
+
+        if 'username' not in request.data.keys():
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        user = User.objects.get(username=request.data['username'])
+        event = Event.objects.get(id=event_id)
+
+        if not user or not event:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        context = {
+            "response": False,
+        }
+
+        if not Registration.objects.filter(registered_event=event, participant=user).exists():
+            Registration.objects.create(registered_event=event, participant=user).save()
+
+            context = {
+                "response": True,
+            }
+
+            notify_user(event_id, data['username'])
+            return Response(context, status=status.HTTP_201_CREATED)
+        else:
+            return Response(context, status=status.HTTP_302_FOUND)

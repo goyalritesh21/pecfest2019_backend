@@ -1,12 +1,7 @@
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from events import views
+from django.conf.urls import url
+
+from events.views import RegisterEvent
 
 urlpatterns = [
-    path('api/events/', views.EventList.as_view()),
-    path('api/events/categoryEvents/<slug:categoryID>/', views.CategoryEvents.as_view()),
-    path('api/events/categories/<slug:categoryID>', views.MainCatSpecific.as_view()),
-    path('api/events/<slug:eventID>', views.EventDetails.as_view()),
+    url(r'^(?P<event_id>[-\w]+)/register/', view=RegisterEvent.as_view(), name='register_event'),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
