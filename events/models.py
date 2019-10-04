@@ -1,4 +1,6 @@
 import datetime
+import os
+from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
@@ -30,6 +32,9 @@ class EventCategory(BaseModel):
     name = models.CharField(max_length=256, null=False, blank=False)
     coverImage = models.ImageField(upload_to='images/eventCategory/', null=True, blank=True)
 
+    class Meta:
+        verbose_name_plural = "Event Categories"
+
     def __str__(self):
         return self.name
 
@@ -39,6 +44,9 @@ class EventType(BaseModel):
     eventCategory = models.ForeignKey(EventCategory, on_delete=models.CASCADE, null=True, blank=True,
                                       related_name='event_types')
     coverImage = models.ImageField(upload_to='images/eventType/', null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Event Types"
 
     def __str__(self):
         return self.name
@@ -109,3 +117,67 @@ class Brochure(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+def path_and_rename(instance, filename):
+    upload_to = 'PanCard'
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = '{}.{}'.format(instance.user.username, ext)
+    else:
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
+
+
+class DetailWinner(BaseModel):
+
+    user = models.OneToOneField(to=User, null=False, related_name='account_details', on_delete=models.CASCADE)
+    accountHolderName = models.CharField(max_length=100, null=False, blank=False)
+    fatherName = models.CharField(max_length=100, null=False, blank=False, )
+    accountNumber = models.CharField(max_length=20, null=False)
+    IFSC = models.CharField(max_length=25)
+    panCardNumber = models.CharField(max_length=11, blank=True, null=False)
+    panCardPhoto = models.ImageField(upload_to=path_and_rename, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Details of Individual Winner of each team"
+
+    def __str__(self):
+        return self.accountHolderName
+
+
+class TeamWinner(BaseModel):
+
+    TeamName = models.CharField(max_length=100, null=False, blank=False, help_text="In case of Individual "
+                                                                                   "Participant, Add "
+                                                                                   "ParticipantName_EventName into "
+                                                                                   "this field for easy Reference")
+    members = models.ManyToManyField(to=DetailWinner, help_text="Create new Model of Winner as per number of team "
+                                                                "members AND check for existing entry first!")
+
+    class Meta:
+        verbose_name_plural = "Team of Winner(s)"
+
+    def __str__(self):
+        return self.TeamName
+
+
+class Winners(BaseModel):
+
+    eventName = models.OneToOneField(to=Event, null=False, blank=False, on_delete=models.PROTECT)
+    firstWinner = models.OneToOneField(to=TeamWinner, on_delete=models.PROTECT, help_text="Add new team by clicking + "
+                                                                                          "button",
+                                       related_name="firstWinner")
+    secondWinner = models.OneToOneField(to=TeamWinner, on_delete=models.PROTECT, null=True, blank=True,
+                                        related_name="secondWinner")
+    thirdWinner = models.OneToOneField(to=TeamWinner, on_delete=models.PROTECT, null=True, blank=True,
+                                       related_name="thirdWinner")
+
+    class Meta:
+        verbose_name_plural = "Winners"
+
+    def __str__(self):
+        return self.eventName.name
