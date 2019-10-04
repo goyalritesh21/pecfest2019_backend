@@ -141,6 +141,7 @@ class DetailWinner(BaseModel):
     IFSC = models.CharField(max_length=25)
     panCardNumber = models.CharField(max_length=11, blank=True, null=False)
     panCardPhoto = models.ImageField(upload_to=path_and_rename, null=True, blank=True)
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name_plural = "Details of Individual Winner of each team"
@@ -157,6 +158,7 @@ class TeamWinner(BaseModel):
                                                                                    "this field for easy Reference")
     members = models.ManyToManyField(to=DetailWinner, help_text="Create new Model of Winner as per number of team "
                                                                 "members AND check for existing entry first!")
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name_plural = "Team of Winner(s)"
@@ -175,6 +177,7 @@ class Winners(BaseModel):
                                         related_name="secondWinner")
     thirdWinner = models.OneToOneField(to=TeamWinner, on_delete=models.PROTECT, null=True, blank=True,
                                        related_name="thirdWinner")
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name_plural = "Winners"
