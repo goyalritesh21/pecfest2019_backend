@@ -12,8 +12,9 @@ def notify_user(event_id, username):
     email = user.email
 
     send_mail(
-        'Registration for ' + event["name"] + ' at PECFEST 2019',
-        'Thank you, ' + user.first_name.lower() + ' for registering for ' + event["name"],
+        'Registration for ' + event.name + ' at PECFEST 2019',
+        'Thank you, ' + user.first_name.lower() + ' for registering for ' + event.name + '\nSee you there!\n'
+        'PS: Your PECFest ID is ' + username,
         'webmasterpecfest19@gmail.com',
         [email],
         fail_silently=False,
