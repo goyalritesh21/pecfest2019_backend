@@ -7,7 +7,7 @@
 *.log
 *.pot
 *.pyc
-Images/
+
 __pycache__/
 
 frontend/static/frontend/*
