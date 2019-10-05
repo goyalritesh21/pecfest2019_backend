@@ -27,7 +27,7 @@ class EventCategoryViewSet(viewsets.ModelViewSet):
 
 
 class EventTypeViewSet(viewsets.ModelViewSet):
-    queryset = EventType.objects.all()
+    queryset = EventType.objects.order_by('name').all()
     serializer_class = EventTypeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
