@@ -23,4 +23,4 @@ class Participant(models.Model):
     ])
 
     def __str__(self):
-        return str(self.pk)
+        return ("Name: " + self.user.first_name + " | " if self.user.first_name else "") + "Username: " + self.user.username
