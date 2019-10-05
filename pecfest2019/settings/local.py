@@ -152,6 +152,7 @@ USE_TZ = True
 CSRF_COOKIE_NAME = "csrftoken"
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = ( os.path.join('static'), )
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'

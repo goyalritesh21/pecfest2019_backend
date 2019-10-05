@@ -159,7 +159,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'static'
+if not os.path.exists(os.path.join(BASE_DIR, 'pecfest2019/settings/local.py')):
+    STATIC_ROOT = 'static'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
