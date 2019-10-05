@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = 'fktv0iw%mpfe$@i$nb@ln14wxiekx^=q0msiy6mztj@vr6vr98'
 
 # SECURITY WARNING: don't run with debug turned on in production.py!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['pecfest.in', 'pecfest']
 

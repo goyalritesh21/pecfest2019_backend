@@ -27,5 +27,5 @@ urlpatterns = [
                   path('api/auth/', include('accounts.urls')),
                   url(r'^api/', include(router.urls)),
                   url(r'^events/', include('events.urls')),
-                  path('accounts/', include('django.contrib.auth.urls')),
+                  path('admin/portal/', include('django.contrib.auth.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
