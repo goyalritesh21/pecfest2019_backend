@@ -80,6 +80,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8800',
     'https://pecfest.in',
     'http://pecfest.in',
+    'https://www.pecfest.in',
 )
 
 ROOT_URLCONF = 'pecfest2019.urls'

@@ -42,6 +42,10 @@ class RegistrationAdmin(ImportExportModelAdmin):
          )
 
 
+class DetailWinnerAdmin( SimpleHistoryAdmin):
+    search_fields = ['user__username']
+
+
 admin.site.register(EventType)
 admin.site.register(EventCategory)
 admin.site.register(Event, SimpleHistoryAdmin)
@@ -50,6 +54,6 @@ admin.site.register(Sponsor)
 admin.site.register(Brochure)
 admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(TeamWinner, SimpleHistoryAdmin)
-admin.site.register(DetailWinner, SimpleHistoryAdmin)
+admin.site.register(DetailWinner, DetailWinnerAdmin)
 admin.site.register(Winners, SimpleHistoryAdmin)
 
