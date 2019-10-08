@@ -8,6 +8,8 @@ from django.db import models
 from django.utils import timezone
 from simple_history.models import HistoricalRecords
 
+from accounts.models import Team
+
 
 class BaseModel(models.Model):
     record_created = models.DateTimeField(editable=False, auto_now_add=True)
@@ -30,6 +32,7 @@ class Club(BaseModel):
 
 class EventCategory(BaseModel):
     name = models.CharField(max_length=256, null=False, blank=False)
+    description = models.TextField(default="This is event category description")
     coverImage = models.ImageField(upload_to='images/eventCategory/', null=True, blank=True)
 
     class Meta:
@@ -41,6 +44,7 @@ class EventCategory(BaseModel):
 
 class EventType(BaseModel):
     name = models.CharField(max_length=256, null=False, blank=False)
+    description = models.TextField(default="This is event type description")
     eventCategory = models.ForeignKey(EventCategory, on_delete=models.CASCADE, null=True, blank=True,
                                       related_name='event_types')
     coverImage = models.ImageField(upload_to='images/eventType/', null=True, blank=True)
@@ -84,16 +88,21 @@ class Event(BaseModel):
 
     history = HistoricalRecords()
 
+    class Meta:
+        ordering = ('name',)
+
     def __str__(self):
         return self.name
 
 
 class Registration(BaseModel):
+
     registered_event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='registrations')
-    participant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='registrations')
+    team_leader = models.ForeignKey(User, on_delete=models.CASCADE, related_name='registrations')
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, related_name='registrations')
 
     def __str__(self):
-        return self.registered_event.name + " - " + self.participant.username
+        return self.registered_event.name + " - " + self.team_leader.username
 
     class Meta:
         permissions = (
@@ -103,7 +112,7 @@ class Registration(BaseModel):
 
 class Sponsor(BaseModel):
     name = models.CharField(max_length=256, null=False)
-    tagline = models.CharField(max_length=512, blank=True, null=True)
+    tag_line = models.CharField(max_length=512, blank=True, null=True)
     partnership = models.CharField(max_length=256, blank=True, null=True)
     logo = models.ImageField(upload_to='Images/sponsors/', null=True, blank=True)
 
@@ -133,25 +142,23 @@ def path_and_rename(instance, filename):
 
 
 class DetailWinner(BaseModel):
-
     user = models.OneToOneField(to=User, null=False, related_name='account_details', on_delete=models.CASCADE)
-    accountHolderName = models.CharField(max_length=100, null=False, blank=False)
-    fatherName = models.CharField(max_length=100, null=False, blank=False, )
+    account_holder_name = models.CharField(max_length=100, null=False, blank=False)
+    father_name = models.CharField(max_length=100, null=False, blank=False, )
     accountNumber = models.CharField(max_length=20, null=False)
-    IFSC = models.CharField(max_length=25)
-    panCardNumber = models.CharField(max_length=11, blank=True, null=False)
-    panCardPhoto = models.ImageField(upload_to=path_and_rename, null=True, blank=True)
+    IFSC_code = models.CharField(max_length=25)
+    pan_card_cumber = models.CharField(max_length=11, blank=True, null=False)
+    pan_card_photo = models.ImageField(upload_to=path_and_rename, null=True, blank=True)
     history = HistoricalRecords()
 
     class Meta:
         verbose_name_plural = "Details of Individual Winner of each team"
 
     def __str__(self):
-        return self.accountHolderName
+        return self.account_holder_name
 
 
 class TeamWinner(BaseModel):
-
     TeamName = models.CharField(max_length=100, null=False, blank=False, help_text="In case of Individual "
                                                                                    "Participant, Add "
                                                                                    "ParticipantName_EventName into "
@@ -168,15 +175,14 @@ class TeamWinner(BaseModel):
 
 
 class Winners(BaseModel):
-
     eventName = models.OneToOneField(to=Event, null=False, blank=False, on_delete=models.PROTECT)
-    firstWinner = models.OneToOneField(to=TeamWinner, on_delete=models.PROTECT, help_text="Add new team by clicking + "
-                                                                                          "button",
-                                       related_name="firstWinner")
-    secondWinner = models.OneToOneField(to=TeamWinner, on_delete=models.PROTECT, null=True, blank=True,
-                                        related_name="secondWinner")
-    thirdWinner = models.OneToOneField(to=TeamWinner, on_delete=models.PROTECT, null=True, blank=True,
-                                       related_name="thirdWinner")
+    firstWinner = models.ForeignKey(to=TeamWinner, on_delete=models.PROTECT, help_text="Add new team by clicking + "
+                                                                                       "button",
+                                    related_name="firstWinner")
+    secondWinner = models.ForeignKey(to=TeamWinner, on_delete=models.PROTECT, null=True, blank=True,
+                                     related_name="secondWinner")
+    thirdWinner = models.ForeignKey(to=TeamWinner, on_delete=models.PROTECT, null=True, blank=True,
+                                    related_name="thirdWinner")
     history = HistoricalRecords()
 
     class Meta:

@@ -6,7 +6,7 @@ from rest_framework import routers
 
 from accounts.views import ParticipantViewSet
 from events.views import UserViewSet, EventViewSet, EventCategoryViewSet, EventTypeViewSet, ClubViewSet, \
-    RegistrationViewSet, SponsorViewSet, BrochureViewSet
+    RegistrationViewSet, SponsorViewSet, BrochureViewSet, TeamViewSet
 from pecfest2019 import settings
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -21,6 +21,7 @@ router.register(r'registration', RegistrationViewSet, basename='registration')
 router.register(r'sponsor', SponsorViewSet, basename='sponsor')
 router.register(r'brochure', BrochureViewSet, basename='brochure')
 router.register(r'participant', ParticipantViewSet, basename='participant')
+router.register(r'teams', TeamViewSet, base_name='team')
 
 urlpatterns = [
                   path('admin/', admin.site.urls),

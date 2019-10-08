@@ -1,3 +1,4 @@
+import requests
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from knox.auth import TokenAuthentication
@@ -5,6 +6,7 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from accounts.models import Team
 from events.filters import EventFilter
 from events.models import Event, Registration, Club, Sponsor, EventCategory, EventType, Brochure
 from events.serializers import get_dynamic_serializer, UserSerializer, EventSerializer, EventTypeSerializer, \
@@ -74,6 +76,12 @@ class BrochureViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
+class TeamViewSet(viewsets.ModelViewSet):
+    queryset = Team.objects.all()
+    serializer_class = get_dynamic_serializer(Team)
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
 class RegisterEvent(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
@@ -90,7 +98,8 @@ class RegisterEvent(APIView):
             "response": False,
         }
 
-        if not Registration.objects.filter(registered_event=event, participant=user).exists():
+        allRegistrationsWithThisEvent = Registration.objects.filter(registered_event=event)
+        if not allRegistrationsWithThisEvent.filter(team__members__username__exact=user.username).exists():
             context = {
                 "response": True,
             }
@@ -98,29 +107,44 @@ class RegisterEvent(APIView):
         return Response(context, status=status.HTTP_200_OK)
 
     def post(self, request, event_id):
-        data = request.data
 
-        if 'username' not in request.data.keys():
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        try:
+            data = request.data
 
-        user = User.objects.get(username=request.data['username'])
-        event = Event.objects.get(id=event_id)
+            if 'team' not in data.keys() and 'teamName' not in data.keys():
+                return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        if not user or not event:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            event = Event.objects.get(id=event_id)
+            team = data['team']
 
-        context = {
-            "response": False,
-        }
+            allRegistrationsWithThisEvent = Registration.objects.filter(registered_event=event)
+            if allRegistrationsWithThisEvent.filter(team__members__username__exact=request.user.username).exists():
+                return Response(status=status.HTTP_302_FOUND)
 
-        if not Registration.objects.filter(registered_event=event, participant=user).exists():
-            Registration.objects.create(registered_event=event, participant=user).save()
+            context = {}
 
-            context = {
-                "response": True,
-            }
+            for member in team:
+                if not User.objects.filter(username__exact=member).exists():
+                    return Response(status=status.HTTP_404_NOT_FOUND)
 
-            notify_user(event_id, data['username'])
-            return Response(context, status=status.HTTP_201_CREATED)
-        else:
-            return Response(context, status=status.HTTP_302_FOUND)
+            registration = Registration.objects.create(
+                registered_event=event,
+                team_leader=User.objects.get(username__exact=team[0])
+            )
+            team_reg = Team.objects.create()
+            team_reg.name = data['teamName']
+            team_reg.save()
+
+            for member in team:
+                team_reg.members.add(User.objects.get(username__exact=member))
+                # notify_user(event_id, member)
+
+            registration.team = team_reg
+            registration.save()
+
+            context['response'] = True
+            return Response(context, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print("Exception occurred: " + str(e))
+            return Response(status=status.HTTP_404_NOT_FOUND)

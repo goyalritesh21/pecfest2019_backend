@@ -24,3 +24,12 @@ class Participant(models.Model):
 
     def __str__(self):
         return ("Name: " + self.user.first_name + " | " if self.user.first_name else "") + "Username: " + self.user.username
+
+
+class Team(models.Model):
+
+    name = models.CharField(max_length=100)
+    members = models.ManyToManyField(to=User, related_name="team")
+
+    def __str__(self):
+        return self.name
