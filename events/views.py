@@ -118,7 +118,7 @@ class RegisterEvent(APIView):
             team = data['team']
 
             allRegistrationsWithThisEvent = Registration.objects.filter(registered_event=event)
-            if allRegistrationsWithThisEvent.filter(team__members__username__exact=request.user.username).exists():
+            if allRegistrationsWithThisEvent.filter(team__members__username__exact=request.user.username).exists() or Team.objects.filter(name=data['teamName']).filter(registrations__registered_event=event):
                 return Response(status=status.HTTP_302_FOUND)
 
             context = {}
