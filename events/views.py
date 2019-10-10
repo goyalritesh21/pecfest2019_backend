@@ -118,7 +118,10 @@ class RegisterEvent(APIView):
             team = data['team']
 
             allRegistrationsWithThisEvent = Registration.objects.filter(registered_event=event)
-            if allRegistrationsWithThisEvent.filter(team__members__username__exact=request.user.username).exists() or Team.objects.filter(name=data['teamName']).filter(registrations__registered_event=event):
+            if allRegistrationsWithThisEvent.\
+                    filter(team__members__username__exact=request.user.username).exists() or Team.objects.\
+                    filter(name=data['teamName']).\
+                    filter(registrations__registered_event=event):
                 return Response(status=status.HTTP_302_FOUND)
 
             context = {}
@@ -137,7 +140,7 @@ class RegisterEvent(APIView):
 
             for member in team:
                 team_reg.members.add(User.objects.get(username__exact=member))
-                # notify_user(event_id, member)
+                notify_user(event_id, member)
 
             registration.team = team_reg
             registration.save()
