@@ -95,6 +95,9 @@ class Event(BaseModel):
 
     class Meta:
         ordering = ('name',)
+        permissions = (
+            ('allowed_import', "Imports are allowed"),
+        )
 
     def __str__(self):
         return self.name
