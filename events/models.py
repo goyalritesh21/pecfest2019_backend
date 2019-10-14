@@ -10,6 +10,8 @@ from simple_history.models import HistoricalRecords
 
 from accounts.models import Team
 
+datetime_object = datetime.datetime.strptime("11/10/19 22:59:00", '%m/%d/%y %H:%M:%S')
+
 
 class BaseModel(models.Model):
     record_created = models.DateTimeField(editable=False, auto_now_add=True)
@@ -85,6 +87,9 @@ class Event(BaseModel):
     # Files attached
     poster = models.ImageField(upload_to='images/events/', null=True, blank=True)
     rulesPDF = models.FileField(upload_to='pdf/events/', null=True, blank=True)
+
+    registerEndDate = models.DateTimeField(verbose_name="Last Date and Time to register", default=datetime_object)
+    prelimsLink = models.TextField(blank=True, null=True)
 
     history = HistoricalRecords()
 

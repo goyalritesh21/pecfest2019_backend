@@ -11,7 +11,7 @@ from events.filters import EventFilter
 from events.models import Event, Registration, Club, Sponsor, EventCategory, EventType, Brochure
 from events.serializers import get_dynamic_serializer, UserSerializer, EventSerializer, EventTypeSerializer, \
     EventCategorySerializer
-from events.tasks import notify_user
+from events.tasks import notify_user, registration_user_notify
 
 AUTH_USER_MODEL = get_user_model()
 
@@ -140,7 +140,7 @@ class RegisterEvent(APIView):
 
             for member in team:
                 team_reg.members.add(User.objects.get(username__exact=member))
-                notify_user(event_id, member)
+                registration_user_notify(event_id, member)
 
             registration.team = team_reg
             registration.save()
