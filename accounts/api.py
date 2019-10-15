@@ -1,10 +1,12 @@
 from django.contrib.auth.models import User
 from knox.models import AuthToken
 from rest_framework import generics, permissions, status
+from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 
 from accounts.models import Participant
 from events.serializers import UserSerializer
+from events.tasks import new_user_notify
 from .serializers import RegisterSerializer, LoginSerializer, ParticipantSerializer
 
 
@@ -15,10 +17,15 @@ class RegisterAPI(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
+        if User.objects.filter(email__exact=request.data['email']).exists():
+            return Response(status=status.HTTP_404_NOT_FOUND )
+
         user = serializer.save()
         participant = Participant.objects.create()
         participant.user = user
         participant.save()
+        new_user_notify(user.username)
 
         _, token = AuthToken.objects.create(user)
         return Response({

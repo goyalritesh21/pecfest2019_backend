@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+# from environs import Env
+from environs import Env
+
+env = Env()
+# Read .env into os.environ
+env.read_env()
+#
+# env.str("DEBUG")  # => True
+# env.str("PORT")  # => 4567
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
@@ -158,11 +167,11 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'webmasterpecfest19@gmail.com'
-EMAIL_HOST_PASSWORD = 'kvkxgajmkrlpihtq'
+EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 IMPORT_EXPORT_IMPORT_PERMISSION_CODE = "allowed_import"

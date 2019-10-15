@@ -45,12 +45,60 @@ def registration_user_notify(event_id, username):
         'event_location' : location,
     }
 
-    # plaintext_context = Context(autoescape=False)  # HTML escaping not appropriate in plaintext
-    subject = render_to_string("event_registration/message_subject.txt", merge_data)
-    text_body = render_to_string("event_registration/message_body.txt", merge_data)
-    html_body = render_to_string("event_registration/message_body.html", merge_data)
+    try:
+        subject = render_to_string("event_registration/message_subject.txt", merge_data)
+        text_body = render_to_string("event_registration/message_body.txt", merge_data)
+        html_body = render_to_string("event_registration/message_body.html", merge_data)
 
-    msg = EmailMultiAlternatives(subject=subject, from_email='webmasterpecfest19@gmail.com',
-                                 to=[email], body=html_body)
-    msg.attach_alternative(html_body, "text/html")
-    msg.send()
+        msg = EmailMultiAlternatives(subject=subject, from_email='registrations@pecfest.in',
+                                     to=[email], body=html_body)
+        msg.attach_alternative(html_body, "text/html")
+        msg.send()
+
+        print("mail successfully send to " + email)
+
+    except Exception as e:
+
+        print("Some error occurred while sending mail to " + email)
+
+
+@background(schedule=2)
+def new_user_notify(username):
+
+    user = User.objects.get(username__exact=username)
+    email = user.email
+
+    body = """
+    Hello {name}
+    Greetings from PECFest'19!
+    Thank you for joining PECFest family. 
+    A festival, a show, a brand, it has many facets. It's more than the thumping heartbeats of 50,000 people.
+    It's PECFest - the biggest techno-cultural festival in North India! Year after year we've made memories, and 
+    there's more to come. Scaling new heights with each edition, PECFest 2019 promises to deliver nothing but the best.
+    
+    You can use your unique PECFest ID {username}, to register for events at pecfest.in/events
+    For more information including about our Cultural and Star Nights, stay tuned at pecfest.in
+    
+    For all the latest updates, connect with us on : 
+    Facebook : facebook.com/pecfestofficial
+    Instagram : instagram.com/pec.pecfest
+    
+    Contact us at : pecfest.in/team
+    
+    See you there! 
+    
+    PECFest 2019
+    """.format( name = user.first_name, username = username)
+
+
+    try:
+        send_mail(
+            'Welcome to PECFEST 2019',
+            body,
+            'registrations@pecfest.in',
+            [email],
+            fail_silently=False,
+        )
+        print("mail successfully send to " + email)
+    except Exception as e:
+        print("Some error occurred while sending mail to " + email)
