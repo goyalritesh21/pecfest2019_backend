@@ -1,4 +1,3 @@
-import requests
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from knox.auth import TokenAuthentication
@@ -11,7 +10,7 @@ from events.filters import EventFilter
 from events.models import Event, Registration, Club, Sponsor, EventCategory, EventType, Brochure
 from events.serializers import get_dynamic_serializer, UserSerializer, EventSerializer, EventTypeSerializer, \
     EventCategorySerializer
-from events.tasks import notify_user, registration_user_notify
+from events.tasks import registration_user_notify
 
 AUTH_USER_MODEL = get_user_model()
 
@@ -118,13 +117,16 @@ class RegisterEvent(APIView):
             team = data['team']
 
             allRegistrationsWithThisEvent = Registration.objects.filter(registered_event=event)
-            if allRegistrationsWithThisEvent.\
-                    filter(team__members__username__exact=request.user.username).exists() or Team.objects.\
-                    filter(name=data['teamName']).\
-                    filter(registrations__registered_event=event):
+            if allRegistrationsWithThisEvent. \
+                    filter(team__members__username__exact=request.user.username).exists() or Team.objects. \
+                    filter(name=data['teamName']). \
+                    filter(registrations__registered_event=event).exists():
                 return Response(status=status.HTTP_302_FOUND)
 
             context = {}
+
+            if len(team) != len(set(team)):
+                return Response(status=status.HTTP_404_NOT_FOUND)
 
             for member in team:
                 if not User.objects.filter(username__exact=member).exists():
