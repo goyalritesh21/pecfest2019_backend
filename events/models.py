@@ -118,11 +118,21 @@ class Registration(BaseModel):
         )
 
 
-class Sponsor(BaseModel):
+class PastSponsor(BaseModel):
     name = models.CharField(max_length=256, null=False)
     tag_line = models.CharField(max_length=512, blank=True, null=True)
     partnership = models.CharField(max_length=256, blank=True, null=True)
-    logo = models.ImageField(upload_to='Images/sponsors/', null=True, blank=True)
+    logo = models.ImageField(upload_to='Images/pastSponsors/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class NewSponsor(BaseModel):
+    name = models.CharField(max_length=256, null=False)
+    tag_line = models.CharField(max_length=512, blank=True, null=True)
+    partnership = models.CharField(max_length=256, blank=True, null=True)
+    logo = models.ImageField(upload_to='Images/newSponsors/', null=True, blank=True)
 
     def __str__(self):
         return self.name

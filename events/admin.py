@@ -6,7 +6,7 @@ from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
 from simple_history.admin import SimpleHistoryAdmin
 
-from events.models import Event, Club, Registration, Sponsor, EventType, EventCategory, Brochure, DetailWinner, \
+from events.models import Event, Club, Registration, PastSponsor, NewSponsor, EventType, EventCategory, Brochure, DetailWinner, \
     TeamWinner, Winners
 
 
@@ -107,7 +107,8 @@ admin.site.register(EventType)
 admin.site.register(EventCategory)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Club)
-admin.site.register(Sponsor)
+admin.site.register(PastSponsor)
+admin.site.register(NewSponsor)
 admin.site.register(Brochure)
 admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(TeamWinner, SimpleHistoryAdmin)
