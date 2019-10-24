@@ -61,6 +61,7 @@ class DetailWinnerAdmin( SimpleHistoryAdmin):
 
 class EventResource(resources.ModelResource):
 
+    eventID = Field(attribute='id', column_name='Event Id')
     name = Field(attribute='name', column_name='Name')
     details = Field(attribute='details', column_name='Details of Event')
     shortDescription = Field(attribute='shortDescription', column_name='Short Description')
