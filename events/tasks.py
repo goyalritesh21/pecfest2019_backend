@@ -69,7 +69,7 @@ def new_user_notify(username):
     email = user.email
 
     body = """
-    Hello {name}
+    Hello there,
     Greetings from PECFest'19!
     Thank you for joining PECFest family. 
     A festival, a show, a brand, it has many facets. It's more than the thumping heartbeats of 50,000 people.

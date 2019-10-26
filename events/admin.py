@@ -6,8 +6,9 @@ from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
 from simple_history.admin import SimpleHistoryAdmin
 
-from events.models import Event, Club, Registration, PastSponsor, NewSponsor, EventType, EventCategory, Brochure, DetailWinner, \
-    TeamWinner, Winners
+from events.models import Event, Club, Registration, PastSponsor, NewSponsor, EventType, EventCategory, Brochure, \
+    DetailWinner, \
+    TeamWinner, Winners, SponsorPartnership
 
 
 class RegistrationResource(resources.ModelResource):
@@ -109,6 +110,7 @@ admin.site.register(Event, EventAdmin)
 admin.site.register(Club)
 admin.site.register(PastSponsor)
 admin.site.register(NewSponsor)
+admin.site.register(SponsorPartnership)
 admin.site.register(Brochure)
 admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(TeamWinner, SimpleHistoryAdmin)

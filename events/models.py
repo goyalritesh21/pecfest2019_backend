@@ -118,10 +118,15 @@ class Registration(BaseModel):
         )
 
 
+class SponsorPartnership(models.Model):
+    name = models.CharField(max_length=256, null=False)
+
+    def __str__(self):
+        return self.name
+
+
 class PastSponsor(BaseModel):
     name = models.CharField(max_length=256, null=False)
-    tag_line = models.CharField(max_length=512, blank=True, null=True)
-    partnership = models.CharField(max_length=256, blank=True, null=True)
     logo = models.ImageField(upload_to='Images/pastSponsors/', null=True, blank=True)
 
     def __str__(self):
@@ -131,8 +136,8 @@ class PastSponsor(BaseModel):
 class NewSponsor(BaseModel):
     name = models.CharField(max_length=256, null=False)
     tag_line = models.CharField(max_length=512, blank=True, null=True)
-    partnership = models.CharField(max_length=256, blank=True, null=True)
-    logo = models.ImageField(upload_to='Images/newSponsors/', null=True, blank=True)
+    partnership = models.ForeignKey(to=SponsorPartnership, on_delete=models.CASCADE)
+    logo = models.ImageField(upload_to='Images/newSponsors/')
 
     def __str__(self):
         return self.name
@@ -140,7 +145,7 @@ class NewSponsor(BaseModel):
 
 class Brochure(BaseModel):
     name = models.CharField(max_length=256, null=False, blank=False)
-    brochurePDF = models.FileField(upload_to='pdf/brochure/', null=True, blank=True)
+    brochurePDF = models.FileField(upload_to='pdf/brochure/')
 
     def __str__(self):
         return self.name

@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+from django.shortcuts import render
 from knox.auth import TokenAuthentication
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
@@ -7,7 +8,8 @@ from rest_framework.views import APIView
 
 from accounts.models import Team
 from events.filters import EventFilter
-from events.models import Event, Registration, Club, PastSponsor, NewSponsor, EventCategory, EventType, Brochure
+from events.models import Event, Registration, Club, PastSponsor, NewSponsor, EventCategory, EventType, Brochure, \
+    SponsorPartnership
 from events.serializers import get_dynamic_serializer, UserSerializer, EventSerializer, EventTypeSerializer, \
     EventCategorySerializer
 from events.tasks import registration_user_notify
@@ -159,3 +161,21 @@ class RegisterEvent(APIView):
         except Exception as e:
             print("Exception occurred: " + str(e))
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+def sponsor_page(request):
+    template_name = "sponsors/sponsors.html"
+
+    pastSponsors = PastSponsor.objects.all()
+
+    context = {
+        'pastSponsors': pastSponsors,
+        'newSponsors': {}
+    }
+
+    for sponsorPartner in SponsorPartnership.objects.all():
+        queryset = NewSponsor.objects.filter(partnership=sponsorPartner).all()
+        if queryset.exists():
+            context['newSponsors'][sponsorPartner.name] = queryset
+
+    return render(request, template_name, context)

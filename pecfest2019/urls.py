@@ -2,11 +2,12 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from rest_framework import routers
 
 from accounts.views import ParticipantViewSet
 from events.views import UserViewSet, EventViewSet, EventCategoryViewSet, EventTypeViewSet, ClubViewSet, \
-    RegistrationViewSet, PastSponsorViewSet, NewSponsorViewSet, BrochureViewSet, TeamViewSet
+    RegistrationViewSet, PastSponsorViewSet, BrochureViewSet, TeamViewSet, sponsor_page
 from pecfest2019 import settings
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -30,4 +31,5 @@ urlpatterns = [
                   url(r'^api/', include(router.urls)),
                   url(r'^events/', include('events.urls')),
                   path('admin/portal/', include('django.contrib.auth.urls')),
+                  path('home/', sponsor_page)
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
