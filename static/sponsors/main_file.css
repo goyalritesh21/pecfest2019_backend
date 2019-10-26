@@ -1,0 +1,115 @@
+#myNavHeader .navbar-brand {
+  color: gold;
+  padding: 8px 15px;
+  font-size: 2.5em;
+  font-weight: bolder;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+}
+
+.helper {
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+  max-height: 100px;
+}
+
+.sponsor-heading {
+  font-size: 50px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-family: 'Kaushan Script', cursive;
+  color: #003366;
+}
+
+.sponsor-item {
+  right: 0;
+  margin: 0 0 15px;
+  text-align: center;
+}
+
+.sponsor-item .sponsor-link {
+  position: relative;
+  display: block;
+  max-width: 400px;
+  height: 200px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.sponsor-item .sponsor-caption h4 {
+  margin: 0;
+  text-transform: none;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.sponsor-section {
+  padding: 100px 0;
+  background-color: #FFD662;
+}
+
+.sponsor-item .sponsor-caption p {
+  font-size: 16px;
+  font-style: italic;
+  margin: 0;
+  color: #868e96 !important;
+  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#sponsorMainNav {
+  padding: 15px 0;
+  transition: all 0.3s;
+  border: none;
+  background-color: #01539D;
+}
+
+.sponsor-item:hover,
+.sponsor-item:focus {
+  color: gold !important;
+}
+
+.toggleButton,
+.toggleButton:hover,
+.toggleButton:focus {
+  background: gold !important;
+}
+
+.container {
+  text-align: center;
+}
+
+#myBrand {
+  width: 40px;
+}
+
+@media all and (min-width: 990px) {
+  #myNavHeader .navbar-brand {
+    font-size: 3.5em;
+    padding: 0 15px;
+  }
+  #myNavHeader {
+    margin-right: 50px;
+  }
+  #myBrand {
+    width: 65px;
+  }
+  #sponsorMainNav {
+    padding: 25px;
+  }
+  .sponsor-section {
+    padding: 150px 0;
+  }
+}
+
+body {
+  background: linear-gradient(70deg, #fff, #e6e6e6);
+  min-height: 100vh;
+}
+
+#navbar-text{
+  color: lightsteelblue;
+  font-size: 20px;
+  font-family: 'Merienda', cursive;
+}

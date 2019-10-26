@@ -1,9 +1,9 @@
 from background_task import background
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
-from django.template import Context
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
+
 from events.models import Event
 
 
@@ -17,7 +17,7 @@ def notify_user(event_id, username):
         send_mail(
             'Registration for ' + event.name + ' at PECFEST 2019',
             'Thank you, ' + user.first_name.lower() + ' for registering for ' + event.name + '\nSee you there!\n'
-            'PS: Your PECFest ID is ' + username,
+                                                                                             'PS: Your PECFest ID is ' + username,
             'webmasterpecfest19@gmail.com',
             [email],
             fail_silently=False,
@@ -29,7 +29,6 @@ def notify_user(event_id, username):
 
 @background(schedule=3)
 def registration_user_notify(event_id, username):
-
     user = User.objects.get(username__exact=username)
     event = Event.objects.get(id=event_id)
     email = user.email
@@ -40,9 +39,9 @@ def registration_user_notify(event_id, username):
     merge_data = {
         'name': name,
         'username': username,
-        'event_name' : event.name,
-        'event_time' : time,
-        'event_location' : location,
+        'event_name': event.name,
+        'event_time': time,
+        'event_location': location,
     }
 
     try:
@@ -64,7 +63,6 @@ def registration_user_notify(event_id, username):
 
 @background(schedule=2)
 def new_user_notify(username):
-
     user = User.objects.get(username__exact=username)
     email = user.email
 
@@ -88,8 +86,7 @@ def new_user_notify(username):
     See you there! 
     
     PECFest 2019
-    """.format( name = user.first_name, username = username)
-
+    """.format(name=user.first_name, username=username)
 
     try:
         send_mail(
