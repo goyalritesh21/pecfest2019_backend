@@ -1,3 +1,6 @@
+import json
+
+import requests
 from background_task import background
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
@@ -23,6 +26,8 @@ def notify_user(event_id, username):
             fail_silently=False,
         )
         print("mail successfully send to " + email)
+
+
     except Exception as e:
         print("Some error occurred while sending mail to " + email)
 
@@ -55,6 +60,19 @@ def registration_user_notify(event_id, username):
         msg.send()
 
         print("mail successfully send to " + email)
+        eventbeep_url = 'api.eventbeep.com/newRegistration'
+
+        payload = {
+            "eventID": event_id,
+            "name" : user.first_name + " " + user.last_name,
+            "email": user.email,
+            "phoneNumber": str(user.participant.contactNumber)
+        }
+
+        json_payload = json.dumps(payload)
+
+        # requests.post(eventbeep_url, json=json_payload)
+        print(json_payload)
 
     except Exception as e:
 

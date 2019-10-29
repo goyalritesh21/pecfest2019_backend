@@ -127,7 +127,7 @@ class SponsorPartnership(models.Model):
 
 class PastSponsor(BaseModel):
     name = models.CharField(max_length=256, null=False)
-    logo = models.ImageField(upload_to='Images/pastSponsors/', null=True, blank=True)
+    logo = models.ImageField(upload_to='Images/pastSponsors/')
 
     def __str__(self):
         return self.name
@@ -135,7 +135,6 @@ class PastSponsor(BaseModel):
 
 class NewSponsor(BaseModel):
     name = models.CharField(max_length=256, null=False)
-    tag_line = models.CharField(max_length=512, blank=True, null=True)
     partnership = models.ForeignKey(to=SponsorPartnership, on_delete=models.CASCADE)
     logo = models.ImageField(upload_to='Images/newSponsors/')
 
