@@ -154,7 +154,6 @@ class RegisterEvent(APIView):
 
             registration.team = team_reg
             registration.save()
-
             context['response'] = True
             return Response(context, status=status.HTTP_200_OK)
 

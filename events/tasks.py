@@ -63,7 +63,7 @@ def registration_user_notify(event_id, username):
         eventbeep_url = 'api.eventbeep.com/newRegistration'
 
         payload = {
-            "eventID": event_id,
+            "eventID": str(event_id),
             "name" : user.first_name + " " + user.last_name,
             "email": user.email,
             "phoneNumber": str(user.participant.contactNumber)
@@ -71,7 +71,9 @@ def registration_user_notify(event_id, username):
 
         json_payload = json.dumps(payload)
 
-        # requests.post(eventbeep_url, json=json_payload)
+        headers = {'Content-type': 'application/json'}
+        requests.post(eventbeep_url, data=json_payload, headers=headers)
+
         print(json_payload)
 
     except Exception as e:
