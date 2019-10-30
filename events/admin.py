@@ -12,7 +12,6 @@ from events.models import Event, Club, Registration, PastSponsor, NewSponsor, Ev
 
 
 class RegistrationResource(resources.ModelResource):
-
     eventName = Field(attribute='registered_event__name', column_name='Event Name')
     teamName = Field(attribute='team__name', column_name='Name of the team')
     team = Field(column_name='Team members')
@@ -23,7 +22,6 @@ class RegistrationResource(resources.ModelResource):
     contactNumber = Field(attribute='team_leader__participant__contactNumber', column_name='Contact Number of Leader')
 
     def dehydrate_team(self, registration):
-
         listOfMembers = []
         members = registration.team.members.all()
         for member in members:
@@ -53,15 +51,14 @@ class RegistrationAdmin(ImportExportModelAdmin):
         'registered_event__eventType__eventCategory',
         'registered_event__eventType',
         'registered_event__name',
-         )
+    )
 
 
-class DetailWinnerAdmin( SimpleHistoryAdmin):
+class DetailWinnerAdmin(SimpleHistoryAdmin):
     search_fields = ['user__username']
 
 
 class EventResource(resources.ModelResource):
-
     eventID = Field(attribute='id', column_name='Event Id')
     name = Field(attribute='name', column_name='Name')
     details = Field(attribute='details', column_name='Details of Event')
@@ -116,4 +113,3 @@ admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(TeamWinner, SimpleHistoryAdmin)
 admin.site.register(DetailWinner, DetailWinnerAdmin)
 admin.site.register(Winners, SimpleHistoryAdmin)
-
