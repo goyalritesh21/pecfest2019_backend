@@ -23,9 +23,12 @@ class RegistrationResource(resources.ModelResource):
 
     def dehydrate_team(self, registration):
         listOfMembers = []
-        members = registration.team.members.all()
-        for member in members:
-            listOfMembers.append(member.username)
+        try:
+            members = registration.team.members.all()
+            for member in members:
+                listOfMembers.append(member.username)
+        except Exception as e:
+            pass
 
         return ', '.join(listOfMembers)
 
