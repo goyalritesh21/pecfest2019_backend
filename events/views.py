@@ -118,27 +118,34 @@ class RegisterEvent(APIView):
         try:
             data = request.data
 
+            response = {"errors": []}
             if 'team' not in data.keys() and 'teamName' not in data.keys():
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+                return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
             event = Event.objects.get(id=event_id)
             team = data['team']
 
             allRegistrationsWithThisEvent = Registration.objects.filter(registered_event=event)
             if allRegistrationsWithThisEvent. \
-                    filter(team__members__username__exact=request.user.username).exists() or Team.objects. \
+                    filter(team__members__username__exact=request.user.username).exists():
+                response["errors"].append("One member of Team is already registered with this event!")
+                return Response(response, status=status.HTTP_302_FOUND)
+
+            if Team.objects. \
                     filter(name=data['teamName']). \
                     filter(registrations__registered_event=event).exists():
-                return Response(status=status.HTTP_302_FOUND)
+                response["errors"].append("Team with this Team Name already registered with this event!")
+                return Response(response, status=status.HTTP_302_FOUND)
 
-            context = {}
+            context = {"errors": []}
 
             if len(team) != len(set(team)):
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
             for member in team:
                 if not User.objects.filter(username__exact=member).exists():
-                    return Response(status=status.HTTP_404_NOT_FOUND)
+                    response["errors"].append("User with ID " + member + " doesn't exist!")
+                    return Response(response, status=status.HTTP_404_NOT_FOUND)
 
             registration = Registration.objects.create(
                 registered_event=event,
