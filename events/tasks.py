@@ -10,30 +10,11 @@ from django.template.loader import render_to_string
 from events.models import Event
 
 
-@background(schedule=2)
-def notify_user(event_id, username):
-    user = User.objects.get(username__exact=username)
-    event = Event.objects.get(id=event_id)
-    email = user.email
-
-    try:
-        send_mail(
-            'Registration for ' + event.name + ' at PECFEST 2019',
-            'Thank you, ' + user.first_name.lower() + ' for registering for ' + event.name + '\nSee you there!\n'
-                                                                                             'PS: Your PECFest ID is ' + username,
-            'webmasterpecfest19@gmail.com',
-            [email],
-            fail_silently=False,
-        )
-        print("mail successfully send to " + email)
-
-
-    except Exception as e:
-        print("Some error occurred while sending mail to " + email)
-
-
 @background(schedule=3)
 def registration_user_notify(event_id, username):
+
+    print("Registration notification process started")
+
     user = User.objects.get(username__exact=username)
     event = Event.objects.get(id=event_id)
     email = user.email
@@ -60,11 +41,11 @@ def registration_user_notify(event_id, username):
         msg.send()
 
         print("mail successfully send to " + email)
-        eventbeep_url = 'api.eventbeep.com/newRegistration'
+        eventbeep_url = 'https://api.eventbeep.com/newRegistration'
 
         payload = {
-            "eventID": str(event_id),
-            "name" : user.first_name + " " + user.last_name,
+            "eventID": str(event_id), #event_id
+            "name": user.first_name + " " + user.last_name,
             "email": user.email,
             "phoneNumber": str(user.participant.contactNumber)
         }
@@ -74,10 +55,10 @@ def registration_user_notify(event_id, username):
         headers = {'Content-type': 'application/json'}
         requests.post(eventbeep_url, data=json_payload, headers=headers)
 
-        print(json_payload)
+        print("Notification Sent Successfully")
 
     except Exception as e:
-
+        print(e)
         print("Some error occurred while sending mail to " + email)
 
 

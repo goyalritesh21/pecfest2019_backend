@@ -140,7 +140,8 @@ class RegisterEvent(APIView):
             context = {"errors": []}
 
             if len(team) != len(set(team)):
-                return Response(status=status.HTTP_404_NOT_FOUND)
+                response["errors"].append("Duplicate IDs Detected!")
+                return Response(response, status=status.HTTP_404_NOT_FOUND)
 
             for member in team:
                 if not User.objects.filter(username__exact=member).exists():
