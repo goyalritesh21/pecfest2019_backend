@@ -12,7 +12,6 @@ from events.models import Event
 
 @background(schedule=3)
 def registration_user_notify(event_id, username):
-
     print("Registration notification process started")
 
     user = User.objects.get(username__exact=username)
@@ -41,25 +40,31 @@ def registration_user_notify(event_id, username):
         msg.send()
 
         print("mail successfully send to " + email)
-        eventbeep_url = 'https://api.eventbeep.com/newRegistration'
-
-        payload = {
-            "eventID": str(event_id), #event_id
-            "name": user.first_name + " " + user.last_name,
-            "email": user.email,
-            "phoneNumber": str(user.participant.contactNumber)
-        }
-
-        json_payload = json.dumps(payload)
-
-        headers = {'Content-type': 'application/json'}
-        requests.post(eventbeep_url, data=json_payload, headers=headers)
-
-        print("Notification Sent Successfully")
 
     except Exception as e:
         print(e)
         print("Some error occurred while sending mail to " + email)
+
+
+@background(schedule=2)
+def eventbeep_api(event_id, username):
+    print("Post Request to EventBeep Started")
+    user = User.objects.get(username__exact=username)
+    eventbeep_url = 'https://api.eventbeep.com/newRegistration'
+
+    payload = {
+        "eventID": str(event_id),  # event_id
+        "name": user.first_name + " " + user.last_name,
+        "email": user.email,
+        "phoneNumber": str(user.participant.contactNumber)
+    }
+
+    json_payload = json.dumps(payload)
+
+    headers = {'Content-type': 'application/json'}
+    status = requests.post(eventbeep_url, data=json_payload, headers=headers)
+    print("Status: " + str(status.text))
+    print("Notification Sent Successfully")
 
 
 @background(schedule=2)

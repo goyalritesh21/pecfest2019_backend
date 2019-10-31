@@ -12,7 +12,7 @@ from events.models import Event, Registration, Club, PastSponsor, NewSponsor, Ev
     SponsorPartnership
 from events.serializers import get_dynamic_serializer, UserSerializer, EventSerializer, EventTypeSerializer, \
     EventCategorySerializer
-from events.tasks import registration_user_notify
+from events.tasks import registration_user_notify, eventbeep_api
 
 AUTH_USER_MODEL = get_user_model()
 
@@ -159,6 +159,7 @@ class RegisterEvent(APIView):
             for member in team:
                 team_reg.members.add(User.objects.get(username__exact=member))
                 registration_user_notify(event_id, member)
+                eventbeep_api(event_id, member)
 
             registration.team = team_reg
             registration.save()
