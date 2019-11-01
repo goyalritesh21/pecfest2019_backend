@@ -31,7 +31,10 @@ class RegistrationResource(resources.ModelResource):
         try:
             members = registration.team.members.all()
             for member in members:
-                listOfMembers.append(member.username)
+                listOfMembers.append(
+                    "[" + member.username + "," + str(member.participant.contactNumber) + "," + member.email + "," +
+                    member.first_name + " " + member.last_name + "]"
+                )
         except Exception as e:
             pass
 
