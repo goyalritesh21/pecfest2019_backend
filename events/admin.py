@@ -2,7 +2,6 @@ import datetime
 import json
 
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Count
 from django.db.models.functions import TruncDay
@@ -17,6 +16,7 @@ from events.models import Event, Club, Registration, PastSponsor, NewSponsor, Ev
 
 
 class RegistrationResource(resources.ModelResource):
+    eventID = Field(attribute='registered_event__id', column_name='Event ID')
     eventName = Field(attribute='registered_event__name', column_name='Event Name')
     teamName = Field(attribute='team__name', column_name='Name of the team')
     team = Field(column_name='Team members')
@@ -35,11 +35,12 @@ class RegistrationResource(resources.ModelResource):
         except Exception as e:
             pass
 
-        return ', '.join(listOfMembers)
+        return ','.join(listOfMembers)
 
     class Meta:
         model = Registration
         fields = (
+            'eventID',
             'eventName',
             'teamName',
             'team',
@@ -52,7 +53,7 @@ class RegistrationResource(resources.ModelResource):
         )
 
 
-class RegistrationAdmin(ImportExportModelAdmin, ModelAdmin):
+class RegistrationAdmin(ImportExportModelAdmin):
     resource_class = RegistrationResource
     list_filter = (
         'registered_event__association',
@@ -61,10 +62,7 @@ class RegistrationAdmin(ImportExportModelAdmin, ModelAdmin):
         'registered_event__name',
     )
 
-    change_list_template = 'admin/events/registration_list_change.html'
-
     def changelist_view(self, request, extra_context=None):
-
         qs = self.get_queryset(request)
         query_attrs = dict([(param, val) for param, val in request.GET.items()])
         qs = qs.filter(**query_attrs)
@@ -75,7 +73,6 @@ class RegistrationAdmin(ImportExportModelAdmin, ModelAdmin):
                 .annotate(y=Count("id"))
                 .order_by("-date")
         )
-
 
         # Serialize and attach the chart data to the template context
         as_json = json.dumps(list(chart_data), cls=DjangoJSONEncoder)
