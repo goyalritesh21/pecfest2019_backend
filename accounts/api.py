@@ -83,7 +83,14 @@ class UserRegisterAPI(generics.GenericAPIView):
 
         data = request.data
         user = User.objects.get(pk=data['id'])
+        if Participant.objects.exclude(user=user).filter(contactNumber=data['contactNumber']).exists():
+            return Response({
+                "errors": ["Contact Number already exists!"]
+            },
+                status=status.HTTP_404_NOT_FOUND)
+
         participant = Participant.objects.get(user=user)
+
         for key in data.keys():
             if key != "id":
                 val = data[key]
@@ -98,5 +105,6 @@ class UserRegisterAPI(generics.GenericAPIView):
         user.last_name = data['lastName']
         user.save()
         return Response({
+            "errors": []
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
         })

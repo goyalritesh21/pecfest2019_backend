@@ -126,15 +126,11 @@ class RegisterEvent(APIView):
             team = data['team']
 
             allRegistrationsWithThisEvent = Registration.objects.filter(registered_event=event)
-            if allRegistrationsWithThisEvent. \
-                    filter(team__members__username__exact=request.user.username).exists():
-                response["errors"].append("One member of Team is already registered with this event!")
-                return Response(response, status=status.HTTP_302_FOUND)
 
             if Team.objects. \
                     filter(name=data['teamName']). \
                     filter(registrations__registered_event=event).exists():
-                response["errors"].append("Team with this Team Name already registered with this event!")
+                response["errors"].append("Team Name already taken!")
                 return Response(response, status=status.HTTP_302_FOUND)
 
             context = {"errors": []}
@@ -147,6 +143,11 @@ class RegisterEvent(APIView):
                 if not User.objects.filter(username__exact=member).exists():
                     response["errors"].append("User with ID " + member + " doesn't exist!")
                     return Response(response, status=status.HTTP_404_NOT_FOUND)
+
+                if allRegistrationsWithThisEvent. \
+                        filter(team__members__username__exact=member).exists():
+                    response["errors"].append(member + " is already registered with this event!")
+                    return Response(response, status=status.HTTP_302_FOUND)
 
             registration = Registration.objects.create(
                 registered_event=event,
