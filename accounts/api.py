@@ -105,6 +105,6 @@ class UserRegisterAPI(generics.GenericAPIView):
         user.last_name = data['lastName']
         user.save()
         return Response({
-            "errors": []
+            "errors": [],
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
         })
