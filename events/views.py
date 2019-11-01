@@ -62,7 +62,7 @@ class ClubViewSet(viewsets.ModelViewSet):
 class RegistrationViewSet(viewsets.ModelViewSet):
     queryset = Registration.objects.all()
     serializer_class = get_dynamic_serializer(Registration)
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class PastSponsorViewSet(viewsets.ModelViewSet):
@@ -80,12 +80,6 @@ class NewSponsorViewSet(viewsets.ModelViewSet):
 class BrochureViewSet(viewsets.ModelViewSet):
     queryset = Brochure.objects.all()
     serializer_class = get_dynamic_serializer(Brochure)
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-
-class TeamViewSet(viewsets.ModelViewSet):
-    queryset = Team.objects.all()
-    serializer_class = get_dynamic_serializer(Team)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
