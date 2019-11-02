@@ -34,7 +34,7 @@ def registration_user_notify(event_id, username):
         text_body = render_to_string("event_registration/message_body.txt", merge_data)
         html_body = render_to_string("event_registration/message_body.html", merge_data)
 
-        msg = EmailMultiAlternatives(subject=subject, from_email='registrations@pecfest.in',
+        msg = EmailMultiAlternatives(subject=subject, from_email='webmasterpecfest19@gmail.com',
                                      to=[email], body=html_body)
         msg.attach_alternative(html_body, "text/html")
         msg.send()
@@ -98,7 +98,7 @@ def new_user_notify(username):
         send_mail(
             'Welcome to PECFEST 2019',
             body,
-            'registrations@pecfest.in',
+            'webmasterpecfest19@gmail.com',
             [email],
             fail_silently=False,
         )

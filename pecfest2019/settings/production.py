@@ -27,7 +27,7 @@ load_dotenv(dotenv_path)
 SECRET_KEY = 'fktv0iw%mpfe$@i$nb@ln14wxiekx^=q0msiy6mztj@vr6vr98'
 
 # SECURITY WARNING: don't run with debug turned on in production.py!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['pecfest.in', 'pecfest', 'api.pecfest.in', 'admin.pecfest.in']
 
@@ -173,7 +173,7 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
