@@ -33,7 +33,7 @@ class RegistrationResource(resources.ModelResource):
             for member in members:
                 listOfMembers.append(
                     "[" + member.username + "," + str(member.participant.contactNumber) + "," + member.email + "," +
-                    member.first_name + " " + member.last_name + "]"
+                    member.first_name + " " + member.last_name + "," + member.college + "]"
                 )
         except Exception as e:
             pass

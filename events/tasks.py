@@ -1,4 +1,5 @@
 import json
+import os
 
 import requests
 from background_task import background
@@ -6,8 +7,13 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from dotenv import load_dotenv
 
 from events.models import Event
+from pecfest2019.settings import BASE_DIR
+
+dotenv_path = os.path.join(BASE_DIR, '.env')
+load_dotenv(dotenv_path)
 
 
 @background(schedule=3)
@@ -34,7 +40,7 @@ def registration_user_notify(event_id, username):
         text_body = render_to_string("event_registration/message_body.txt", merge_data)
         html_body = render_to_string("event_registration/message_body.html", merge_data)
 
-        msg = EmailMultiAlternatives(subject=subject, from_email='webmasterpecfest19@gmail.com',
+        msg = EmailMultiAlternatives(subject=subject, from_email=os.getenv('EMAIL_HOST_USER'),
                                      to=[email], body=html_body)
         msg.attach_alternative(html_body, "text/html")
         msg.send()
@@ -98,7 +104,7 @@ def new_user_notify(username):
         send_mail(
             'Welcome to PECFEST 2019',
             body,
-            'webmasterpecfest19@gmail.com',
+            os.getenv('EMAIL_HOST_USER'),
             [email],
             fail_silently=False,
         )
